@@ -75,7 +75,7 @@ export const InputPostNumber = styled.input`
     border: 1px solid #BDBDBD;
     margin: 0 10px 0 0;
 `
-export const InputPostNumberSurch = styled.button`
+export const InputPostNumberSearch = styled.button`
     width: 124px;
     height: 52px;
     border: 1px solid #BDBDBD;
@@ -100,10 +100,9 @@ export const Option =styled.div`
 `
 
 export const Choice =styled.input`
-    /* background-color: black; */
-
+    display: inline-block;
     &:checked{
-        color: #FFD600;
+    background-color: #FFD600;
     }
      
 `

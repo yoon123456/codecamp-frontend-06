@@ -45,6 +45,7 @@ export const Button = styled.button`
     border: 1px solid #D2D2D2;
     border-radius: 10px;
     font-size: 18px;
+    margin-top: 20px;
 `
 export const ErrorEmail = styled.div`
     color: red;
@@ -62,6 +63,7 @@ export const ErrorAllPassword = styled.div`
     color: red;
     height: 10px;
     font-size: 11px;
+    
 
 `
 

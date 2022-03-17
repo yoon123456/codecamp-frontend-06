@@ -10,7 +10,7 @@ import {Title,
   InputContents,
   InputPostNumber,
   Row,
-  InputPostNumberSurch,
+  InputPostNumberSearch,
   InputPhoto,
   Choice,
   Submit,
@@ -40,27 +40,45 @@ export default function yewonPage() {
 
 
   function onChangeName(event){
-    setName(event.target.vlaue)
+    setName(event.target.value)
+    if(event.target.value){
+      setNameError("")
+    }
 }
 
 function onChangePassword(event){
-  setPassword(event.target.vlaue)
+  setPassword(event.target.value)
+  if(event.target.value){
+    setPasswordError("")
+  }
 }
 
 function onChangeTitle(event){
-  setTitle(event.target.vlaue)
+  setTitle(event.target.value)
+  if(event.target.value){
+    setTitleError("")
+  }
 }
 
 function onChangeContent(event){
-  setContent(event.target.vlaue)
+  setContent(event.target.value)
+  if(event.target.value){
+    setContentError("")
+  }
 }
 
 function onChangeAdress(event){
-  setAdress(event.target.vlaue)
+  setAdress(event.target.value)
+  if(event.target.value){
+    setAdressError("")
+  }
 }
 
 function onChangeYoutube(event){
-  setYoutube(event.target.vlaue)
+  setYoutube(event.target.value)
+  if(event.target.value){
+    setYoutubeError("")
+  }
 }
  
   
@@ -74,19 +92,26 @@ function onChangeYoutube(event){
       setAdressError("주소가 올바르지 않습니다!")
       setYoutubeError("링크를 적어주세요")
     }
-    else if(name === ""){
+    if(name === ""){
         setNameError("이름이 올바르지 않습니다!")
-    }else if(password === ""){
+    } 
+    if(password === ""){
       setPasswordError("비밀번호가 올바르지 않습니다!")
-    }else if(title === ""){
+    }
+    if(title === ""){
       setTitleError("제목이 올바르지 않습니다!")
-    }else if(content === ""){
+    }
+    if(content === ""){
       setContentError("내용이 올바르지 않습니다!")
-    }else if(adress === ""){
+    }
+    if(adress === ""){
       setAdressError("주소가 올바르지 않습니다!")
-    }else if(youtube === ""){
+    }
+    if(youtube === ""){
       setYoutubeError("링크를 적어주세요!")
-    } else{
+    } 
+    if(name !=="" && password !=="" && title !=="" && content !=="" && adress  !=="" && youtube !== ""){
+
         alert("회원가입을 축하합니다!")
     }
 }
@@ -121,7 +146,7 @@ function onChangeYoutube(event){
             <InputHeader> 주소 </InputHeader>
             <Row>
               <InputPostNumber type="text" placeholder='07250' onChange={onChangeAdress}></InputPostNumber>
-              <InputPostNumberSurch type="button" > 우편번호검색 </InputPostNumberSurch>
+              <InputPostNumberSearch type="button" > 우편번호검색 </InputPostNumberSearch>
             </Row>
             <InputTitle type="text" onChange={onChangeAdress}></InputTitle>
             <InputTitle type="text" onChange={onChangeAdress}></InputTitle>
