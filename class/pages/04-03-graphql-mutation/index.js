@@ -1,4 +1,4 @@
-//import axios from 'axios'
+//import axios from 'axios' //rest api 방식
 //package.json 파일이 실행되려면 node_modules파일이 꼭 필요하다 yarn install로 설치
 import {useState} from 'react'
 import { useMutation, gql } from '@apollo/client'
