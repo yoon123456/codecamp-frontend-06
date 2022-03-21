@@ -123,7 +123,7 @@ export const Submit = styled.button`
     margin: 60px auto;
     padding: 40px;
     border: 1px solid #BDBDBD;
-    background-color: #FFD600;
+    background-color: ${(props)=>props.isActive ? "#FFD600" : "none"};
 `
 
 export const Error = styled.div`
