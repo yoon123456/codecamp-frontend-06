@@ -107,10 +107,10 @@ font-weight: 700;
 font-size: 36px;
 `
 export const BoardBodyImage = styled.div`
-width: 90vw;
-height: 50vh;
+width: 25%;
+height: 500px;
 margin-bottom: 30px;
-object-fit: cover;
+
 `
 export const BoardBodyContents = styled.div`
 width: 996px;
@@ -138,3 +138,23 @@ padding-right: 50px;
 export const BoardFooterDislike = styled.div`
 display: flex;
 `
+export const BottomWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 80px;
+`
+export const Button = styled.button`
+  width: 150px;
+  height: 50px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin: 0px 12px;
+  font-size: 24px;
+  cursor: pointer;
+
+  :hover {
+    background-color: #FFD600;
+    border-color: #FFFFFF;
+  }
+`;
