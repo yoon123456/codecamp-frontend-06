@@ -1,5 +1,5 @@
-//게시물 등록화면 만드는 페이지
-import ListBoardPage from '../../public/src/components/units/board/list/BoardWrite.container'
+//게시물목록과 등록버튼있는 페이지
+import ListBoardPage from '../../src/components/units/board/list/BoardWrite.container'
 
 export default function ListPage(){
     return<ListBoardPage/>
