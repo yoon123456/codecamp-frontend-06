@@ -43,8 +43,8 @@ export default function BoardWriterUI(props){
                 <S.BoardFooterDislike><img src='/img/Vector (2).png'/></S.BoardFooterDislike>{props.data?.fetchBoard.dislikeCount}
             </S.BoardFooter>
             <S.BottomWrapper>
-                <S.Button onClick={props.onClickMoveToBoardNew}>목록으로</S.Button>
-                <S.Button id={props.data?.fetchBoard._id} onClick={props.onClickMoveToBoardDetail}>수정하기</S.Button>
+                <S.Button onClick={props.onClickMoveToBoardList}>목록으로</S.Button>
+                <S.Button id={props.data?.fetchBoard._id} onClick={props.onClickMoveToBoardEdit}>수정하기</S.Button>
                 <S.Button  id={props.data?.fetchBoard._id} onClick={props.onClickDelete}>삭제하기</S.Button>
             </S.BottomWrapper>
         </S.Board>

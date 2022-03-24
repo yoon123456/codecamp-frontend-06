@@ -26,23 +26,23 @@ export default function BoardWriteUI(props){
         <Wrapper>
             <WrapperBody>
             <InputHeader> 작성자 <Star> * </Star> </InputHeader>
-            <InputBody type="text" placeholder='이름을 적어주세요.' onChange={props.onChangeWriter}/>
+            <InputBody type="text" placeholder='이름을 적어주세요.' onChange={props.onChangeWriter} defaultValue={props.data?.fetchBoard.writer}/>
             <Error>{props.writerError}</Error>
             </WrapperBody>
             <WrapperBody>
             <InputHeader>비밀번호</InputHeader>
-            <InputBody type="password" placeholder='비밀번호를 입력해주세요.' onChange={props.onChangePassword}/>
+            <InputBody type="password" placeholder='비밀번호를 입력해주세요.' onChange={props.onChangePassword} />
             <Error>{props.passwordError}</Error>
             </WrapperBody>
         </Wrapper>
         <WrapperBody>
             <InputHeader> 제목 </InputHeader>
-            <InputTitle type="text" placeholder='제목을 작성해주세요.' onChange={props.onChangeTitle}/>
+            <InputTitle type="text" placeholder='제목을 작성해주세요.' onChange={props.onChangeTitle} defaultValue={props.data?.fetchBoard.title}/>
             <Error>{props.titleError}</Error>
         </WrapperBody>
         <WrapperBody>
             <InputHeader> 내용 </InputHeader>
-            <InputContents type="text" placeholder='내용을 작성해주세요.' onChange={props.onChangeContents}/>
+            <InputContents type="text" placeholder='내용을 작성해주세요.' onChange={props.onChangeContents} defaultValue={props.data?.fetchBoard.contents}/>
             <Error>{props.contentsError}</Error>
         </WrapperBody>
         <WrapperBody>

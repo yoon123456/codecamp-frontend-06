@@ -7,10 +7,11 @@ import {useRouter} from 'next/router'
 import BoardWriterUI from './BoardWrite.presenter';
 import { FETCH_BOARD } from './BoardWrite.queries'
 import { DELETE_BOARD } from './BoardWrite.queries'
+import {FETCH_BOARDS} from './BoardWrite.queries'
 
 //게시글이 잘 올라 갔는지 조회
 
-export default function BoardWrite(){
+export default function BoardDetail(){
 
     const router = useRouter()
     const [deleteBoard] = useMutation(DELETE_BOARD)
@@ -20,20 +21,19 @@ export default function BoardWrite(){
     })
     console.log(data)
 
-    const onClickMoveToBoardNew = () => {
-        router.push("/boards/");
+    const onClickMoveToBoardList = () => {
+        router.push("/boards");
     }
     
-    
-    const onClickMoveToBoardDetail = (event) =>{
-        router.push(`/boards/${event.target.id}/edit`)
+    const onClickMoveToBoardEdit = () =>{
+        router.push(`/boards/${router.query.boardId}/edit`)
     }
     
 
     const onClickDelete = (event) => {
        deleteBoard({
            variables:{ boardId: String(event.target.id) },
-           refetchQueries: [{query:FETCH_BOARD}]
+           refetchQueries: [{query:FETCH_BOARDS}]
         })
         alert("게시글을 진짜로 삭제하시겠습니까???")
         alert("게시글 삭제에 성공하였습니다!!!")
@@ -43,8 +43,8 @@ export default function BoardWrite(){
     <BoardWriterUI
     data={data}
     onClickDelete={onClickDelete}
-    onClickMoveToBoardNew={onClickMoveToBoardNew}
-    onClickMoveToBoardDetail={onClickMoveToBoardDetail}/>
+    onClickMoveToBoardList={onClickMoveToBoardList}
+    onClickMoveToBoardEdit={onClickMoveToBoardEdit}/>
     )
 
 }

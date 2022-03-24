@@ -153,22 +153,32 @@ export default function NewPage(props) {
   }
 
   const onClickUpdate = async () => {
-    await updateBoard({                      
-        variables:{ 
-          updateBoardInput:{
-          title:title,
-          contents:contents
-          },
-        password:password,
-        boardId:String(router.query.boardId)
-       }
-    })
-    alert("게시글을 정말로 수정하시겠습니까??")
-    alert("게시글 수정에 성공하였습니다!!!")
-    router.push("/boards/")
-}
+    const variables = { updateBoardInput:{title:title,contents:contents} , password: password , boardId:String(router.query.boardId) }
+    if(title !== "") variables.title = title
+    if(contents !== "") variables.contents = contents
+    //if(password ! == "") variables.password =password
 
-  
+    // variables:{ 
+    //   updateBoardInput:{
+    //   title:title,
+    //   contents:contents
+    //   },
+    // password:password,
+    // boardId:String(router.query.boardId)
+
+    try{
+      await updateBoard({                      
+         variables: variables
+      })
+      alert("게시글을 정말로 수정하시겠습니까??")
+      alert("게시글 수정에 성공하였습니다!!!")
+      router.push(`/boards/${router.query.boardId}`)
+      setIsActive(true)
+    }catch(error){
+      alert(error.message)
+    }
+  }  
+
     return(
       <BoardWriteUI
       onChangeWriter={onChangeWriter}
@@ -186,7 +196,8 @@ export default function NewPage(props) {
       addressError={addressError}
       youtubeError={youtubeError}
       isActive={isActive}
-      isEdit={props.isEdit}/>
+      isEdit={props.isEdit}
+      data={props.data}/>
     )
   
       
