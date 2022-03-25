@@ -1,9 +1,9 @@
 import * as S from './BoardWrite.styles'  
-import { getDate } from '../../../commons/libraries/utils'      
+import { getDate } from '../../../commons/libraries/utils'  
+import {IBoardListUIProps} from './BoardWrite.types'
         
-export default function BoardListUI(props){
+export default function BoardListUI(props: IBoardListUIProps){
 
-     
     return(    
         <S.Box>
             <S.Row>
@@ -18,7 +18,7 @@ export default function BoardListUI(props){
                 <S.List>날짜</S.List>
             </S.ListHeader>
                 <div>
-                    {props.data?.fetchBoards.map((el) => (
+                    {props.data?.fetchBoards.map((el: any) => (
                         <S.Row key={el._id}>
                             <S.ListId>{String(el._id).slice(-4).toUpperCase()}</S.ListId>
                             <S.ListTitle id={el._id} onClick={props.onClickMoveToBoardDetail}> {el.title} </S.ListTitle>
@@ -28,7 +28,6 @@ export default function BoardListUI(props){
                     ))}
                     <S.Button onClick={props.onClickMoveToBoardNew}>게시물 등록하기</S.Button>
                 </div>
-           
         </S.Box>
     )
 }     

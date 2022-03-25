@@ -2,7 +2,7 @@ import { useQuery} from '@apollo/client'
 import { useRouter } from 'next/router';
 import BoardListUI from './BoardWrite.presenter'
 import { FETCH_BOARDS } from './BoardWrite.queries'
-
+import {MouseEvent} from 'react'
 
 
 export default function ListBoardPage(){
@@ -21,8 +21,14 @@ const onClickMoveToBoardNew = () => {
 }
 
 
-const onClickMoveToBoardDetail = (event) =>{
-    router.push(`/boards/${event.target.id}`)
+const onClickMoveToBoardDetail = (event:MouseEvent<HTMLDivElement>) =>{
+    
+   if( event.target instanceof Element) router.push(`/boards/${event.target.id}`)
+   //이벤트태그의 자식이면 id를 선언해줘
+}
+interface IBoardListUI{
+    onClickMoveToBoardNew:()=> void
+    onClickMoveToBoardDetail: ()=> void
 }
 
     return <BoardListUI 

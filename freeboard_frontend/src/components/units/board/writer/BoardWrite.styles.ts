@@ -1,4 +1,6 @@
 import styled from '@emotion/styled' 
+import {ISubmitButtonProps} from './BoardWrite.types'
+
 
 export const Title = styled.h1`
     box-sizing: border-box;
@@ -54,7 +56,7 @@ export const InputTitle = styled.input`
 
 `
 
-export const InputContents = styled.input`
+export const InputContents = styled.textarea`
     width: 996px;
     height: 480px;
     border: 1px solid #BDBDBD;
@@ -123,7 +125,7 @@ export const Submit = styled.button`
     margin: 60px auto;
     padding: 40px;
     border: 1px solid #BDBDBD;
-    background-color: ${(props)=>props.isActive ? "#FFD600" : "none"};
+    background-color: ${(props:ISubmitButtonProps)=>props.isActive ? "#FFD600" : "none"};
 `
 
 export const Error = styled.div`

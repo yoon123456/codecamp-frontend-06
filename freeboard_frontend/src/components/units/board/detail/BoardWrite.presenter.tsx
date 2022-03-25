@@ -1,14 +1,11 @@
-//등록한 게시물을 보여주는 페이지  여기에 있는 수정버튼을 누르면 수정페이지로 삭제버튼을 누르면 게시글이 삭제되도록 해야한다
+//등록한 게시물을 보여주는 페이지  여기에 있는 수정버튼을 누르면 수정페이지로 삭제버튼을 누르면 게시글이 삭제되도록 해야한다  // import {Iframe} from 'react-iframe'
 
 import * as S from './BoardWrite.styles'
-import{ getDate } from '../../../../components/commons/libraries/utils'
+import{ getDate } from '../../../commons/libraries/utils'
+import { IBoardWriteUIProps } from './BoardWrite.types'
 
 
-// import {Iframe} from 'react-iframe'
-
-
-
-export default function BoardWriterUI(props){
+export default function BoardWriterUI(props: IBoardWriteUIProps){
     return(
         <S.Board>
             <S.BoardHeader>
