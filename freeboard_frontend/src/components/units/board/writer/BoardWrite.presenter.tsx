@@ -19,6 +19,8 @@ import {
 } from "./BoardWrite.styles";
 
 import { IBoardWriteUIProps } from "./BoardWrite.types";
+import DaumPostcode from "react-daum-postcode";
+import { Modal } from "antd";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
@@ -55,7 +57,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           placeholder="제목을 작성해주세요."
           onChange={props.onChangeTitle}
           defaultValue={props.data?.fetchBoard.title}
-          readOnly={!!props.data?.fetchBoard.writer ? true : false}
+          // readOnly={!!props.data?.fetchBoard.writer ? true : false}
         />
         <Error>{props.titleError}</Error>
       </WrapperBody>
@@ -75,14 +77,24 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             type="text"
             placeholder="07250"
             onChange={props.onChangeAddress}
+            value={props.zonecode}
           />
-          <InputPostNumberSearch type="button">
-            {" "}
-            우편번호검색{" "}
+
+          <InputPostNumberSearch type="button" onClick={props.showModal}>
+            우편번호검색
           </InputPostNumberSearch>
+          <Modal
+            title="주소등록"
+            visible={props.isOpen}
+            onOk={props.handleOk}
+            onCancel={props.handleCancel}
+          >
+            <DaumPostcode onComplete={props.handleComplete} />
+            <p>주소등록이 완료되었습니다</p>
+          </Modal>
         </Row>
+        <InputTitle type="text" value={props.daumAddress} />
         <InputTitle type="text" onChange={props.onChangeAddress} />
-        <InputTitle type="text" />
         <Error>{props.addressError}</Error>
       </WrapperBody>
       <WrapperBody>
@@ -91,7 +103,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           type="text"
           placeholder="링크를 복사해주세요."
           onChange={props.onChangeYoutube}
-          defaultValue={props.data?.fetchBoard.youtubeUrl}
+          defaultValue={props.data?.fetchBoard?.youtubeUrl}
         />
         <Error>{props.youtubeError}</Error>
       </WrapperBody>

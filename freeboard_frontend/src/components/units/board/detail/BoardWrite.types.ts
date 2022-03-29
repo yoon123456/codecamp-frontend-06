@@ -1,4 +1,5 @@
 import { MouseEvent } from "react";
+import { IQuery } from "../../../../commons/types/generated/type";
 
 // 컨테이너 부분
 export interface IBoardDetail {
@@ -7,9 +8,7 @@ export interface IBoardDetail {
   onClickMoveToBoardEdit: (event: MouseEvent<HTMLButtonElement>) => void;
   isActive?: boolean;
   isEdit?: boolean;
-  data?: any;
-  like: () => void;
-  dislike: () => void;
+  data?: Pick<IQuery, "fetchBoard">;
 }
 
 // 프레젠터 부분
@@ -17,6 +16,8 @@ export interface IBoardWriteUIProps {
   onClickMoveToBoardList: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickMoveToBoardEdit: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickDelete: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickLike: () => void;
+  onClickDislike: () => void;
   isActive?: boolean;
   isEdit?: boolean;
   data?: any;

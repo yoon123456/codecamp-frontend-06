@@ -5,13 +5,20 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriterUI from "./BoardWrite.presenter";
-import { FETCH_BOARD, DELETE_BOARD, FETCH_BOARDS } from "./BoardWrite.queries";
+import {
+  FETCH_BOARD,
+  DELETE_BOARD,
+  FETCH_BOARDS,
+  LIKE_BOARD,
+  DISLIKE_BOARD,
+} from "./BoardWrite.queries";
 import { MouseEvent } from "react";
 import {
   IMutation,
   IMutationLikeBoardArgs,
   IMutationDislikeBoardArgs,
 } from "../../../../commons/types/generated/type";
+import { Modal } from "antd";
 
 // 게시글이 잘 올라 갔는지 조회
 
@@ -47,8 +54,10 @@ export default function BoardDetail() {
       variables: { boardId: String((event.target as HTMLButtonElement).id) },
       refetchQueries: [{ query: FETCH_BOARDS }],
     });
-    alert("게시글을 진짜로 삭제하시겠습니까???");
-    alert("게시글 삭제에 성공하였습니다!!!");
+
+    Modal.success({
+      content: "게시글 삭제에 성공했습니다",
+    });
     router.push(`/boards/`);
   };
 

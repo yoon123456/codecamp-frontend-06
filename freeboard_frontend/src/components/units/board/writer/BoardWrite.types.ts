@@ -31,6 +31,13 @@ export interface IBoardWriteUIProps {
   isActive: boolean;
   isEdit: boolean;
   data?: any;
+  showModal: () => void;
+  handleOk: () => void;
+  handleCancel: () => void;
+  handleComplete: (data: any) => void;
+  zonecode: string;
+  daumAddress: string;
+  isOpen: boolean;
 }
 
 // 스타일 부분

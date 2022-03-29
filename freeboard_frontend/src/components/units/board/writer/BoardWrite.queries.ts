@@ -4,6 +4,14 @@ export const CREATE_BOARD = gql`
   mutation createBoard($createBoardInput: CreateBoardInput!) {
     createBoard(createBoardInput: $createBoardInput) {
       _id
+      writer
+      title
+      contents
+      likeCount
+      dislikeCount
+      createdAt
+      updatedAt
+      youtubeUrl
     }
   }
 `;
@@ -27,6 +35,7 @@ export const UPDATE_BOARD = gql`
       dislikeCount
       createdAt
       updatedAt
+      youtubeUrl
     }
   }
 `;

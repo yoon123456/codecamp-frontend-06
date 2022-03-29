@@ -55,7 +55,7 @@ export const CommentInputWrapper = styled.div`
   align-items: center;
   border: 1px solid #bdbdbd;
 `;
-export const CommentInputBody = styled.textarea`
+export const CommentInputBody = styled.input`
   width: 1200px;
   height: 120px;
   padding: 10px;

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Rate } from "antd";
 
 export const CommentWrapper = styled.div`
   box-sizing: border-box;
@@ -46,7 +47,7 @@ export const CommentFetchWriter = styled.div`
   padding-right: 20px;
   padding-left: 10px;
 `;
-export const CommentFetchRating = styled.div`
+export const CommentFetchRating = styled(Rate)`
   height: 40px;
   font-size: 16px;
   padding-right: 20px;

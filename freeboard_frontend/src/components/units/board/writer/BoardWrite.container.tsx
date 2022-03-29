@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types";
+import { Modal } from "antd";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const [isActive, setIsActive] = useState(false);
@@ -29,6 +30,29 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const router = useRouter();
+
+  const [daumAddress, setDaumAdress] = useState("");
+  const [zonecode, setZonecode] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+
+  const handleComplete = (data: any) => {
+    setDaumAdress(data.address);
+    console.log(data);
+    setZonecode(data.zonecode);
+    console.log(data.zonecode);
+  };
 
   function onChangeWriter(event: ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value);
@@ -175,15 +199,21 @@ export default function BoardWrite(props: IBoardWriteProps) {
               password: password,
               title: title,
               contents: contents,
-              youtube: youtube,
+              youtubeUrl: youtube,
             },
           },
         });
         console.log(result);
-        alert("게시글 등록에 성공하였습니다");
+        Modal.success({
+          content: "게시글 등록에 성공했습니다!!",
+        });
         router.push(`/boards/${result.data.createBoard._id}`);
       } catch (error) {
-        if (error instanceof Error) alert(error.message);
+        if (error instanceof Error)
+          Modal.error({
+            title: "This is an error message",
+            content: "게시글 등록에 실패했습니다",
+          });
       }
     }
   };
@@ -208,35 +238,49 @@ export default function BoardWrite(props: IBoardWriteProps) {
       const update = await updateBoard({
         variables: myVariables,
       });
-      alert("게시글을 정말로 수정하시겠습니까??");
       console.log(update);
-      alert("게시글 수정에 성공하였습니다!!!");
+      Modal.success({
+        content: "게시글 수정에 성공했습니다!!",
+      });
       router.push(`/boards/${router.query.boardId}`);
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      if (error instanceof Error)
+        Modal.error({
+          title: "This is an error message",
+          content: "게시글 수정에 실패했습니다",
+        });
     }
   };
 
   return (
-    <BoardWriteUI
-      onChangeWriter={onChangeWriter}
-      onChangePassword={onChangePassword}
-      onChangeTitle={onChangeTitle}
-      onChangeContents={onChangeContents}
-      onChangeAddress={onChangeAddress}
-      onChangeYoutube={onChangeYoutube}
-      onClickSingUp={onClickSingUp}
-      onClickUpdate={onClickUpdate}
-      writerError={writerError}
-      passwordError={passwordError}
-      titleError={titleError}
-      contentsError={contentsError}
-      addressError={addressError}
-      youtubeError={youtubeError}
-      isActive={isActive}
-      isEdit={props.isEdit}
-      data={props.data}
-    />
+    <>
+      <BoardWriteUI
+        onChangeWriter={onChangeWriter}
+        onChangePassword={onChangePassword}
+        onChangeTitle={onChangeTitle}
+        onChangeContents={onChangeContents}
+        onChangeAddress={onChangeAddress}
+        onChangeYoutube={onChangeYoutube}
+        onClickSingUp={onClickSingUp}
+        onClickUpdate={onClickUpdate}
+        writerError={writerError}
+        passwordError={passwordError}
+        titleError={titleError}
+        contentsError={contentsError}
+        addressError={addressError}
+        youtubeError={youtubeError}
+        isActive={isActive}
+        isEdit={props.isEdit}
+        data={props.data}
+        showModal={showModal}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        handleComplete={handleComplete}
+        zonecode={zonecode}
+        daumAddress={daumAddress}
+        isOpen={isOpen}
+      />
+    </>
   );
 }
 

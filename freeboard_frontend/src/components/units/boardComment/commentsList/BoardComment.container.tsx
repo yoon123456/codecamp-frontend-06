@@ -9,11 +9,35 @@ import {
   IQueryFetchBoardCommentsArgs,
 } from "../../../../commons/types/generated/type";
 import CommentListPageUI from "./BoardComment.presenter";
-import { MouseEvent } from "react";
+import { useState } from "react";
+import { Modal } from "antd";
 
 export default function BoardCommentList() {
   const router = useRouter();
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
+  const [isOpen, setIsOpen] = useState(false);
+  const [password, setPassword] = useState("");
+  const [id, setId] = useState("");
+
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsOpen(false);
+    onClickDelete();
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+
+  const onChangeCommentPassword = (event: any) => {
+    setPassword(event.target.value);
+    console.log(password);
+    setId(event.target.id);
+    console.log(id);
+  };
 
   const { data } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
@@ -22,25 +46,42 @@ export default function BoardCommentList() {
     variables: { boardId: String(router.query.boardId) },
   });
 
-  const onClickDelete = (event: MouseEvent<HTMLButtonElement>) => {
-    const password = prompt("password");
-    deleteBoardComment({
-      variables: {
-        password: password,
-        boardCommentId: String((event.currentTarget as HTMLButtonElement).id),
-      },
-      refetchQueries: [
-        {
-          query: FETCH_BOARD_COMMENTS,
-          variables: {
-            boardId: String(router.query.boardId),
-          },
+  const onClickDelete = () => {
+    try {
+      deleteBoardComment({
+        variables: {
+          password: password,
+          boardCommentId: id,
         },
-      ],
-    });
-    alert("댓글을 삭제하시겠습니까?");
-    alert("댓글 삭제에 성공했습니다!");
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: {
+              boardId: String(router.query.boardId),
+            },
+          },
+        ],
+      });
+      Modal.success({
+        content: "댓글을 삭제했습니다",
+      });
+    } catch (error) {
+      Modal.error({
+        title: "This is an error message",
+        content: "댓글 삭제에 실패했습니다",
+      });
+    }
   };
 
-  return <CommentListPageUI data={data} onClickDelete={onClickDelete} />;
+  return (
+    <CommentListPageUI
+      data={data}
+      onClickDelete={onClickDelete}
+      showModal={showModal}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
+      isOpen={isOpen}
+      onChangeCommentPassword={onChangeCommentPassword}
+    />
+  );
 }

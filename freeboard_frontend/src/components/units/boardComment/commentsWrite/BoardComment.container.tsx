@@ -4,19 +4,18 @@ import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { CREATE_BOARD_COMMENT } from "./BoardComment.queries";
 import { FETCH_BOARD_COMMENTS } from "../commentsList/BoardComment.queries";
-
 import {
   IMutation,
   IMutationCreateBoardCommentArgs,
 } from "../../../../commons/types/generated/type";
-import { selectionSetMatchesResult } from "@apollo/client/cache/inmemory/helpers";
+import { Modal } from "antd";
 
 export default function BoardComment() {
   // 댓글부분 input 선언
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
-  const [rating, setRating] = useState("");
   const [contents, setContents] = useState("");
+  const [value, setValue] = useState(0);
 
   const router = useRouter();
 
@@ -34,12 +33,12 @@ export default function BoardComment() {
     setPassword(event.target.value);
   }
 
-  function onChangeCommentContents(event: ChangeEvent<HTMLTextAreaElement>) {
+  function onChangeCommentContents(event: ChangeEvent<HTMLInputElement>) {
     setContents(event.target.value);
   }
 
   function onChangeRating(value: number) {
-    setRating(value);
+    setValue(value);
   }
 
   const onCilckComment = async () => {
@@ -51,7 +50,7 @@ export default function BoardComment() {
               writer: writer,
               password: password,
               contents: contents,
-              rating: Number(rating),
+              rating: value,
             },
             boardId: String(router.query.boardId),
           },
@@ -62,13 +61,18 @@ export default function BoardComment() {
             },
           ],
         });
-        alert("댓글등록에 성공했습니다!");
+        Modal.success({
+          content: "댓글 등록에 성공했습니다!!",
+        });
         setWriter("");
         setPassword("");
-        setRating("");
         setContents("");
       } catch (error) {
-        if (error instanceof Error) alert(error.message);
+        if (error instanceof Error)
+          Modal.error({
+            title: "This is an error message",
+            content: "댓글 등록에 실패했습니다",
+          });
       }
     }
   };
@@ -81,6 +85,8 @@ export default function BoardComment() {
       onCilckComment={onCilckComment}
       onChangeRating={onChangeRating}
       contents={contents}
+      writer={writer}
+      password={password}
     />
   );
 }
