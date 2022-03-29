@@ -1,4 +1,4 @@
-//수정페이지입니다
+// 수정페이지입니다
 
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";

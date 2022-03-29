@@ -1,17 +1,24 @@
-import {gql} from '@apollo/client'
-
+import { gql } from "@apollo/client";
 
 export const CREATE_BOARD = gql`
-  mutation createBoard($createBoardInput:CreateBoardInput!){
-    createBoard(createBoardInput:$createBoardInput){
+  mutation createBoard($createBoardInput: CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
       _id
     }
   }
-`
+`;
 
-export const UPDATE_BOARD =gql`
-  mutation updateBoard($updateBoardInput:UpdateBoardInput!, $password:String, $boardId: ID!){
-    updateBoard(updateBoardInput:$updateBoardInput, password:$password, boardId:$boardId){
+export const UPDATE_BOARD = gql`
+  mutation updateBoard(
+    $updateBoardInput: UpdateBoardInput!
+    $password: String
+    $boardId: ID!
+  ) {
+    updateBoard(
+      updateBoardInput: $updateBoardInput
+      password: $password
+      boardId: $boardId
+    ) {
       _id
       writer
       title
@@ -22,18 +29,21 @@ export const UPDATE_BOARD =gql`
       updatedAt
     }
   }
-`
+`;
 
 export const FETCH_BOARD = gql`
-    query fetchBoard($boardId: ID!){                        #  ($boardId: ID!) playground에서 그대로 옮겨오는 부분
-        fetchBoard(boardId:$boardId){                       #  (boardId: $boardId) 자리를 바꿔줌
-            _id                                             #   Board!부분
-            writer
-            title
-            contents
-            createdAt
-            likeCount
-            dislikeCount
-        }
+  query fetchBoard($boardId: ID!) {
+    #  ($boardId: ID!) playground에서 그대로 옮겨오는 부분
+    fetchBoard(boardId: $boardId) {
+      #  (boardId: $boardId) 자리를 바꿔줌
+      _id #   Board!부분
+      writer
+      title
+      contents
+      createdAt
+      likeCount
+      dislikeCount
+      youtubeUrl
     }
-`
+  }
+`;

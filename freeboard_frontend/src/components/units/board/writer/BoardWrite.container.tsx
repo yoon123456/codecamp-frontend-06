@@ -1,4 +1,4 @@
-//게시물 등록페이지 이자 게시물 수정페이지
+// 게시물 등록페이지 이자 게시물 수정페이지
 
 import { useState, ChangeEvent } from "react";
 import { useMutation } from "@apollo/client";
@@ -10,7 +10,7 @@ import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types";
 export default function BoardWrite(props: IBoardWriteProps) {
   const [isActive, setIsActive] = useState(false);
 
-  //input 과 error 선언
+  // input 과 error 선언
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -25,7 +25,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [addressError, setAddressError] = useState("");
   const [youtubeError, setYoutubeError] = useState("");
 
-  //api 선언
+  // api 선언
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const router = useRouter();
@@ -166,7 +166,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       youtube !== ""
     ) {
       // alert("회원가입을 축하합니다!")
-      //동기방식으로 처리
+      // 동기방식으로 처리
       try {
         const result = await createBoard({
           variables: {
@@ -175,6 +175,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
               password: password,
               title: title,
               contents: contents,
+              youtube: youtube,
             },
           },
         });
@@ -189,7 +190,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const onClickUpdate = async () => {
     if (writer !== "" && title !== "" && password !== "" && contents !== "") {
-      isActive === true;
+      // isActive === true;
     }
     const myVariables: IMyVariables = {
       updateBoardInput: {},

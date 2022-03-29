@@ -1,0 +1,140 @@
+import BoardCommentUI from "./BoardComment.presenter";
+import { useState, ChangeEvent } from "react";
+import { useMutation, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import {
+  CREATE_BOARD_COMMENT,
+  FETCH_BOARD_COMMENTS,
+} from "./BoardComment.queries";
+import {
+  IMutation,
+  IMutationCreateBoardCommentArgs,
+  IQuery,
+  IQueryFetchBoardCommentsArgs,
+} from "../../../../commons/types/generated/type";
+
+export default function BoardComment() {
+  // 댓글부분 input 선언
+  const [writer, setWriter] = useState("");
+  const [password, setPassword] = useState("");
+  const [rating, setRating] = useState("");
+  const [contents, setContents] = useState("");
+
+  const router = useRouter();
+
+  // 댓글작성 mutation
+  const [createBoardComment] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT);
+
+  // 댓글삭제 mutation
+  // const [deleteBoardComment] = useMutation<
+  //   Pick<IMutation, "deleteBoardComment">,
+  //   IMutationDeleteBoardArgs
+  // >(DELETE_BOARD_COMMENT, {
+  //   variables: { boardId: String(router.query.boardId) },
+  // });
+
+  // 댓글 작성한것 리스트로 만들어주기
+  const { data: commentData } = useQuery<
+    Pick<IQuery, "fetchBoardComments">,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
+    variables: { boardId: String(router.query.boardId) },
+  });
+
+  function onChangeCommentWriter(event: ChangeEvent<HTMLInputElement>) {
+    setWriter(event.target.value);
+  }
+
+  function onChangeCommentPassword(event: ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value);
+  }
+
+  function onChangeCommentRating(event: ChangeEvent<HTMLInputElement>) {
+    setRating(event.target.value);
+  }
+
+  function onChangeCommentContents(event: ChangeEvent<HTMLTextAreaElement>) {
+    setContents(event.target.value);
+  }
+
+  const onCilckComment = async () => {
+    if (writer !== "" && password !== "" && rating !== "" && contents !== "") {
+      try {
+        await createBoardComment({
+          variables: {
+            createBoardCommentInput: {
+              writer: writer,
+              password: password,
+              contents: contents,
+              rating: Number(rating),
+            },
+            boardId: String(router.query.boardId),
+          },
+          refetchQueries: [
+            {
+              query: FETCH_BOARD_COMMENTS,
+              variables: { boardId: router.query.boardId },
+            },
+          ],
+        });
+        alert("댓글등록에 성공했습니다!");
+        setWriter("");
+        setPassword("");
+        setRating("");
+        setContents("");
+      } catch (error) {
+        if (error instanceof Error) alert(error.message);
+      }
+    }
+  };
+
+  // const onClickDelete = (event: MouseEvent<HTMLButtonElement>) => {
+  //   deleteBoardComment({
+  //     variables: { boardId: String((event.target as HTMLButtonElement).id) },
+  //     refetchQueries: [{ query: FETCH_BOARD_COMMENTS }],
+  //   });
+  //   alert("댓글을 삭제하시겠습니까?");
+  //   alert("댓글 삭제에 성공했습니다!");
+  // };
+
+  //   const onClickCommentUpdate = async () => {
+  //     const commentVariables: IMutationUpdateBoardCommentArgs = {
+  //       updateBoardCommentInput: {
+  //         contents: commentContents,
+  //         rating: Number(commentRating),
+  //       },
+  //       boardCommentId: String(router.query.boardCommentId),
+  //     };
+  //     if (commentContents !== "") {
+  //       commentVariables.updateBoardCommentInput.contents = commentContents;
+  //     }
+  //     if (commentRating !== "") {
+  //       commentVariables.updateBoardCommentInput.rating = Number(commentRating);
+  //     }
+  //     try {
+  //       const updateComment = await updateBoardComment({
+  //         variables: commentVariables,
+  //       });
+  //       alert("댓글을 수정하시겠습니까?");
+  //       alert("댓글 수정에 성공했습니다");
+  //       router.push(`/boards/${router.query.boardId}`);
+  //     } catch (error) {
+  //       if (error instanceof Error) alert(error.message);
+  //     }
+  //  }
+
+  return (
+    <BoardCommentUI
+      onChangeCommentWriter={onChangeCommentWriter}
+      onChangeCommentPassword={onChangeCommentPassword}
+      onChangeCommentRating={onChangeCommentRating}
+      onChangeCommentContents={onChangeCommentContents}
+      onCilckComment={onCilckComment}
+      data={commentData}
+      contents={contents}
+    />
+  );
+}

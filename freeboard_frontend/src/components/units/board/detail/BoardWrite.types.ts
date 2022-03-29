@@ -1,6 +1,6 @@
 import { MouseEvent } from "react";
 
-//컨테이너 부분
+// 컨테이너 부분
 export interface IBoardDetail {
   onClickDelete: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickMoveToBoardList: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -8,9 +8,11 @@ export interface IBoardDetail {
   isActive?: boolean;
   isEdit?: boolean;
   data?: any;
+  like: () => void;
+  dislike: () => void;
 }
 
-//프레젠터 부분
+// 프레젠터 부분
 export interface IBoardWriteUIProps {
   onClickMoveToBoardList: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickMoveToBoardEdit: (event: MouseEvent<HTMLButtonElement>) => void;

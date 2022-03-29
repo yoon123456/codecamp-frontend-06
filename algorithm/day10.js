@@ -6,19 +6,64 @@ s는 영문 대소문자로만 구성되어 있으며, 대문자는 소문자보
 제한 사항
 str은 길이 1 이상인 문자열입니다.
 입출력 예
-s	return
-"Zbcdefg"	"gfedcbZ" */ 
+    s	      return
+"Zbcdefg"	"gfedcbZ" */
 
 //구글링 후의 문제풀이
 function solution(s) {
-    const arr= s.split("").sort().reverse().join("")
-    return arr
+  const arr = s.split("").sort().reverse().join("");
+  return arr;
 }
 // 1. 문자열을 배열로 바꿔준다 배열로 바꿔주기 위해 split("")을 사용한다 이 뜻은 ""으로 문자열을 하나씩 나눠서 배열에 담아준다는 뜻이다
-// 2. sort()는 담아준 배열을 작은 것부터 정렬한다 -> 오름차순으로 자동정렬 
+// 2. sort()는 담아준 배열을 작은 것부터 정렬한다 -> 오름차순으로 자동정렬
+//    sort()는 배열에만 사용이 가능하다
 // 3. reverse()를 통해 배열의 순서를 뒤집어 준다 -> 내림차순으로 변경된다
-// 4. join("")을 통해 배열을 문자열로 다시 합쳐준다 
+// 4. join("")을 통해 배열을 문자열로 다시 합쳐준다
 // **참고**  .toUpperCase를 통해서 대문자로의 변환이 가능하고 .toLowerCase()로 소문자로의 변환이 가능하다
+
+//멘토님 풀이
+/* 아스키코드
+1. 아스키코드 각각의 문자들이 대체되는 유니코드 번호를 가지게 된다
+2. 문자열끼리 비교할 떄는 유니코드의 번호를 가지고 대소관계를 비교한다*/
+"a".charCodeAt(); // 소문자 a의 유니코드 번호 -> 97
+"b".charCodeAt(); // 소문자 a의 유니코드 번호 -> 98
+//알파벳 소문자의유니코드 95~122
+//알파벳 대문자의 유니코드 65~90
+arr = ["a", "b", "Z", "c"];
+
+arr.sort((a, b) => {
+  return a > b ? 1 : -1; //오름차순
+  return a < b ? -1 : 1; //오름차순
+
+  return a > b ? -1 : 1; //내림차순
+  return a < b ? 1 : -1; //오름차순
+});
+
+function solution(s) {
+  const answer = [];
+  for (let i = 0; i < s.length; i++) {
+    answer.push(s[i]);
+  }
+  answer.sort((a, b) => {
+    return a > b ? -1 : 1;
+  });
+  let result = "";
+  for (let i = 0; i < answer.length; i++) {
+    result += answer[i];
+  }
+  return result;
+}
+
+function solution(s) {
+  const answer = s
+    .split("")
+    .sort((a, b) => {
+      return a > b ? -1 : 1;
+    })
+    .join("");
+
+  return answer;
+}
 
 //-----------------------------------------------------------------------------------------//
 
@@ -48,18 +93,49 @@ array	commands	return
 
 //내가 도전한 방법
 function solution(array, commands) {
-    let answer = [];
-    const s = array.split("")
-    const commands1 =commands[0]
-    const commands2 =commands[1]
-    const commands3 =commands[2]
-    
-     const a= commands1.split("")
-    console.log(commands)
-    
-    const newArr = array.slice(1,5).sort()
-    newArr
-    
-   return newArr
+  let answer = [];
+  const s = array.split("");
+  const commands1 = commands[0];
+  const commands2 = commands[1];
+  const commands3 = commands[2];
+
+  const a = commands1.split("");
+  console.log(commands);
+
+  const newArr = array.slice(1, 5).sort();
+  newArr;
+
+  return newArr;
 }
 // array를 slice로 나누고 sort로 다시 배열 한 후 k번째 숫자를 찾으려 했는데 접근 방식이 어려워,,
+
+//
+array = [1, 2, 10, 100, 1000, 3];
+arr.sort(); // 문자열 정렬 시 앞자리수만 비교하여 정렬한다
+
+function solution(array, commands) {
+  const answer = [];
+
+  for (let idx = 0; idx < commands.length; idx++) {
+    const i = commands[idx][0];
+    const j = commands[idx][1];
+    const k = commands[idx][2];
+    // array를 i번째 부터 j까진 자른 결과를 저장
+    const result = array.slice(i - 1, j).sort((a, b) => {
+      return a - b;
+    });
+    answer.push(result[k - 1]);
+  }
+  return answer;
+}
+
+function solution(array, commands) {
+  const answer = commands.map((el) => {
+    const result = array.slice(el[0] - 1, el[1]).sort((a, b) => {
+      return a - b; //오름차순
+    });
+    console.log(result, el[2]);
+    return result[el[2] - 1];
+  });
+  return answer;
+}

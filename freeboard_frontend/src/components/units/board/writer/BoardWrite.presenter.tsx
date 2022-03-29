@@ -82,7 +82,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           </InputPostNumberSearch>
         </Row>
         <InputTitle type="text" onChange={props.onChangeAddress} />
-        <InputTitle type="text" onChange={props.onChangeAddress} />
+        <InputTitle type="text" />
         <Error>{props.addressError}</Error>
       </WrapperBody>
       <WrapperBody>
@@ -91,6 +91,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           type="text"
           placeholder="링크를 복사해주세요."
           onChange={props.onChangeYoutube}
+          defaultValue={props.data?.fetchBoard.youtubeUrl}
         />
         <Error>{props.youtubeError}</Error>
       </WrapperBody>
@@ -99,11 +100,11 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <Row>
           <InputPhoto type="button">
             +<br />
-            Upload{" "}
+            Upload
           </InputPhoto>
           <InputPhoto type="button">
             +<br />
-            Upload{" "}
+            Upload
           </InputPhoto>
           <InputPhoto type="button">
             +<br />
