@@ -77,7 +77,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             type="text"
             placeholder="07250"
             onChange={props.onChangeAddress}
-            value={props.zonecode}
+            defaultValue={props.zonecode}
           />
 
           <InputPostNumberSearch type="button" onClick={props.showModal}>
@@ -93,7 +93,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             <p>주소등록이 완료되었습니다</p>
           </Modal>
         </Row>
-        <InputTitle type="text" value={props.daumAddress} />
+        <InputTitle type="text" defaultValue={props.daumAddress} />
         <InputTitle type="text" onChange={props.onChangeAddress} />
         <Error>{props.addressError}</Error>
       </WrapperBody>
