@@ -18,6 +18,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [contents, setContents] = useState("");
   const [address, setAddress] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [daumAddress, setDaumAdress] = useState("");
+  const [daumAddressDetail, setDaumAdressDetail] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -31,7 +33,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const router = useRouter();
 
-  const [daumAddress, setDaumAdress] = useState("");
   const [zonecode, setZonecode] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -49,9 +50,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const handleComplete = (data: any) => {
     setDaumAdress(data.address);
-    console.log(data);
     setZonecode(data.zonecode);
+    console.log(data);
     console.log(data.zonecode);
+    setIsOpen(false);
   };
 
   function onChangeWriter(event: ChangeEvent<HTMLInputElement>) {
@@ -128,6 +130,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   function onChangeAddress(event: ChangeEvent<HTMLInputElement>) {
     setAddress(event.target.value);
+    setDaumAdressDetail(event.target.value);
     if (event.target.value) {
       setAddressError("");
     }
@@ -200,6 +203,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
               title: title,
               contents: contents,
               youtubeUrl: youtube,
+              boardAddress: {
+                zipcode: zonecode,
+                address: daumAddress,
+                addressDetail: daumAddressDetail,
+              },
             },
           },
         });
@@ -232,6 +240,22 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
     if (contents !== "") {
       myVariables.updateBoardInput.contents = contents;
+    }
+    if (youtube !== "") {
+      myVariables.updateBoardInput.youtubeUrl = youtube;
+    }
+    if (daumAddress !== "" || (daumAddressDetail !== "" && zonecode !== "")) {
+      myVariables.updateBoardInput.boardAddress = {};
+    }
+    if (daumAddress !== "") {
+      myVariables.updateBoardInput.boardAddress.address = daumAddress;
+    }
+    if (daumAddressDetail !== "") {
+      myVariables.updateBoardInput.boardAddress.addressDetail =
+        daumAddressDetail;
+    }
+    if (zonecode !== "") {
+      myVariables.updateBoardInput.boardAddress.zipcode = zonecode;
     }
 
     try {
@@ -278,6 +302,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
         handleComplete={handleComplete}
         zonecode={zonecode}
         daumAddress={daumAddress}
+        daumAddressDetail={daumAddressDetail}
         isOpen={isOpen}
       />
     </>

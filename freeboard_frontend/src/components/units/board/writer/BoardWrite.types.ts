@@ -37,6 +37,7 @@ export interface IBoardWriteUIProps {
   handleComplete: (data: any) => void;
   zonecode: string;
   daumAddress: string;
+  daumAddressDetail: string;
   isOpen: boolean;
 }
 

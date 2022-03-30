@@ -76,25 +76,35 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <InputPostNumber
             type="text"
             placeholder="07250"
-            onChange={props.onChangeAddress}
-            defaultValue={props.zonecode}
+            value={props.data?.fetchBoard.boardAddress.zipcode}
           />
 
           <InputPostNumberSearch type="button" onClick={props.showModal}>
             우편번호검색
           </InputPostNumberSearch>
-          <Modal
-            title="주소등록"
-            visible={props.isOpen}
-            onOk={props.handleOk}
-            onCancel={props.handleCancel}
-          >
-            <DaumPostcode onComplete={props.handleComplete} />
-            <p>주소등록이 완료되었습니다</p>
-          </Modal>
+          {props.isOpen && (
+            <Modal
+              title="주소등록"
+              visible={props.isOpen}
+              onOk={props.handleOk}
+              onCancel={props.handleCancel}
+            >
+              <DaumPostcode onComplete={props.handleComplete} />
+              <p>주소등록이 완료되었습니다</p>
+            </Modal>
+          )}
         </Row>
-        <InputTitle type="text" defaultValue={props.daumAddress} />
-        <InputTitle type="text" onChange={props.onChangeAddress} />
+        <InputTitle
+          type="text"
+          value={
+            props.daumAddress || props.data?.fetchBoard.boardAddress.address
+          }
+        />
+        <InputTitle
+          type="text"
+          onChange={props.onChangeAddress}
+          defaultValue={props.data?.fetchBoard.boardAddress.addressDetail}
+        />
         <Error>{props.addressError}</Error>
       </WrapperBody>
       <WrapperBody>

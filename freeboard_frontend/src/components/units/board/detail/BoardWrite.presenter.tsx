@@ -24,7 +24,8 @@ export default function BoardWriterUI(props: IBoardWriteUIProps) {
           </S.BoardHeaderProfile>
           <S.BoardHeaderIconWrapper>
             <S.BoardHeaderAddress>
-              {/* <img src="/img/주소알림 box.png" /> */}
+              주소: {props.data?.fetchBoard.boardAddress.address}
+              {props.data?.fetchBoard.boardAddress.addressDetail}
             </S.BoardHeaderAddress>
             <S.BoardHeaderIcon>
               <S.BoardHeaderIconLink>

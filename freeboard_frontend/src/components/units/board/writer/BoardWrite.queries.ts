@@ -12,6 +12,14 @@ export const CREATE_BOARD = gql`
       createdAt
       updatedAt
       youtubeUrl
+      boardAddress {
+        _id
+        zipcode
+        address
+        addressDetail
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -36,6 +44,12 @@ export const UPDATE_BOARD = gql`
       createdAt
       updatedAt
       youtubeUrl
+      boardAddress {
+        _id
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;
@@ -53,6 +67,11 @@ export const FETCH_BOARD = gql`
       likeCount
       dislikeCount
       youtubeUrl
+      boardAddress {
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;
