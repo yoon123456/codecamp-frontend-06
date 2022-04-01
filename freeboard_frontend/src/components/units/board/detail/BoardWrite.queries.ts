@@ -13,6 +13,8 @@ export const FETCH_BOARD = gql`
       contents
       createdAt
       youtubeUrl
+      likeCount
+      dislikeCount
       boardAddress {
         zipcode
         address

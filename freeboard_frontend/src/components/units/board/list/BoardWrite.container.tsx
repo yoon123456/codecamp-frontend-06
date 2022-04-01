@@ -1,19 +1,15 @@
-import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardListUI from "./BoardWrite.presenter";
-import { FETCH_BOARDS } from "./BoardWrite.queries";
 import { MouseEvent } from "react";
+import { IBoardListUIProps } from "./BoardWrite.types";
+import { useQuery } from "@apollo/client";
+import { FETCH_BOARDS } from "./BoardWrite.queries";
 
-export default function ListBoardPage() {
+// 쿼리 문에 페치보드카운트 추가해주어야한다
+
+export default function ListBoardPage(props: IBoardListUIProps) {
   const router = useRouter();
-
-  // const { data } = useQuery(FETCH_BOARDS,{
-  //     variables: {boardId: String(router.query.id)}
-  // })
-
-  const { data } = useQuery(FETCH_BOARDS, {
-    variables: { boardId: String(router.query.id) },
-  });
+  const { data: scrollData, fetchMore } = useQuery(FETCH_BOARDS);
 
   const onClickMoveToBoardNew = () => {
     router.push("/boards/new");
@@ -25,11 +21,27 @@ export default function ListBoardPage() {
     // 이벤트태그의 자식이면 id를 선언해줘
   };
 
+  const onLoadMore = () => {
+    if (!scrollData) return;
+
+    fetchMore({
+      variables: { page: Math.ceil(scrollData.fetchBoards.length / 10) + 1 },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult.fetchBoards)
+          return { fetchBoards: [...prev.fetchBoards] };
+        return {
+          fetchBoards: [...prev.fetchBoards, ...fetchMoreResult.fetchBoards],
+        };
+      },
+    });
+  };
+
   return (
     <BoardListUI
-      data={data}
+      data={props.data}
       onClickMoveToBoardNew={onClickMoveToBoardNew}
       onClickMoveToBoardDetail={onClickMoveToBoardDetail}
+      onLoadMore={onLoadMore}
     />
   );
 }

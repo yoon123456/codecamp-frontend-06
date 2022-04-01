@@ -3,8 +3,17 @@
 import * as S from "./BoardWrite.styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
+import { Tooltip } from "antd";
 
 export default function BoardWriterUI(props: IBoardWriteUIProps) {
+  const text = (
+    <>
+      {" "}
+      {props.data?.fetchBoard.boardAddress.address}
+      <br />
+      {props.data?.fetchBoard.boardAddress.addressDetail}
+    </>
+  );
   return (
     <div>
       <S.Board>
@@ -18,26 +27,24 @@ export default function BoardWriterUI(props: IBoardWriteUIProps) {
                 {props.data?.fetchBoard.writer}
               </S.BoardHeaderProfileWrapperName>
               <S.BoardHeaderProfileWrapperDate>
-                date:{getDate(props.data?.fetchBoard.createdAt)}
+                Date:{getDate(props.data?.fetchBoard.createdAt)}
               </S.BoardHeaderProfileWrapperDate>
             </S.BoardHeaderProfileWrapper>
           </S.BoardHeaderProfile>
           <S.BoardHeaderIconWrapper>
-            <S.BoardHeaderAddress>
-              주소: {props.data?.fetchBoard.boardAddress.address}
-              {props.data?.fetchBoard.boardAddress.addressDetail}
-            </S.BoardHeaderAddress>
+            <S.BoardHeaderAddress></S.BoardHeaderAddress>
             <S.BoardHeaderIcon>
               <S.BoardHeaderIconLink>
                 <img src="/img/Vector.png" />
               </S.BoardHeaderIconLink>
               <S.BoardHeaderIconMap>
-                <img src="/img/ic_location_on-32px.png" />
+                <Tooltip placement="topRight" title={text}>
+                  <img src="/img/ic_location_on-32px.png" />
+                </Tooltip>
               </S.BoardHeaderIconMap>
             </S.BoardHeaderIcon>
           </S.BoardHeaderIconWrapper>
         </S.BoardHeader>
-
         <S.BoardBody>
           <S.BoardBodyTitle>{props.data?.fetchBoard.title}</S.BoardBodyTitle>
           <S.BoardBodyImage>

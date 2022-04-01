@@ -21,9 +21,9 @@ const FETCH_BOARDS_COUNT = gql`
 export default function MapBoardPage() {
   const { data, refetch } = useQuery(FETCH_BOARDS);
 
-  const { data: dataBoardcount } = useQuery(FETCH_BOARDS_COUNT);
-  console.log(dataBoardcount);
-  const lastPage = Math.ceil(Number(dataBoardcount?.fetchBoardsCount) / 10);
+  const { data: dataBoardCount } = useQuery(FETCH_BOARDS_COUNT);
+  console.log(dataBoardCount?.fetchBoardsCount);
+  const lastPage = Math.ceil(Number(dataBoardCount?.fetchBoardsCount) / 10);
   console.log(lastPage);
   return (
     <div>
