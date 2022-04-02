@@ -121,10 +121,10 @@ export const Submit = styled.button`
   padding: 40px;
   border: 1px solid #bdbdbd;
   background-color: ${(props: ISubmitButtonProps) =>
-    props.isActive ? "#FFD600" : "none"};
+    props.isActive ? "#ffd600" : "none"};
 `;
 
 export const Error = styled.div`
-  color: #ffd600;
+  color: red;
   font-size: 18px;
 `;

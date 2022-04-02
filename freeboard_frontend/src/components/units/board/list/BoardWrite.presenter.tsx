@@ -1,7 +1,6 @@
 import * as S from "./BoardWrite.styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { IBoardListUIProps } from "./BoardWrite.types";
-import InfiniteScroll from "react-infinite-scroller";
 
 export default function BoardListUI(props: IBoardListUIProps) {
   return (
@@ -17,27 +16,36 @@ export default function BoardListUI(props: IBoardListUIProps) {
         <S.List>작성자</S.List>
         <S.List>날짜</S.List>
       </S.ListHeader>
-      <div style={{ height: "500px", overflow: "auto" }}>
+      <div>
+        {props.data?.fetchBoards?.map((el: any) => (
+          <S.Row key={el._id}>
+            <S.ListId>{String(el._id).slice(-4).toUpperCase()}</S.ListId>
+            <S.ListTitle id={el._id} onClick={props.onClickMoveToBoardDetail}>
+              {" "}
+              {el.title}{" "}
+            </S.ListTitle>
+            <S.ListWriter>{el.writer}</S.ListWriter>
+            <S.ListDate>{getDate(el.createdAt)}</S.ListDate>
+          </S.Row>
+        ))}
+      </div>
+      <S.Footer>
+        <S.Button onClick={props.onClickMoveToBoardNew}>
+          게시물 등록하기
+        </S.Button>
+      </S.Footer>
+    </S.Box>
+  );
+}
+
+/*
+import InfiniteScroll from "react-infinite-scroller";
+<div style={{ height: "500px", overflow: "auto" }}>
         <InfiniteScroll
           pageStart={0}
           loadMore={props.onLoadMore}
           hasMore={true}
           useWindow={false}
-        >
-          {props.data?.fetchBoards.map((el: any) => (
-            <S.Row key={el._id}>
-              <S.ListId>{String(el._id).slice(-4).toUpperCase()}</S.ListId>
-              <S.ListTitle id={el._id} onClick={props.onClickMoveToBoardDetail}>
-                {" "}
-                {el.title}{" "}
-              </S.ListTitle>
-              <S.ListWriter>{el.writer}</S.ListWriter>
-              <S.ListDate>{getDate(el.createdAt)}</S.ListDate>
-            </S.Row>
-          ))}
-        </InfiniteScroll>
-      </div>
-      <S.Button onClick={props.onClickMoveToBoardNew}>게시물 등록하기</S.Button>
-    </S.Box>
-  );
-}
+        ></InfiniteScroll>
+         </InfiniteScroll>
+         */

@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   width: 1200px;
   padding: 20px;
+  padding-top: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -23,7 +24,7 @@ export const PageNumber = styled.div`
   font-size: 20px;
   cursor: pointer;
 `;
-export const NextButton = styled.div`
+export const NextButton = styled.div<{ isActive: boolean }>`
   color: ${(props) => (props.isActive ? "lightgray" : "black")};
   border: none;
   background-color: white;

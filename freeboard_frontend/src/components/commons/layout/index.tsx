@@ -2,21 +2,23 @@ import LayoutHeader from "./header";
 import LayoutBanner from "./banner";
 import LayoutNavigation from "./navigation";
 import LayoutFooter from "./footer";
-import LayOutSidebar from "./sidebar";
+// import LayOutSidebar from "./sidebar";
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { useRouter } from "next/router";
 
 const Body = styled.div`
-  height: 500px;
+  padding: 20px;
+  margin: 0 auto;
 `;
 
 const BodyWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  height: 1100px;
+  height: auto;
 `;
-const HIDDEN_HEADERS = ["/12-05-modal-refactoring"];
+const HIDDEN_HEADERS = ["/boards/new/"];
+
 interface ILayoutProps {
   children: ReactNode;
 }
@@ -33,7 +35,7 @@ export default function Layout(props: ILayoutProps) {
       <LayoutBanner />
       <LayoutNavigation />
       <BodyWrapper>
-        <LayOutSidebar />
+        {/* <LayOutSidebar /> */}
         <Body>{props.children}</Body>
       </BodyWrapper>
       <LayoutFooter />

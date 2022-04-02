@@ -20,7 +20,6 @@ export default function Pagination(props: IPaginationProps) {
     if (startPage === 1) return;
     setStartPage((prev) => prev - 10);
     setPickPage(startPage - 1);
-
     props.refetch({ page: startPage - 10 });
   };
   const onClickNextpage = () => {

@@ -13,18 +13,13 @@ export default function BoardCommentUI(props: IBoardCommentUIProps) {
           type="text"
           placeholder="작성자"
           onChange={props.onChangeCommentWriter}
-          // defaultValue={props.data?.fetchBoardComments?.writer}
         ></S.CommentWriter>
         <S.CommentPassword
           type="password"
           placeholder="비밀번호"
           onChange={props.onChangeCommentPassword}
-          // defaultValue={props.data?.fetchBoardComments?.password}
         ></S.CommentPassword>
-        <S.CommentRating
-          onChange={props.onChangeRating}
-          // defaultValue={props.data?.fetchBoardComments?.rating}
-        ></S.CommentRating>
+        <S.CommentRating onChange={props.onChangeRating}></S.CommentRating>
       </S.CommentWriterWrapper>
       <S.CommentInputWrapper>
         <S.CommentInputBody

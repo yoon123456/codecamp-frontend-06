@@ -88,9 +88,9 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               visible={props.isOpen}
               onOk={props.handleOk}
               onCancel={props.handleCancel}
+              style={{ fontSize: "10px" }}
             >
               <DaumPostcode onComplete={props.handleComplete} />
-              <p>주소등록이 완료되었습니다</p>
             </Modal>
           )}
         </Row>

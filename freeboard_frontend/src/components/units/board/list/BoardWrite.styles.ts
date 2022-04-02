@@ -5,7 +5,7 @@ export const Box = styled.div`
   flex-direction: column;
   width: 1200px;
   padding: 20px;
-  margin: 20px auto;
+  margin: 0 auto;
 `;
 export const Search = styled.input`
   width: 800px;
@@ -14,12 +14,14 @@ export const Search = styled.input`
   border: none;
   background-color: #f2f2f2;
   border-radius: 5px;
+  font-size: 20px;
 `;
 export const SearchDate = styled.input`
   width: 150px;
   height: 50px;
   margin-right: 10px;
   border-radius: 5px;
+  font-size: 16px;
 `;
 
 export const Row = styled.div`
@@ -75,6 +77,17 @@ export const ButtonBlack = styled.button`
   background-color: black;
   color: white;
   border-radius: 5px;
+  border: none;
+  :hover {
+    background-color: #ffd600;
+    color: black;
+  }
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
 `;
 
 export const Button = styled.button`
@@ -85,6 +98,8 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
   background-color: #ffd600;
+  border: 1px solid lightgray;
+  border-radius: 5px;
   cursor: pointer;
   :hover {
     background-color: black;
