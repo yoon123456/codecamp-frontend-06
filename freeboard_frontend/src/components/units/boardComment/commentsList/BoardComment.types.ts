@@ -3,10 +3,14 @@ import { MouseEvent } from "react";
 
 export interface IBoardCommentListUIProps {
   data?: Pick<IQuery, "fetchBoardComments">;
-  onClickDelete: (event: MouseEvent<HTMLButtonElement>) => void;
-  showModal: () => void;
+  onClickCommentDelete: (event: MouseEvent<HTMLButtonElement>) => void;
+  showModal: (event: MouseEvent<HTMLButtonElement>) => void;
   handleOk: () => void;
   handleCancel: () => void;
-  isOpen: boolean;
   onChangeCommentPassword: (event: any) => void;
+  el: any;
+  password: string;
+  isOpen: boolean;
 }
+
+// event: MouseEvent<HTMLButtonElement>

@@ -8,7 +8,7 @@ import BoardWrite from "../../../../src/components/units/board/writer/BoardWrite
 export default function BoardEditPage() {
   const router = useRouter();
 
-  const { data } = useQuery(FETCH_BOARD, {
+  const { data } = useQuery<Pick<>>(FETCH_BOARD, {
     variables: { boardId: String(router.query.boardId) },
   });
 

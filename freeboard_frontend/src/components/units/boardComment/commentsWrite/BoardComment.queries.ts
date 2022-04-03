@@ -13,25 +13,3 @@ export const CREATE_BOARD_COMMENT = gql`
     }
   }
 `;
-
-// export const UPDATE_BOARD_COMMENT = gql`
-//     mutation updatedBoardComment(
-//         $updateBoardCommentInput:UpdateBoardCommentInput!,
-//         $password:String,
-//         boardCommentId:ID!
-//     ){
-//         updatedBoardComment(
-//             updateBoardCommentInput:$updateBoardCommentInput,
-//             password:$password,
-//             boardCommentId:$boardCommentId
-//         )
-//     }
-//     {
-//     _id
-//     writer
-//     contents
-//     rating
-//     createAt
-//     updatedAt
-//     }
-// `;

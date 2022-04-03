@@ -16,5 +16,5 @@ export interface IPaginationUIProps {
   data?: any;
   dataBoardcount?: any;
   pickPage: number;
-  isActive: boolean;
+  isActive?: boolean;
 }

@@ -4,7 +4,7 @@ import { MouseEvent } from "react";
 export interface IBoardListUIProps {
   onClickMoveToBoardDetail?: (event: MouseEvent<HTMLDivElement>) => void;
   onClickMoveToBoardNew?: () => void;
-  onLoadMore: () => void;
+  onLoadMore?: () => void;
   data?: any;
   refetch?: any;
 }

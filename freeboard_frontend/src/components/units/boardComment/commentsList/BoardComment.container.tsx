@@ -2,15 +2,17 @@ import {
   FETCH_BOARD_COMMENTS,
   DELETE_BOARD_COMMENT,
 } from "./BoardComment.queries";
-import { useRouter } from "next/router";
-import { useQuery, useMutation } from "@apollo/client";
 import {
   IQuery,
   IQueryFetchBoardCommentsArgs,
 } from "../../../../commons/types/generated/type";
 import CommentListPageUI from "./BoardComment.presenter";
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
+import { useRouter } from "next/router";
+import { useQuery, useMutation } from "@apollo/client";
 import { Modal } from "antd";
+import InfiniteScroll from "react-infinite-scroller";
+import { InfiniteScrollWrapper } from "./BoardComment.styles";
 
 export default function BoardCommentList() {
   const router = useRouter();
@@ -18,14 +20,36 @@ export default function BoardCommentList() {
   const [isOpen, setIsOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [id, setId] = useState("");
+  const { data: scrollData, fetchMore } = useQuery(FETCH_BOARD_COMMENTS);
 
-  const showModal = () => {
+  const onLoadMore = () => {
+    if (!scrollData) return;
+
+    fetchMore({
+      variables: {
+        page: Math.ceil(scrollData.fetchBoardsComments.length / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult.fetchBoards)
+          return { fetchBoardsComments: [...prev.fetchBoards] };
+        return {
+          fetchBoards: [
+            ...prev.fetchBoardsComments,
+            ...fetchMoreResult.fetchBoardsComments,
+          ],
+        };
+      },
+    });
+  };
+
+  const showModal = (event: MouseEvent<HTMLButtonElement>) => {
     setIsOpen(true);
+    setId(event.currentTarget.id);
   };
 
   const handleOk = () => {
     setIsOpen(false);
-    onClickDelete();
+    onClickCommentDelete();
   };
 
   const handleCancel = () => {
@@ -35,8 +59,6 @@ export default function BoardCommentList() {
   const onChangeCommentPassword = (event: any) => {
     setPassword(event.target.value);
     console.log(password);
-    setId(event.target.id);
-    console.log(id);
   };
 
   const { data } = useQuery<
@@ -46,7 +68,7 @@ export default function BoardCommentList() {
     variables: { boardId: String(router.query.boardId) },
   });
 
-  const onClickDelete = () => {
+  const onClickCommentDelete = () => {
     try {
       deleteBoardComment({
         variables: {
@@ -74,14 +96,30 @@ export default function BoardCommentList() {
   };
 
   return (
-    <CommentListPageUI
-      data={data}
-      onClickDelete={onClickDelete}
-      showModal={showModal}
-      handleOk={handleOk}
-      handleCancel={handleCancel}
-      isOpen={isOpen}
-      onChangeCommentPassword={onChangeCommentPassword}
-    />
+    <>
+      <InfiniteScrollWrapper style={{ height: "500px", overflow: "auto" }}>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={onLoadMore}
+          hasMore={true}
+          useWindow={false}
+        >
+          {data?.fetchBoardComments.map((el) => (
+            <CommentListPageUI
+              data={data}
+              onClickCommentDelete={onClickCommentDelete}
+              showModal={showModal}
+              handleOk={handleOk}
+              handleCancel={handleCancel}
+              isOpen={isOpen}
+              onChangeCommentPassword={onChangeCommentPassword}
+              key={el._id}
+              el={el}
+              password={password}
+            />
+          ))}
+        </InfiniteScroll>
+      </InfiniteScrollWrapper>
+    </>
   );
 }

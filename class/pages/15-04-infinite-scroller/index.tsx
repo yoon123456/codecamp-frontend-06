@@ -48,7 +48,7 @@ export default function MapBoardPage() {
         hasMore={true}
         useWindow={false}
       >
-        {data?.fetchBoards.map((el) => (
+        {data?.fetchBoards.map((el: any) => (
           <MyRow key={el._id}>
             <MyColumn>{el._id}</MyColumn>
             <MyColumn>{el.writer}</MyColumn>

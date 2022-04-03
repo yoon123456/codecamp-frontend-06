@@ -6,8 +6,6 @@ export default function Pagination(props: IPaginationProps) {
   const [startPage, setStartPage] = useState(1);
   const [pickPage, setPickPage] = useState(1);
 
-  console.log(startPage);
-
   // 처음에는 dataBoardCount가 undefined를 반환하기 떄문에 ?를 꼭 붙여준다
 
   const onClickPage = (event: MouseEvent<HTMLDivElement>) => {

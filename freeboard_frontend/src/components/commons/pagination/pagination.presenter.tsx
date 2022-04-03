@@ -6,7 +6,7 @@ export default function PaginationUI(props: IPaginationUIProps) {
     <S.Wrapper>
       <S.PrevButton
         onClick={props.onClickPrevPage}
-        isActive={props.startPage === 1 ? true : false}
+        isActive={props.startPage === 1 && true}
       >
         {"<"}
       </S.PrevButton>
@@ -31,7 +31,7 @@ export default function PaginationUI(props: IPaginationUIProps) {
       )}
       <S.NextButton
         onClick={props.onClickNextpage}
-        isActive={props.startPage + 10 > props.lastPage ? true : false}
+        isActive={props.startPage + 10 > props.lastPage && true}
       >
         {">"}
       </S.NextButton>

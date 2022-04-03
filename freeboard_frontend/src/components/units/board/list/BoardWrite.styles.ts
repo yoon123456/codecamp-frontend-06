@@ -47,6 +47,7 @@ export const ListTitle = styled.div`
   align-items: center;
   font-size: 14px;
   cursor: pointer;
+  overflow: hidden;
 `;
 export const ListWriter = styled.div`
   width: 25%;

@@ -9,7 +9,7 @@ export default function GraphqlFetchPage() {
     <>
       <BoardDetail />
       <BoardComment />
-      <BoardCommentList />;
+      <BoardCommentList />
     </>
   );
 }

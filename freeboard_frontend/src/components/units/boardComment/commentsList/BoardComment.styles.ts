@@ -81,3 +81,12 @@ export const CommentDelete = styled.button`
   padding-bottom: 60px;
   cursor: pointer;
 `;
+
+export const InfiniteScrollWrapper = styled.div`
+  & {
+    ::-webkit-scrollbar {
+      width: 0;
+      display: none;
+    }
+  }
+`;

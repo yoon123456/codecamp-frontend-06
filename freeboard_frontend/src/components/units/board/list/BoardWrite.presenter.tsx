@@ -1,6 +1,7 @@
 import * as S from "./BoardWrite.styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { IBoardListUIProps } from "./BoardWrite.types";
+import { IBoard } from "../../../../commons/types/generated/type";
 
 export default function BoardListUI(props: IBoardListUIProps) {
   return (
@@ -17,7 +18,7 @@ export default function BoardListUI(props: IBoardListUIProps) {
         <S.List>날짜</S.List>
       </S.ListHeader>
       <div>
-        {props.data?.fetchBoards?.map((el: any) => (
+        {props.data?.fetchBoards?.map((el: IBoard) => (
           <S.Row key={el._id}>
             <S.ListId>{String(el._id).slice(-4).toUpperCase()}</S.ListId>
             <S.ListTitle id={el._id} onClick={props.onClickMoveToBoardDetail}>
