@@ -56,7 +56,6 @@ export default function CommentListPageUI(props: IBoardCommentListUIProps) {
 
     if (rating) {
       myVariables.updateBoardCommentInput.rating = rating;
-      console.log(rating);
     }
     if (commentContents) {
       myVariables.updateBoardCommentInput.contents = commentContents;
@@ -124,7 +123,7 @@ export default function CommentListPageUI(props: IBoardCommentListUIProps) {
         <St.CommentWrapper>
           <St.CommentTitle>
             <img src="/img/댓글아이콘.png" />
-            <div>댓글</div>
+            <div>댓글수정</div>
           </St.CommentTitle>
           <St.CommentWriterWrapper>
             <St.CommentWriter

@@ -308,13 +308,3 @@ export default function BoardWrite(props: IBoardWriteProps) {
     </>
   );
 }
-
-// if(password ! == "") variables.password =password
-
-// variables:{
-//   updateBoardInput:{
-//   title:title,
-//   contents:contents
-//   },
-// password:password,
-// boardId:String(router.query.boardId)

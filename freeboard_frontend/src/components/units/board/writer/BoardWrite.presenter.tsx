@@ -25,6 +25,17 @@ import { Modal } from "antd";
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <Title>
+      {props.isOpen && (
+        <Modal
+          title="주소등록"
+          visible={props.isOpen}
+          onOk={props.handleOk}
+          onCancel={props.handleCancel}
+          style={{ fontSize: "10px" }}
+        >
+          <DaumPostcode onComplete={props.handleComplete} />
+        </Modal>
+      )}
       게시판 {props.isEdit ? "수정" : "등록"}
       <Wrapper>
         <WrapperBody>
@@ -76,23 +87,13 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <InputPostNumber
             type="text"
             placeholder="07250"
-            value={props.data?.fetchBoard.boardAddress.zipcode}
+            value={
+              props.zonecode || props.data?.fetchBoard?.boardAddress.zipcode
+            }
           />
-
           <InputPostNumberSearch type="button" onClick={props.showModal}>
             우편번호검색
           </InputPostNumberSearch>
-          {props.isOpen && (
-            <Modal
-              title="주소등록"
-              visible={props.isOpen}
-              onOk={props.handleOk}
-              onCancel={props.handleCancel}
-              style={{ fontSize: "10px" }}
-            >
-              <DaumPostcode onComplete={props.handleComplete} />
-            </Modal>
-          )}
         </Row>
         <InputTitle
           type="text"

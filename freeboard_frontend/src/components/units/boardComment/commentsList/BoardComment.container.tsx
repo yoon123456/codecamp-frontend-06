@@ -20,22 +20,29 @@ export default function BoardCommentList() {
   const [isOpen, setIsOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [id, setId] = useState("");
-  const { data: scrollData, fetchMore } = useQuery(FETCH_BOARD_COMMENTS);
+
+  const { data, fetchMore } = useQuery<
+    Pick<IQuery, "fetchBoardComments">,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
+    variables: { boardId: String(router.query.boardId) },
+  });
 
   const onLoadMore = () => {
-    if (!scrollData) return;
+    console.log(data);
+    if (!data) return;
 
     fetchMore({
       variables: {
-        page: Math.ceil(scrollData.fetchBoardsComments.length / 10) + 1,
+        page: Math.ceil(data.fetchBoardComments.length / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult.fetchBoards)
-          return { fetchBoardsComments: [...prev.fetchBoards] };
+        if (!fetchMoreResult?.fetchBoardComments)
+          return { fetchBoardComments: [...prev.fetchBoardComments] };
         return {
-          fetchBoards: [
-            ...prev.fetchBoardsComments,
-            ...fetchMoreResult.fetchBoardsComments,
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
           ],
         };
       },
@@ -60,13 +67,6 @@ export default function BoardCommentList() {
     setPassword(event.target.value);
     console.log(password);
   };
-
-  const { data } = useQuery<
-    Pick<IQuery, "fetchBoardComments">,
-    IQueryFetchBoardCommentsArgs
-  >(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: String(router.query.boardId) },
-  });
 
   const onClickCommentDelete = () => {
     try {
