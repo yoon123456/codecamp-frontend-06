@@ -44,4 +44,5 @@ export interface IBoardWriteUIProps {
 // 스타일 부분
 export interface ISubmitButtonProps {
   isActive: boolean;
+  isEdit: boolean;
 }

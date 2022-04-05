@@ -121,7 +121,11 @@ export const Submit = styled.button`
   padding: 40px;
   border: 1px solid #bdbdbd;
   background-color: ${(props: ISubmitButtonProps) =>
-    props.isActive === true ? "#ffd600" : "none"};
+    props.isEdit === true
+      ? "#ffd600"
+      : props.isActive === true
+      ? "#ffd600"
+      : "none"};
 `;
 
 export const Error = styled.div`

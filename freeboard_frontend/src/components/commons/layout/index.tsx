@@ -17,7 +17,7 @@ const BodyWrapper = styled.div`
   flex-direction: row;
   height: auto;
 `;
-const HIDDEN_HEADERS = ["/boards/new/"];
+const HIDDEN_HEADERS = ["/"];
 
 interface ILayoutProps {
   children: ReactNode;
@@ -32,8 +32,8 @@ export default function Layout(props: ILayoutProps) {
   return (
     <>
       {!isHiddenHeader && <LayoutHeader />}
-      <LayoutBanner />
-      <LayoutNavigation />
+      {!isHiddenHeader && <LayoutBanner />}
+      {!isHiddenHeader && <LayoutNavigation />}
       <BodyWrapper>
         {/* <LayOutSidebar /> */}
         <Body>{props.children}</Body>

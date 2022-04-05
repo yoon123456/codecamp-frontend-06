@@ -147,6 +147,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
       <Submit
         onClick={props.isEdit ? props.onClickUpdate : props.onClickSingUp}
         isActive={props.isActive}
+        isEdit={props.isEdit}
       >
         {props.isEdit ? "수정" : "등록"}하기
       </Submit>
