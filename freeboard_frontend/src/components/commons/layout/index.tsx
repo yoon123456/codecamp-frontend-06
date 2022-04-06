@@ -8,7 +8,7 @@ import { ReactNode } from "react";
 import { useRouter } from "next/router";
 
 const Body = styled.div`
-  padding: 20px;
+  padding: 0px;
   margin: 0 auto;
 `;
 
@@ -38,7 +38,7 @@ export default function Layout(props: ILayoutProps) {
         {/* <LayOutSidebar /> */}
         <Body>{props.children}</Body>
       </BodyWrapper>
-      <LayoutFooter />
+      {!isHiddenHeader && <LayoutFooter />}
     </>
   );
 }
