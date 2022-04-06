@@ -1,7 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Board {
+export class Board extends BaseEntity {
   @PrimaryGeneratedColumn("increment")
   number!: number;
   @Column({ type: "text" })
@@ -10,4 +10,6 @@ export class Board {
   title!: string;
   @Column({ type: "text" })
   contents!: string;
+
+  // deletedAt: Date // soft-delete
 }

@@ -1,13 +1,29 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity()
-export class Board2 {
+export class Product extends BaseEntity {
+  @PrimaryGeneratedColumn("uuid")
+  _id!: string;
+  @Column({ type: "text" })
+  seller!: string;
   @PrimaryGeneratedColumn("increment")
   number!: number;
   @Column({ type: "text" })
-  writer!: string;
+  name!: string;
   @Column({ type: "text" })
-  title!: string;
+  detail!: string;
   @Column({ type: "text" })
-  contents!: string;
+  price!: number;
+  @DeleteDateColumn({ type: "timestamp" })
+  deletedAt?: Date;
 }
+// export class Product extends BaseEntity {
+//   @PrimaryGeneratedColumn("increment")
+//   page!: number;
+// }
