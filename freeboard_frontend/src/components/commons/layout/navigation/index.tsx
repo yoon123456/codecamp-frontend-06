@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { route } from "next/dist/server/router";
 import { useRouter } from "next/router";
 
 const Wrapper = styled.div`
@@ -12,13 +11,16 @@ const Wrapper = styled.div`
 `;
 
 const Write = styled.div`
-  padding: 20px;
+  padding: 40px;
+  cursor: pointer;
 `;
 const Market = styled.div`
-  padding: 20px;
+  padding: 40px;
+  cursor: pointer;
 `;
 const MyPage = styled.div`
-  padding: 20px;
+  padding: 40px;
+  cursor: pointer;
 `;
 export default function LayoutNavigation() {
   const router = useRouter();

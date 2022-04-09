@@ -33,7 +33,7 @@ export default function LayoutBanner() {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 300,
+    speed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
   };

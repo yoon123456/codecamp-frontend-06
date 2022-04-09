@@ -65,6 +65,7 @@ export default function CommentListPageUI(props: IBoardCommentListUIProps) {
         variables: myVariables,
       });
       console.log(updateComments);
+      setIsEdit(false);
     } catch (error) {
       if (error instanceof Error)
         Modal.error({
@@ -72,7 +73,6 @@ export default function CommentListPageUI(props: IBoardCommentListUIProps) {
           content: "댓글 수정에 실패했습니다",
         });
     }
-    setIsEdit(false);
   };
 
   return (

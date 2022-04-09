@@ -27,7 +27,7 @@ export default function ListPage() {
 
   return (
     <>
-      <ListBoardPage data={data} />
+      <ListBoardPage data={data} refetch={refetch} />
       <Pagination refetch={refetch} lastPage={lastPage} />
     </>
   );

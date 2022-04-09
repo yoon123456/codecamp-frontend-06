@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-
+import { IProps } from "./BoardWrite.types";
 export const Box = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,6 +15,10 @@ export const Search = styled.input`
   background-color: #f2f2f2;
   border-radius: 5px;
   font-size: 20px;
+`;
+
+export const Word = styled.span`
+  color: ${(props: IProps) => (props.isMatched ? "red" : "black")};
 `;
 export const SearchDate = styled.input`
   width: 150px;

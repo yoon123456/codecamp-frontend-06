@@ -69,19 +69,30 @@ export default function ImageUploadPage() {
   };
 
   const onClickSubmit = async () => {
-    const result = await createBoard({
-      variables: {
-        createBoardInput: {
-          writer,
-          password,
-          title,
-          contents,
-          images: [image],
+    try {
+      const result = await createBoard({
+        variables: {
+          createBoardInput: {
+            writer,
+            password,
+            title,
+            contents,
+            images: [image],
+          },
         },
-      },
-    });
-    setData(result.data.createBoard._id);
-    console.log(result);
+      });
+      setData(result.data.createBoard._id);
+      console.log(result);
+      Modal.success({
+        content: "게시글 등록에 성공했습니다!!",
+      });
+    } catch (error) {
+      if (error instanceof Error)
+        Modal.error({
+          title: "This is an error message",
+          content: "게시글 등록에 실패했습니다",
+        });
+    }
   };
 
   return (

@@ -18,6 +18,7 @@ const BodyWrapper = styled.div`
   height: auto;
 `;
 const HIDDEN_HEADERS = ["/"];
+const HIDDEN_BANNER = ["/open-api"];
 
 interface ILayoutProps {
   children: ReactNode;
@@ -28,11 +29,12 @@ export default function Layout(props: ILayoutProps) {
   console.log(router);
 
   const isHiddenHeader = HIDDEN_HEADERS.includes(router.asPath);
+  const isHiddenBanner = HIDDEN_BANNER.includes(router.asPath);
 
   return (
     <>
       {!isHiddenHeader && <LayoutHeader />}
-      {!isHiddenHeader && <LayoutBanner />}
+      {!isHiddenHeader && !isHiddenBanner && <LayoutBanner />}
       {!isHiddenHeader && <LayoutNavigation />}
       <BodyWrapper>
         {/* <LayOutSidebar /> */}
