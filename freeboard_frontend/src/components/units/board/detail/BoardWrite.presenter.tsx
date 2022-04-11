@@ -48,7 +48,14 @@ export default function BoardWriterUI(props: IBoardWriteUIProps) {
         <S.BoardBody>
           <S.BoardBodyTitle>{props.data?.fetchBoard.title}</S.BoardBodyTitle>
           <S.BoardBodyImage>
-            <img src="/img/image.jpg" />
+            {props.data?.fetchBoard.images
+              ?.filter((el: string) => el)
+              .map((el: string) => (
+                <S.Image
+                  key={el}
+                  src={`https://storage.googleapis.com/${el}`}
+                />
+              ))}
           </S.BoardBodyImage>
           <S.BoardBodyContents>
             {props.data?.fetchBoard.contents}

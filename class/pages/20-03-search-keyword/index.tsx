@@ -37,7 +37,10 @@ export default function MapBoardPage() {
   const { data, refetch } = useQuery<
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
-  >(FETCH_BOARDS);
+  >(FETCH_BOARD, {
+    variables,
+    fetchPolicy: "cache-first",
+  });
 
   const getDebounce = _.debounce((data) => {
     // 0.2초간 아무런 작업이 없을때 실행될 부분

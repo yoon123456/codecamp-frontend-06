@@ -15,6 +15,7 @@ export const FETCH_BOARD = gql`
       youtubeUrl
       likeCount
       dislikeCount
+      images
       boardAddress {
         zipcode
         address
@@ -48,6 +49,7 @@ export const FETCH_BOARDS = gql`
       contents
       createdAt
       youtubeUrl
+      images
     }
   }
 `;

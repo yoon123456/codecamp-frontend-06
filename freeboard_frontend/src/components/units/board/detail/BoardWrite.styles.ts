@@ -108,6 +108,12 @@ export const BoardBodyImage = styled.image`
   margin: 0 auto;
   margin-bottom: 30px;
 `;
+
+export const Image = styled.img`
+  width: 996px;
+  height: 480px;
+  margin-bottom: 30px;
+`;
 export const BoardBodyContents = styled.div`
   width: 996px;
   height: 100px;

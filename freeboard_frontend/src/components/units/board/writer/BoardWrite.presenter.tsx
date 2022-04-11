@@ -9,7 +9,6 @@ import {
   InputPostNumber,
   Row,
   InputPostNumberSearch,
-  InputPhoto,
   Choice,
   Submit,
   Star,
@@ -17,10 +16,11 @@ import {
   Option,
   Error,
 } from "./BoardWrite.styles";
-
+import UploadsImage from "../../uploadimage/uploadimage.container";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
 import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
@@ -121,18 +121,14 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
       <WrapperBody>
         <InputHeader> 사진첨부 </InputHeader>
         <Row>
-          <InputPhoto type="button">
-            +<br />
-            Upload
-          </InputPhoto>
-          <InputPhoto type="button">
-            +<br />
-            Upload
-          </InputPhoto>
-          <InputPhoto type="button">
-            +<br />
-            Upload{" "}
-          </InputPhoto>
+          {props.fileUrls.map((el, index) => (
+            <UploadsImage
+              key={uuidv4()}
+              index={index}
+              fileUrl={el}
+              onChangeFileUrls={props.onChangeFileUrls}
+            />
+          ))}
         </Row>
       </WrapperBody>
       <WrapperBody>

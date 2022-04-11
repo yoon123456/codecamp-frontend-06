@@ -12,6 +12,7 @@ export const CREATE_BOARD = gql`
       createdAt
       updatedAt
       youtubeUrl
+      images
       boardAddress {
         _id
         zipcode
@@ -44,6 +45,7 @@ export const UPDATE_BOARD = gql`
       createdAt
       updatedAt
       youtubeUrl
+      images
       boardAddress {
         _id
         zipcode
@@ -67,6 +69,7 @@ export const FETCH_BOARD = gql`
       likeCount
       dislikeCount
       youtubeUrl
+      images
       boardAddress {
         zipcode
         address

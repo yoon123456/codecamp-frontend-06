@@ -81,12 +81,14 @@ export const InputPostNumberSearch = styled.button`
   background-color: black;
   color: white;
 `;
-export const InputPhoto = styled.button`
+export const InputPhoto = styled.img`
   width: 77px;
   height: 77px;
   border: 1px solid #bdbdbd;
   margin: 0 10px 0 0;
   background-color: #bdbdbd;
+  background-size: cover;
+  cursor: pointer;
 `;
 
 export const Option = styled.div`

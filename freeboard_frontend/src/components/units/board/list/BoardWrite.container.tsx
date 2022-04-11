@@ -14,12 +14,12 @@ export default function ListBoardPage(props: IBoardListUIProps) {
     // 0.2초간 아무런 작업이 없을때 실행될 부분
     props.refetch({ search: data, page: 1 });
     setKeyword(data);
-  }, 2000);
+  }, 200);
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     getDebounce(event.target.value);
   };
   const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
-    props.refetch({ page: Number(event.target.id) });
+    props.refetch({ page: Number(event.currentTarget.id) });
   };
 
   const onClickMoveToBoardNew = () => {
@@ -28,7 +28,7 @@ export default function ListBoardPage(props: IBoardListUIProps) {
 
   const onClickMoveToBoardDetail = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target instanceof Element)
-      router.push(`/boards/${event.target.id}`);
+      router.push(`/boards/${event.currentTarget.id}`);
     // 이벤트태그의 자식이면 id를 선언해줘
   };
 

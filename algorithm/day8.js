@@ -9,43 +9,43 @@ seoul의 원소는 길이 1 이상, 20 이하인 문자열입니다.
 
 //내가 푼 풀이
 function solution(seoul) {
-    let answer = '';
-    for(let i=0; i < seoul.length; i++){
-       if(seoul[i] === "Kim"){
-           answer = `김서방은${i}에 있다`  
-       }    
-      } 
-     return answer;
+  let answer = "";
+  for (let i = 0; i < seoul.length; i++) {
+    if (seoul[i] === "Kim") {
+      answer = `김서방은${i}에 있다`;
     }
+  }
+  return answer;
+}
 
-solution( ["Jane","Kim"] )
+solution(["Jane", "Kim"]);
 
 //멘토님 풀이
 function solution(seoul) {
-    let x = 0;
-    for(let i = 0 ; i < seoul.length; i++){
-        if(seoul[i] === "Kim"){
-            x = i;
-            break;
-        }        
+  let x = 0;
+  for (let i = 0; i < seoul.length; i++) {
+    if (seoul[i] === "Kim") {
+      x = i;
+      break;
     }
-    return `김서방은 ${x}에 있다`
+  }
+  return `김서방은 ${x}에 있다`;
 }
 
 //멘토님 풀이2
 function solution(seoul) {
-    for(let i = 0 ; i < seoul.length; i++){
-        if(seoul[i] === "Kim"){
-          return `김서방은 ${x}에 있다`
-        }        
+  for (let i = 0; i < seoul.length; i++) {
+    if (seoul[i] === "Kim") {
+      return `김서방은 ${x}에 있다`;
     }
+  }
 }
 
 //멘토님 풀이3   indexOf는 배열을 순환하며 확인하고 같은게 있으면 그 인덱스번호를 반환
 function solution(seoul) {
-    const x = seoul.indexOf("Kim");
-     return `김서방은 ${x}에 있다`;
- }
+  const x = seoul.indexOf("Kim");
+  return `김서방은 ${x}에 있다`;
+}
 
 /* 문자열 다루기 기본
 문제 설명
@@ -54,19 +54,19 @@ function solution(seoul) {
 제한 사항
 s는 길이 1 이상, 길이 8 이하인 문자열입니다.  */
 
-// 내가 푼 풀이  실패 
+// 내가 푼 풀이  실패
 function solution(s) {
-    answer=[];
-    if(s.length ===4 || s.length === 6){
-        return false
+  answer = [];
+  if (s.length === 4 || s.length === 6) {
+    return false;
+  }
+  for (let i = 0; i < s.length; i++)
+    if (typeof s[i] == string) {
+      return false;
+    } else {
+      return true;
     }
-    for(let i=0 ; i<s.length; i++)
-        if(i.typeof == string){
-            return false
-        }else{
-            return true
-        }
-    return answer;
+  return answer;
 }
 
 // NaN  Not a Number
@@ -84,33 +84,31 @@ Number.isNaN (undefined)   false  */
 
 //멘토님 풀이
 function solution(s) {
-    if( s.length !== 4 && s.length !== 6 ){
-        return false;
+  if (s.length !== 4 && s.length !== 6) {
+    return false;
+  }
+  for (let i = 0; i < s.length; i++) {
+    if (isNaN(s[i]) === true) {
+      return false;
     }
-       for(let i=0 ; i< s.length; i++){
-           if(isNaN(s[i]) === true){
-               return false;
-           }
-       }
-       return true;
-   }
+  }
+  return true;
+}
 
 //멘토님 풀이 filter를 이용한 풀이
 //split()괄호 안의데이터로 배열을 나누는 문법
 function solution(s) {
-    if( s.length !== 4 && s.length !== 6 ){
-        return false;
-    }
-       const answer = s.split("")
-       .filter(num =>{
-           //데이터가 숫자가 아닌 문자일 경우만 남긴다
-           //isNaN의 결과가 true값인 경우(NaN값인 경우)
-           
-           return isNaN( num ) === true
-       })
-       return answer.length === 0
-   }
-   
+  if (s.length !== 4 && s.length !== 6) {
+    return false;
+  }
+  const answer = s.split("").filter((num) => {
+    //데이터가 숫자가 아닌 문자일 경우만 남긴다
+    //isNaN의 결과가 true값인 경우(NaN값인 경우)
+
+    return isNaN(num) === true;
+  });
+  return answer.length === 0;
+}
 
 /*   약수의 합
    문제 설명
@@ -121,39 +119,37 @@ function solution(s) {
 
 //멘토님 문제 풀이
 function solution(n) {
-    let answer = 0;
-    
-    for(let i = 1; i <=n ; i++){
-        if( n % i === 0){
-            answer= answer+i;
-        }
+  let answer = 0;
+
+  for (let i = 1; i <= n; i++) {
+    if (n % i === 0) {
+      answer = answer + i;
     }
-    return answer;
+  }
+  return answer;
 }
 
 //멘토님 문제 풀이2
 function solution(n) {
-    let answer = n;
-    
-    for(let i = 1; i <= n / 2 ; i++){
-        if( n % i === 0){
-            answer += i;
-        }
+  let answer = n;
+
+  for (let i = 1; i <= n / 2; i++) {
+    if (n % i === 0) {
+      answer += i;
     }
-    return answer;
+  }
+  return answer;
 }
 
 //멘토님 문제 풀이3
 function solution(n) {
-    const answer = new Array(n)
-                     .fill(1)
-                     .reduce((acc,cur,i)=>{
-                         return n % (cur+i)===0
-                             //약수가 맞다면 약수를 더한 값을 다음으로 넘겨주고
-                             ? acc + (cur + i)
-                             // 약수가 아니라면 더하지 않고 그냥 다음으로 넘겨준다
-                             : acc
-                     },0);
-    return answer;
- }
- //newArray는 새로운 빈배열을 만들어 주는 메서드 .fill()은 괄호 안의 값으로 채워주는 메서드
+  const answer = new Array(n).fill(1).reduce((acc, cur, i) => {
+    return n % (cur + i) === 0
+      ? //약수가 맞다면 약수를 더한 값을 다음으로 넘겨주고
+        acc + (cur + i)
+      : // 약수가 아니라면 더하지 않고 그냥 다음으로 넘겨준다
+        acc;
+  }, 0);
+  return answer;
+}
+//newArray는 새로운 빈배열을 만들어 주는 메서드 .fill()은 괄호 안의 값으로 채워주는 메서드

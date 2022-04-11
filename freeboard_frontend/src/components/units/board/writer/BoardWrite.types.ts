@@ -1,5 +1,4 @@
 import { ChangeEvent } from "react";
-
 // 컨테이너 부분
 export interface IBoardWriteProps {
   isEdit: boolean;
@@ -20,6 +19,7 @@ export interface IBoardWriteUIProps {
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeAddress: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeFileUrls: (fileUrl: string, index: number) => void;
   writerError: string;
   passwordError: string;
   titleError: string;
@@ -38,6 +38,7 @@ export interface IBoardWriteUIProps {
   zonecode: string;
   daumAddress: string;
   daumAddressDetail: string;
+  fileUrls: string[];
   isOpen: boolean;
 }
 

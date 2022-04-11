@@ -1,12 +1,17 @@
 // 게시물 등록페이지 이자 게시물 수정페이지
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types";
 import { Modal } from "antd";
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+  IMutationUpdateBoardArgs,
+} from "../../../../commons/types/generated/type";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const [isActive, setIsActive] = useState(false);
@@ -18,8 +23,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [contents, setContents] = useState("");
   const [address, setAddress] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [zonecode, setZonecode] = useState("");
   const [daumAddress, setDaumAdress] = useState("");
   const [daumAddressDetail, setDaumAdressDetail] = useState("");
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -29,11 +36,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [youtubeError, setYoutubeError] = useState("");
 
   // api 선언
-  const [createBoard] = useMutation(CREATE_BOARD);
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(UPDATE_BOARD);
   const router = useRouter();
 
-  const [zonecode, setZonecode] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const showModal = () => {
@@ -165,6 +177,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   }
 
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
+  };
+
   const onClickSingUp = async () => {
     if (writer === "") {
       setWriterError("이름이 올바르지 않습니다!");
@@ -203,6 +221,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
               title: title,
               contents: contents,
               youtubeUrl: youtube,
+              images: fileUrls,
               boardAddress: {
                 zipcode: zonecode,
                 address: daumAddress,
@@ -211,11 +230,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
             },
           },
         });
-        console.log(result);
         Modal.success({
           content: "게시글 등록에 성공했습니다!!",
         });
-        router.push(`/boards/${result.data.createBoard._id}`);
+        router.push(`/boards/${result.data?.createBoard._id}`);
       } catch (error) {
         if (error instanceof Error)
           Modal.error({
@@ -227,35 +245,51 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onClickUpdate = async () => {
-    if (writer !== "" && title !== "" && password !== "" && contents !== "") {
-      // isActive === true;
+    const currentFiles = JSON.stringify(fileUrls);
+    const defaultFiles = JSON.stringify(props.data.fetchBoard.images);
+    const isChangedFiles = currentFiles !== defaultFiles;
+
+    if (
+      !title &&
+      !contents &&
+      !youtube &&
+      !daumAddress &&
+      !daumAddressDetail &&
+      !zonecode &&
+      !isChangedFiles
+    ) {
+      alert("수정한 내용이 없습니다.");
+      return;
     }
     const myVariables: IMyVariables = {
       updateBoardInput: {},
       password: password,
       boardId: String(router.query.boardId),
     };
-    if (title !== "") {
+    if (title) {
       myVariables.updateBoardInput.title = title;
     }
-    if (contents !== "") {
+    if (contents) {
       myVariables.updateBoardInput.contents = contents;
     }
-    if (youtube !== "") {
+    if (youtube) {
       myVariables.updateBoardInput.youtubeUrl = youtube;
     }
-    if (daumAddress !== "" || (daumAddressDetail !== "" && zonecode !== "")) {
+    if (daumAddress || (daumAddressDetail && zonecode)) {
       myVariables.updateBoardInput.boardAddress = {};
     }
-    if (daumAddress !== "") {
+    if (daumAddress) {
       myVariables.updateBoardInput.boardAddress.address = daumAddress;
     }
-    if (daumAddressDetail !== "") {
+    if (daumAddressDetail) {
       myVariables.updateBoardInput.boardAddress.addressDetail =
         daumAddressDetail;
     }
-    if (zonecode !== "") {
+    if (zonecode) {
       myVariables.updateBoardInput.boardAddress.zipcode = zonecode;
+    }
+    if (isChangedFiles) {
+      myVariables.updateBoardInput.images = fileUrls;
     }
 
     try {
@@ -276,6 +310,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
+  useEffect(() => {
+    if (props.data?.fetchBoard.images?.length) {
+      setFileUrls([...props.data?.fetchBoard.images]);
+    }
+  }, [props.data]);
+
   return (
     <>
       <BoardWriteUI
@@ -285,6 +325,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
         onChangeContents={onChangeContents}
         onChangeAddress={onChangeAddress}
         onChangeYoutube={onChangeYoutube}
+        onChangeFileUrls={onChangeFileUrls}
         onClickSingUp={onClickSingUp}
         onClickUpdate={onClickUpdate}
         writerError={writerError}
@@ -303,6 +344,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
         zonecode={zonecode}
         daumAddress={daumAddress}
         daumAddressDetail={daumAddressDetail}
+        fileUrls={fileUrls}
         isOpen={isOpen}
       />
     </>
