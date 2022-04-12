@@ -32,10 +32,12 @@ const Img = styled.img``;
 export default function LayoutBanner() {
   const settings = {
     dots: true,
+    autoplay: true,
     infinite: true,
-    speed: 5000,
+    speed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    pauseOnHover: true,
   };
   return (
     <Wrapper>

@@ -15,8 +15,9 @@ export default function UploadsImage(props: IUploadsImageProps) {
   };
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = checkFileValidation(event.target.files?.[0]);
-    if (!file) return;
+    const file = event.target.files?.[0];
+    const checkd = checkFileValidation(file);
+    if (!checkd) return;
 
     try {
       const result = await uploadFile({ variables: { file } });

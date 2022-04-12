@@ -9,10 +9,12 @@ interface MainPageUiProps {
 export default function MainPageUi(props: MainPageUiProps) {
   const settings = {
     dots: true,
-    infinite: true,
-    speed: 8000,
+    infinite: false,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    pauseOnHover: true,
   };
 
   return (

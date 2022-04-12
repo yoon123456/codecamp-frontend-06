@@ -39,12 +39,19 @@ export default function LayoutHeader() {
   const OnClickGoList = () => {
     router.push("/boards");
   };
+
+  const OnClickGoLogin = () => {
+    router.push("/login");
+  };
+  const OnClickGoSignUp = () => {
+    router.push("/signup");
+  };
   return (
     <Wrapper>
       <Logo src={"/img/logo.png"} onClick={OnClickGoList}></Logo>
       <LoginWrapper>
-        <Login>로그인</Login>
-        <SingUp>회원가입</SingUp>
+        <Login onClick={OnClickGoLogin}>로그인</Login>
+        <SingUp onClick={OnClickGoSignUp}>회원가입</SingUp>
       </LoginWrapper>
     </Wrapper>
   );

@@ -104,7 +104,7 @@ export const BoardBodyTitle = styled.h1`
 `;
 export const BoardBodyImage = styled.image`
   width: 996px;
-  height: 500px;
+  padding: 20px;
   margin: 0 auto;
   margin-bottom: 30px;
 `;
