@@ -52,7 +52,7 @@ export default function BoardDetail() {
   const onClickDelete = (event: MouseEvent<HTMLButtonElement>) => {
     deleteBoard({
       variables: { boardId: String((event.target as HTMLButtonElement).id) },
-      refetchQueries: [{ query: FETCH_BOARDS }],
+      // refetchQueries: [{ query: FETCH_BOARDS }],
     });
 
     Modal.success({

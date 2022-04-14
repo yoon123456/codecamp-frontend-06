@@ -20,3 +20,8 @@ export const isCheckState = atom({
   key: "isChecked",
   default: false,
 });
+
+export const accessTokenState = atom({
+  key: "accessTokenState",
+  default: "",
+});

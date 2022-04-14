@@ -48,6 +48,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             placeholder="이름을 적어주세요."
             onChange={props.onChangeWriter}
             defaultValue={props.data?.fetchBoard.writer}
+            readOnly={props.isEdit && true}
           />
           <Error>{props.writerError}</Error>
         </WrapperBody>
@@ -88,8 +89,9 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             type="text"
             placeholder="07250"
             value={
-              props.zonecode || props.data?.fetchBoard?.boardAddress.zipcode
+              props.zonecode || props.data?.fetchBoard?.boardAddress?.zipcode
             }
+            readOnly
           />
           <InputPostNumberSearch type="button" onClick={props.showModal}>
             우편번호검색
@@ -98,13 +100,15 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <InputTitle
           type="text"
           value={
-            props.daumAddress || props.data?.fetchBoard.boardAddress.address
+            props.daumAddress ||
+            props.data?.fetchBoard.boardAddress?.address ||
+            ""
           }
         />
         <InputTitle
           type="text"
           onChange={props.onChangeAddress}
-          defaultValue={props.data?.fetchBoard.boardAddress.addressDetail}
+          defaultValue={props.data?.fetchBoard.boardAddress?.addressDetail}
         />
         <Error>{props.addressError}</Error>
       </WrapperBody>

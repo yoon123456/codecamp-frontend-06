@@ -11,6 +11,7 @@ import {
   LoginInput,
   LoginInputError,
   isCheckState,
+  accessTokenState,
 } from "../../../commons/store/login";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
@@ -20,6 +21,7 @@ export default function LoginPageFn() {
   const [login, setLogin] = useRecoilState(LoginInput);
   const [, setLoginError] = useRecoilState(LoginInputError);
   const [isCheck, setIsCheck] = useRecoilState(isCheckState);
+  const [, setAccessToken] = useRecoilState(accessTokenState);
 
   const [loginUser] = useMutation<
     Pick<IMutation, "loginUser">,
@@ -43,6 +45,12 @@ export default function LoginPageFn() {
         emailError: "",
       }));
     }
+    if (e.target.id === "password") {
+      setLoginError((prev) => ({
+        ...prev,
+        passwordError: "",
+      }));
+    }
 
     console.log(login);
   };
@@ -53,17 +61,28 @@ export default function LoginPageFn() {
 
   const onClickSubmit = async () => {
     if (!login.email) {
-      setLoginError({ emailError: "이메일을 적어주세요", passwordError: "" });
+      setLoginError((prev) => ({
+        ...prev,
+        emailError: "이메일을 입력해주세요",
+      }));
+    } else {
+      setLoginError((prev) => ({
+        ...prev,
+        emailError: "",
+      }));
     }
     if (!login.password) {
-      setLoginError({ emailError: "", passwordError: "비밀번호를 적어주세요" });
+      setLoginError((prev) => ({
+        ...prev,
+        passwordError: "비밀번호를 입력해주세요",
+      }));
+    } else {
+      setLoginError((prev) => ({
+        ...prev,
+        passwordError: "",
+      }));
     }
-    if (!login.password && !login.password) {
-      setLoginError({
-        emailError: "이메일을 적어주세요",
-        passwordError: "비밀번호를 적어주세요",
-      });
-    }
+
     if (login.email && login.password) {
       try {
         const result = await loginUser({
@@ -73,6 +92,9 @@ export default function LoginPageFn() {
           content: "로그인에 성공하였습니다",
         });
         console.log(result);
+        const accessToken = result.data?.loginUser.accessToken;
+        setAccessToken(accessToken || "");
+        localStorage.setItem("accessToken", accessToken || "");
       } catch (error) {
         if (error instanceof Error)
           Modal.error({
