@@ -6,4 +6,5 @@ export interface ISignupPageUIProps {
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePasswordCheck: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: () => void;
+  onChangeSignupInput: (event: ChangeEvent<HTMLInputElement>) => void;
 }

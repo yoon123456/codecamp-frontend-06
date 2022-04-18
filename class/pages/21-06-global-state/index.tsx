@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import GlobalStateContainer from "../../src/components/units/board/21-global-state/BoardWrite.container";
 import { useRecoilState } from "recoil";
 

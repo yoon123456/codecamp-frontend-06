@@ -19,3 +19,8 @@ export const SignupInputError = atom({
     nameError: "",
   },
 });
+
+export const accessTokenState = atom({
+  key: "accessTokenState",
+  default: "",
+});

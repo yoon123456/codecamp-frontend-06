@@ -1,17 +1,18 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useApolloClient } from "@apollo/client";
 import { ChangeEvent } from "react";
 import {
   IMutation,
   IMutationLoginUserArgs,
 } from "../../../commons/types/generated/type";
 import LoginPageUI from "./login.presenter";
-import { LOGIN_USER } from "./login.quries";
+import { FETCH_USER_LOGGEDIN, LOGIN_USER } from "./login.quries";
 import { useRecoilState } from "recoil";
 import {
   LoginInput,
   LoginInputError,
   isCheckState,
   accessTokenState,
+  userInfoState,
 } from "../../../commons/store/login";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
@@ -22,6 +23,9 @@ export default function LoginPageFn() {
   const [, setLoginError] = useRecoilState(LoginInputError);
   const [isCheck, setIsCheck] = useRecoilState(isCheckState);
   const [, setAccessToken] = useRecoilState(accessTokenState);
+  const [, setUserInfo] = useRecoilState(userInfoState);
+
+  const client = useApolloClient();
 
   const [loginUser] = useMutation<
     Pick<IMutation, "loginUser">,
@@ -51,9 +55,8 @@ export default function LoginPageFn() {
         passwordError: "",
       }));
     }
-
-    console.log(login);
   };
+  console.log(login);
 
   const onClickLoginKeepBtn = () => {
     setIsCheck(true);
@@ -88,13 +91,30 @@ export default function LoginPageFn() {
         const result = await loginUser({
           variables: { ...login },
         });
+        console.log(result);
+        const accessToken = result.data?.loginUser.accessToken;
+
+        const resultUserInfo = await client.query({
+          query: FETCH_USER_LOGGEDIN,
+          context: {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        });
+
+        const userInfo = resultUserInfo.data?.fetchUserLoggedIn;
+        console.log(userInfo);
+
+        setAccessToken(accessToken || "");
+        setUserInfo(userInfo);
+        localStorage.setItem("accessToken", accessToken || "");
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+
         Modal.success({
           content: "로그인에 성공하였습니다",
         });
-        console.log(result);
-        const accessToken = result.data?.loginUser.accessToken;
-        setAccessToken(accessToken || "");
-        localStorage.setItem("accessToken", accessToken || "");
+        router.push("/boards");
       } catch (error) {
         if (error instanceof Error)
           Modal.error({

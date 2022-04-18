@@ -10,8 +10,10 @@ export const LOGIN_USER = gql`
 
 export const FETCH_USER_LOGGEDIN = gql`
   query fetchUserLoggedIn {
-    _id
-    email
-    name
+    fetchUserLoggedIn {
+      _id
+      email
+      name
+    }
   }
 `;

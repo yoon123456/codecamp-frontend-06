@@ -1,0 +1,39 @@
+import LayoutBanner from "./banner";
+import LayOutSidebar from "./sidebar";
+import styled from "@emotion/styled";
+import { ReactNode } from "react";
+import { useRouter } from "next/router";
+
+const Body = styled.div`
+  padding: 0px;
+  margin: 0 auto;
+`;
+
+const BodyWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: auto;
+`;
+const HIDDEN_HEADERS = ["/"];
+const HIDDEN_BANNER = ["/open-api"];
+
+interface ILayoutProps {
+  children: ReactNode;
+}
+
+export default function Layout(props: ILayoutProps) {
+  const router = useRouter();
+  console.log(router);
+
+  const isHiddenBanner = HIDDEN_BANNER.includes(router.asPath);
+
+  return (
+    <>
+      {!isHiddenBanner && <LayoutBanner />}
+      <LayOutSidebar />
+      <BodyWrapper>
+        <Body>{props.children}</Body>
+      </BodyWrapper>
+    </>
+  );
+}

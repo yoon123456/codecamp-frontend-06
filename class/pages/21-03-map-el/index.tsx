@@ -26,4 +26,5 @@ export default function MapElPage() {
   return <div>el 알아보기 두둥</div>;
 }
 
-// map은 함수가 실행하고 만들어진 새로운 배열을 반환하지만 forEach는 새로운 배열을 반환하지는 않는다 하지만 map보다는 빠르다
+// map은 함수가 실행하고 만들어진 새로운 배열을 반환하지만
+// forEach는 새로운 배열을 반환하지는 않는다 하지만 map보다는 빠르다
