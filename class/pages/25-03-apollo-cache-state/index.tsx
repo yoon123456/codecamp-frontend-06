@@ -1,5 +1,4 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { reverse } from "lodash";
 
 const FETCH_BOARDS = gql`
   query fetchBoards {
@@ -33,9 +32,12 @@ export default function ApolloCacheStatePage() {
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [createBoard] = useMutation(CREATE_BOARD);
   const { data } = useQuery(FETCH_BOARDS);
+  console.log(useMutation(CREATE_BOARD));
+  console.log(CREATE_BOARD);
 
   const onClickDelete = (boardId: string) => async () => {
     // 삭제하기로직
+
     await deleteBoard({
       variables: { boardId },
       update(cache, { data }) {

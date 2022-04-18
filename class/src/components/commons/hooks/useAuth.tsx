@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // 함수 안에서 use를 쓰고 있다면 함수 이름에 use를 붙여주는것이 관례
 export function useAuth() {
