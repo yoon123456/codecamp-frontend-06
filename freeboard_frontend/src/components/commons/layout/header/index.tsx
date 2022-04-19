@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { userInfoState } from "../../../../commons/store/login";
+import {
+  userInfoState,
+  accessTokenState,
+} from "../../../../commons/store/login";
 import { useRecoilState } from "recoil";
-import { withAuth } from "../../hocs/withAuth";
 import { Modal } from "antd";
 
 const Wrapper = styled.div`
@@ -38,23 +40,24 @@ const SingUp = styled.div`
   }
 `;
 
-function LayoutHeader() {
+export default function LayoutHeader() {
   const router = useRouter();
   const [userInfo] = useRecoilState(userInfoState);
+  const [accessToken] = useRecoilState(accessTokenState);
 
   const OnClickGoList = () => {
     router.push("/boards");
   };
 
   const OnClickGoLogin = () => {
-    if (!userInfo.name) {
+    if (!accessToken) {
       router.push("/login");
     } else {
       router.push("개인정보 창으로 이동시키기");
     }
   };
   const OnClickGoSignUp = () => {
-    if (!userInfo.name) {
+    if (!accessToken) {
       router.push("/signup");
     } else {
       Modal.warning({
@@ -68,13 +71,12 @@ function LayoutHeader() {
       <Logo src={"/img/logo.png"} onClick={OnClickGoList}></Logo>
       <LoginWrapper>
         <Login onClick={OnClickGoLogin}>
-          {!userInfo ? "로그인" : `"${userInfo.name}"님 안녕하세요`}
+          {!accessToken ? "로그인" : `"${userInfo.name}"님 안녕하세요`}
         </Login>
         <SingUp onClick={OnClickGoSignUp}>
-          {!userInfo ? "회원가입" : "로그아웃"}
+          {!accessToken ? "회원가입" : "로그아웃"}
         </SingUp>
       </LoginWrapper>
     </Wrapper>
   );
 }
-export default withAuth(LayoutHeader);

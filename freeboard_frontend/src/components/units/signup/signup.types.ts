@@ -1,10 +1,16 @@
-import { ChangeEvent } from "react";
+export interface IFromValues {
+  email?: string;
+  password?: string;
+  name?: string;
+  passwordCheck?: string;
+  // onClickSingup: (data: any) => void;
+}
 
-export interface ISignupPageUIProps {
-  onChangeEmail: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangePasswordCheck: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickSubmit: () => void;
-  onChangeSignupInput: (event: ChangeEvent<HTMLInputElement>) => void;
+// export interface ISignupPageUIProps {
+
+//   schema: any;
+// }
+
+export interface IActiveProps {
+  isActive: boolean;
 }

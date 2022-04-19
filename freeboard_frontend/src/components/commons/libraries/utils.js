@@ -7,3 +7,5 @@ export const getDate = (date) => {
 };
 
 // const mm = mm.padStart( newdate.getMonth() + 1,"0")
+
+// const DATE = new Date().toISOString().slice(0, 10);

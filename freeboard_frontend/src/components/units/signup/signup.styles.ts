@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IActiveProps } from "./signup.types";
 
 export const Wrapper = styled.div`
   width: 420px;
@@ -44,13 +45,12 @@ export const Error = styled.div`
   color: red;
   font-size: 14px;
 `;
-export const Submit = styled.div`
+export const Submit = styled.button`
   width: 384px;
   height: 66px;
-  background-color: #ebb63f;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: ${(props: IActiveProps) =>
+    props.isActive ? "#ebb63f" : "gray"};
+  text-align: center;
   border-radius: 10px;
   margin-top: 40px;
   cursor: pointer;
