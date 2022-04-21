@@ -19,7 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/boards/new/index.tsx"
+    "pages/boards/new/index.tsx",
+    "src/components/units/marketBoard/writer/marketWriter.presenter.jsx"
   ],
   "exclude": ["node_modules"]
 }

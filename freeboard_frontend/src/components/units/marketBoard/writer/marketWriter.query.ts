@@ -1,22 +1,13 @@
 import { gql } from "@apollo/client";
 
-export const FETCH_USED_ITEM = gql`
-    fetchUseditem($useditemId: ID!){
-        fetchUseditem(useditemId:$useditemId){
-            _id
-            name
-            contents
-            price
-            images
-            buyer
-            seller
-            useditemAddress{
-                _id
-                zipcode
-                address
-                addressDetail
-            }
-        }
+export const CREATE_USED_ITEM = gql`
+  mutation createUseditem($createUseditemInput: CreateUseditemInput!) {
+    createUseditem(createUseditemInput: $createUseditemInput) {
+      _id
+      name
+      contents
+      price
+      remarks
     }
-)
+  }
 `;

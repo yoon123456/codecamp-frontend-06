@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../commons/store/login";
+import { accessTokenState, userInfoState } from "../../../commons/store/login";
 import {
   ApolloClient,
   ApolloLink,
@@ -7,14 +7,22 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface IProps {
   children: ReactNode;
 }
 
 export default function ApolloSettingPage(props: IProps) {
-  const [accessToken] = useRecoilState(accessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [, setUserInfo] = useRecoilState(userInfoState);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    setAccessToken(accessToken || "");
+    setUserInfo(userInfo);
+  }, []);
 
   const uploadLink = createUploadLink({
     uri: "http://backend06.codebootcamp.co.kr/graphql",

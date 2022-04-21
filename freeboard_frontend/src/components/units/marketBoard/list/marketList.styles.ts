@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import SmileOutlined from "@ant-design/icons";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -58,6 +57,7 @@ export const SearchBtn = styled.button`
   border: 1px solid #f2f2f2;
   border-radius: 5px;
   font-size: 16px;
+  cursor: pointer;
   :hover {
     background-color: black;
     color: white;
@@ -79,6 +79,7 @@ export const BodyPhoto = styled.image`
 export const ProdPhoto = styled.div``;
 export const BodyProduct = styled.div`
   width: 700px;
+  cursor: pointer;
 `;
 export const ProdTitle = styled.div`
   font-size: 24px;
@@ -122,7 +123,27 @@ export const LikeProdCount = styled.div`
   font-size: 16px;
   color: #4f4f4f;
 `;
-export const BodyPrice = styled.div`
-  width: 100px;
+export const BodyPrice = styled.div``;
+export const Price = styled.div`
+  width: 150px;
 `;
-export const Price = styled.div``;
+export const Footer = styled.div`
+  width: 1200px;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+`;
+export const NewBtn = styled.button`
+  width: 100px;
+  height: 50px;
+  border: none;
+  background-color: #ffd600;
+  border: 1px solid #f2f2f2;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  :hover {
+    background-color: black;
+    color: white;
+  }
+`;

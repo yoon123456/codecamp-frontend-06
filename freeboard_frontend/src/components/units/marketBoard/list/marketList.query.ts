@@ -7,15 +7,15 @@ export const FETCH_USED_ITEMS = gql`
       name
       contents
       price
-      images
-      seller
-      buyer
-      useditemAddress {
-        _id
-        zipcode
-        address
-        addressDetail
-      }
+      # images
+      # seller
+      # buyer
+      # useditemAddress {
+      #   _id
+      #   zipcode
+      #   address
+      #   addressDetail
+      # }
     }
   }
 `;

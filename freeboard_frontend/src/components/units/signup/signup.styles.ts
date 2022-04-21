@@ -49,7 +49,7 @@ export const Submit = styled.button`
   width: 384px;
   height: 66px;
   background-color: ${(props: IActiveProps) =>
-    props.isActive ? "#ebb63f" : "gray"};
+    props.isActive ? "ffd600" : "none"};
   text-align: center;
   border-radius: 10px;
   margin-top: 40px;
