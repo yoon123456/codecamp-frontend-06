@@ -27,9 +27,7 @@ export default function MarketListPage(props: IPropsMarketList) {
   };
 
   const onClickMoveToMarketBoarDetail = (e: MouseEvent<HTMLDivElement>) => {
-    if (e.target instanceof Element) {
-      router.push(`/market/${e.currentTarget.id}`);
-    }
+    router.push(`market/${e.currentTarget.id}`);
   };
   return (
     <MarketListPageUI

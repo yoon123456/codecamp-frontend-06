@@ -27,11 +27,17 @@ export default function LayoutNavigation() {
   const onClickQuote = () => {
     router.push("/open-api");
   };
+  const onClicMarket = () => {
+    router.push("/market");
+  };
+  const onClicBoards = () => {
+    router.push("/boards");
+  };
 
   return (
     <Wrapper>
-      <Write>자유게시판</Write>
-      <Market>중고마켓</Market>
+      <Write onClick={onClicBoards}>자유게시판</Write>
+      <Market onClick={onClicMarket}>중고마켓</Market>
       <MyPage>마이페이지</MyPage>
       <MyPage onClick={onClickQuote}>오늘의명언</MyPage>
     </Wrapper>

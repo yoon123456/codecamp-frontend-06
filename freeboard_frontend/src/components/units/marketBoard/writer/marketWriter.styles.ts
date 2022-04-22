@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   margin: 60px auto;
   padding: 80px;
   border: 1px solid #bdbdbd;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 `;
 export const H1 = styled.div`

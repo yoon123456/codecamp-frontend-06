@@ -73,7 +73,7 @@ export const Body = styled.div`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 `;
-export const BodyPhoto = styled.image`
+export const BodyPhoto = styled.div`
   width: 180px;
 `;
 export const ProdPhoto = styled.div``;

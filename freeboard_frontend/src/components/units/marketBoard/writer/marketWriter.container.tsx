@@ -58,7 +58,7 @@ export default function MarketBoardWriter() {
         });
         console.log(result);
         console.log(result.data);
-        // router.push(`/market/${result.data?.createUseditem._id}`);
+        router.push(`/market/${result.data?.createUseditem._id}`);
         Modal.success({
           content: "상품등록에 성공하였습니다",
         });

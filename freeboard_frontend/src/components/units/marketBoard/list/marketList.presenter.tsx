@@ -23,7 +23,10 @@ export default function MarketListPageUI(props: IPropsMarketListUI) {
             <S.BodyPhoto>
               <S.ProdPhoto>img</S.ProdPhoto>
             </S.BodyPhoto>
-            <S.BodyProduct onClick={props.onClickMoveToMarketBoarDetail}>
+            <S.BodyProduct
+              id={el._id}
+              onClick={props.onClickMoveToMarketBoarDetail}
+            >
               <S.ProdTitle>{el.name}</S.ProdTitle>
               <S.ProdDetail>{el.remarks}</S.ProdDetail>
               <S.prodTag>제품태그</S.prodTag>
