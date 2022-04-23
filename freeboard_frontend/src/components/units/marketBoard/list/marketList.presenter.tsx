@@ -38,8 +38,10 @@ export default function MarketListPageUI(props: IPropsMarketListUI) {
                 </S.SellerInfo>
                 <S.LikeProdWrapper>
                   {/* <S.LikeProdIcon>좋아요</S.LikeProdIcon> */}
-                  <HeartOutlined style={{ color: "red" }} />
-                  <S.LikeProdCount>좋아요수</S.LikeProdCount>
+                  <HeartOutlined />
+                  <S.LikeProdCount>
+                    {props.data?.fetchUseditms?.pickedCount}
+                  </S.LikeProdCount>
                 </S.LikeProdWrapper>
               </S.SellerWrapper>
             </S.BodyProduct>

@@ -13,6 +13,7 @@ export const Header = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
+  border-bottom: 1px solid black;
 `;
 export const SaleProd = styled.div`
   width: 130px;
@@ -70,7 +71,6 @@ export const Body = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
-  border-top: 1px solid black;
   border-bottom: 1px solid black;
 `;
 export const BodyPhoto = styled.div`
@@ -117,11 +117,13 @@ export const LikeProdWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding: 5px;
 `;
 // export const LikeProdIcon = styled.div``;
 export const LikeProdCount = styled.div`
   font-size: 16px;
   color: #4f4f4f;
+  padding-left: 10px;
 `;
 export const BodyPrice = styled.div``;
 export const Price = styled.div`

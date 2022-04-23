@@ -30,8 +30,11 @@ export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
           <S.Label>판매가격</S.Label>
           <S.Input type="text" {...props.register("price")} />
           <S.Error>{props.formState.errors.price?.message}</S.Error>
+          {/* {props.register("tags").map((el: string) => (
+            <S.Label key={el}>{el}</S.Label>
+          ))} */}
           <S.Label>태그입력</S.Label>
-          <S.Input type="text" />
+          <S.Input type="text" {...props.register("tags")} />
         </S.Header>
         <S.Body>
           <S.MapWrapper>

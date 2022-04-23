@@ -1,10 +1,19 @@
-import { Tooltip } from "antd";
+// import { Tooltip } from "antd";
 import { getDate } from "../../../commons/libraries/utils";
 import * as S from "./marketDetail.styles";
 import { IMarketDetailUIProps } from "./marketDetail.types";
 import Dompurify from "dompurify";
 
 export default function MarketDetailUI(props: IMarketDetailUIProps) {
+  const settings = {
+    dots: true,
+    autoplay: true,
+    infinite: true,
+    speed: 4000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    pauseOnHover: true,
+  };
   return (
     <S.Wrapper>
       <S.Header>
@@ -14,7 +23,7 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
           </S.ProfilePhoto>
           <S.ProfileWrapper>
             <S.ProfileName>
-              {props.data?.fetchUseditem.seller.name}입니다
+              {props.data?.fetchUseditem.seller.name}
             </S.ProfileName>
             <S.ProfileDate>
               Date:{getDate(props.data?.fetchUseditem.createdAt)}
@@ -36,26 +45,34 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
       </S.Header>
       <S.Middle>
         <S.Product>
-          <S.Remarks>{props.data?.fetchUseditem.remarks}</S.Remarks>
           <S.Name>{props.data?.fetchUseditem.name}</S.Name>
-          <S.Price>{props.data?.fetchUseditem.price}</S.Price>
+          <S.Remarks>{props.data?.fetchUseditem.remarks}</S.Remarks>
+          <S.Price>{props.priceComma}원</S.Price>
         </S.Product>
         <S.Like>
-          <S.LikeIcon>하트</S.LikeIcon>
-          <S.LikeNum>20</S.LikeNum>
+          <S.LikeIcon />
+          <S.LikeNum>{props.data?.fetchUseditem.pickedCount}</S.LikeNum>
         </S.Like>
       </S.Middle>
-      <S.Carousel></S.Carousel>
+      <S.Carousel>
+        <S.SliderStyle {...settings}>
+          <S.ImgWrapper>
+            {/* <Img src={"/img/illust-2.jpeg"} /> */}
+          </S.ImgWrapper>
+        </S.SliderStyle>
+      </S.Carousel>
       <S.Contents
         dangerouslySetInnerHTML={{
           __html: Dompurify.sanitize(props.data?.fetchUseditem.contents),
         }}
       ></S.Contents>
-      <S.Tag>#삼성전자</S.Tag>
+      {props.data?.fetchUseditem.tags.map((el: string) => (
+        <S.Tag key={el}>{el}</S.Tag>
+      ))}
       <S.Map></S.Map>
       <S.Footer>
-        <S.ListBtn>목록으로</S.ListBtn>
-        <S.BuyBtn></S.BuyBtn>
+        <S.ListBtn onClick={props.onClickMoveToMarketList}>목록으로</S.ListBtn>
+        <S.BuyBtn>구매하기</S.BuyBtn>
       </S.Footer>
     </S.Wrapper>
   );

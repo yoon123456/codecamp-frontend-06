@@ -14,6 +14,8 @@ export const FETCH_USED_ITEM = gql`
       remarks
       contents
       price
+      pickedCount
+      tags
       createdAt
       seller {
         _id
@@ -21,5 +23,13 @@ export const FETCH_USED_ITEM = gql`
         name
       }
     }
+  }
+`;
+
+export const FETCH_USED_ITEMS_COUNT_IPICKED = gql`
+  query fetchUseditemsCountIPicked($fetchUseditemsCountIPicked: Int!) {
+    fetchUseditemsCountIPicked(
+      fetchUseditemsCountIPicked: $fetchUseditemsCountIPicked
+    )
   }
 `;

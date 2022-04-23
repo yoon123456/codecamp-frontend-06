@@ -46,13 +46,17 @@ export default function MarketBoardWriter() {
       alert("모두 입력해 주세요!");
       return;
     }
+    const { price, tags, ...rest } = data;
+    const tagArr = tags.split(",");
+
     if (data.name && data.remarks && data.contents && data.price) {
       try {
         const result = await createUsedItem({
           variables: {
             createUseditemInput: {
-              ...data,
-              price: Number(data.price),
+              ...rest,
+              price: Number(price),
+              tags: tagArr,
             },
           },
         });

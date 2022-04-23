@@ -5,6 +5,8 @@ export interface IFormValue {
   contents: string;
   price: number;
   remarks: string;
+  tags: string;
+  pickedCount: number;
 }
 
 export interface IMarketWriterPageUIProps {

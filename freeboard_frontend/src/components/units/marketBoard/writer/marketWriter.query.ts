@@ -8,6 +8,40 @@ export const CREATE_USED_ITEM = gql`
       contents
       price
       remarks
+      tags
+      images
+      pickedCount
+      useditemAddress {
+        _id
+        zipcode
+        address
+        addressDetail
+      }
+      # buyer {
+      #   _id
+      #   email
+      #   name
+      #   picture
+      #   userPoint {
+      #     _id
+      #     amount
+      #     user
+      #   }
+      # }
+      # seller {
+      #   _id
+      #   email
+      #   name
+      #   picture
+      #   userPoint {
+      #     _id
+      #     amount
+      #     user
+      #   }
+      # }
+      # soldAt
+      # createdAt
+      # deletedAt
     }
   }
 `;

@@ -13,6 +13,7 @@ function MarketBoardPage() {
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
   >(FETCH_USED_ITEMS);
+
   return <MarketListPage data={data} refetch={refetch} />;
 }
 
