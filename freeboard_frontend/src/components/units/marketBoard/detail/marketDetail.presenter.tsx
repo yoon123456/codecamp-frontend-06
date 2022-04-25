@@ -3,8 +3,11 @@ import { getDate } from "../../../commons/libraries/utils";
 import * as S from "./marketDetail.styles";
 import { IMarketDetailUIProps } from "./marketDetail.types";
 import Dompurify from "dompurify";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../../commons/store/login";
 
 export default function MarketDetailUI(props: IMarketDetailUIProps) {
+  const [userInfo] = useRecoilState(userInfoState);
   const settings = {
     dots: true,
     autoplay: true,
@@ -56,9 +59,13 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
       </S.Middle>
       <S.Carousel>
         <S.SliderStyle {...settings}>
-          <S.ImgWrapper>
-            {/* <Img src={"/img/illust-2.jpeg"} /> */}
-          </S.ImgWrapper>
+          {props.data?.fetchUseditem.images
+            ?.filter((el: string) => el)
+            .map((el: string) => (
+              <S.ImgWrapper key={el}>
+                <S.Image src={`https://storage.googleapis.com/${el}`} />
+              </S.ImgWrapper>
+            ))}
         </S.SliderStyle>
       </S.Carousel>
       <S.Contents
@@ -70,10 +77,25 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
         <S.Tag key={el}>{el}</S.Tag>
       ))}
       <S.Map></S.Map>
-      <S.Footer>
-        <S.ListBtn onClick={props.onClickMoveToMarketList}>목록으로</S.ListBtn>
-        <S.BuyBtn>구매하기</S.BuyBtn>
-      </S.Footer>
+      {props.data?.fetchUseditem.seller.email === userInfo.email && (
+        <S.Footer>
+          <S.ListBtn onClick={props.onClickMoveToMarketList}>
+            목록으로
+          </S.ListBtn>
+          <S.EditBtn onClick={props.onClickMoveToMarketEdit}>
+            수정하기
+          </S.EditBtn>
+          <S.BuyBtn>구매하기</S.BuyBtn>
+        </S.Footer>
+      )}
+      {props.data?.fetchUseditem.seller.email !== userInfo.email && (
+        <S.Footer>
+          <S.ListBtn onClick={props.onClickMoveToMarketList}>
+            목록으로
+          </S.ListBtn>
+          <S.BuyBtn>구매하기</S.BuyBtn>
+        </S.Footer>
+      )}
     </S.Wrapper>
   );
 }

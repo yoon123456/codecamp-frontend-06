@@ -3,14 +3,16 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import MarketWriterPageUI from "./marketWriter.presenter";
 import { useMutation } from "@apollo/client";
-import { CREATE_USED_ITEM } from "./marketWriter.query";
+import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./marketWriter.query";
 import {
   IMutation,
   IMutationCreateUseditemArgs,
+  IMutationUpdateUseditemArgs,
 } from "../../../../commons/types/generated/type";
 import { Modal } from "antd";
-import { IFormValue } from "./marketWriter.types";
+import { IFormValue, IMarketWriteProps } from "./marketWriter.types";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const schema = yup.object({
   name: yup.string().required("상품명은 필수입력사항 입니다"),
@@ -22,22 +24,36 @@ const schema = yup.object({
   price: yup.string().required("가격은 필수입력사항 입니다"),
 });
 
-export default function MarketBoardWriter() {
+export default function MarketBoardWriter(props: IMarketWriteProps) {
+  console.log(props.data, "fetchData");
+
   const router = useRouter();
   const { register, handleSubmit, formState, setValue, trigger } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   const [createUsedItem] = useMutation<
     Pick<IMutation, "createUseditem">,
     IMutationCreateUseditemArgs
   >(CREATE_USED_ITEM);
 
+  const [updateUseditem] = useMutation<
+    Pick<IMutation, "updateUseditem">,
+    IMutationUpdateUseditemArgs
+  >(UPDATE_USED_ITEM);
+
   const onChangeContents = (value: string) => {
     console.log(value);
     setValue("contents", value === "<p><br></p>" ? "" : value);
     trigger("contents");
+  };
+
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
   };
 
   const onClickSubmit = async (data: IFormValue) => {
@@ -57,6 +73,7 @@ export default function MarketBoardWriter() {
               ...rest,
               price: Number(price),
               tags: tagArr,
+              images: fileUrls,
             },
           },
         });
@@ -74,13 +91,74 @@ export default function MarketBoardWriter() {
     }
   };
 
+  const onClickUpdate = async () => {
+    const currentFiles = JSON.stringify(fileUrls);
+    const defaultFiles = JSON.stringify(props.data.fetchUseditem.images);
+    const isChangedFiles = currentFiles !== defaultFiles;
+
+    if (!register) {
+      alert("수정한 내용이 없습니다.");
+      return;
+    }
+    const myVariables: IMyVariables = {
+      updateUseditemInput: {},
+      useditemId: String(router.query.marketId),
+    };
+
+    // if (youtube) {
+    //   myVariables.updateBoardInput.youtubeUrl = youtube;
+    // }
+    // if (daumAddress || (daumAddressDetail && zonecode)) {
+    //   myVariables.updateBoardInput.boardAddress = {};
+    // }
+    // if (daumAddress) {
+    //   myVariables.updateBoardInput.boardAddress.address = daumAddress;
+    // }
+    // if (daumAddressDetail) {
+    //   myVariables.updateBoardInput.boardAddress.addressDetail = daumAddressDetail;
+    // }
+    // if (zonecode) {
+    //   myVariables.updateBoardInput.boardAddress.zipcode = zonecode;
+    // }
+    // if (isChangedFiles) {
+    //   myVariables.updateBoardInput.images = fileUrls;
+    // }
+
+    try {
+      const update = await updateUseditem({
+        variables: myVariables,
+      });
+      console.log(update);
+      Modal.success({
+        content: "게시글 수정에 성공했습니다!!",
+      });
+      router.push(`/market/${router.query.marketId}`);
+    } catch (error) {
+      if (error instanceof Error)
+        Modal.error({
+          title: "This is an error message",
+          content: "게시글 수정에 실패했습니다",
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (props.data?.fetchUseditem?.images?.length) {
+      setFileUrls([...props.data?.fetchUseditem.images]);
+    }
+  }, [props.data]);
+
   return (
     <MarketWriterPageUI
       onChangeContents={onChangeContents}
+      onChangeFileUrls={onChangeFileUrls}
       onClickSubmit={onClickSubmit}
       register={register}
       handleSubmit={handleSubmit}
       formState={formState}
+      data={props.data}
+      fileUrls={fileUrls}
+      isEdit={props.isEdit}
     />
   );
 }

@@ -17,6 +17,7 @@ export const FETCH_USED_ITEM = gql`
       pickedCount
       tags
       createdAt
+      images
       seller {
         _id
         email

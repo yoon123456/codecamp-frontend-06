@@ -99,6 +99,7 @@ export default function LoginPageFn() {
           context: {
             headers: {
               Authorization: `Bearer ${accessToken}`,
+              credential: "include",
             },
           },
         });
@@ -108,8 +109,8 @@ export default function LoginPageFn() {
 
         setAccessToken(accessToken || "");
         setUserInfo(userInfo);
-        localStorage.setItem("accessToken", accessToken || "");
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        // localStorage.setItem("accessToken", accessToken || "");
+        // localStorage.setItem("userInfo", JSON.stringify(userInfo));
 
         Modal.success({
           content: "로그인에 성공하였습니다",

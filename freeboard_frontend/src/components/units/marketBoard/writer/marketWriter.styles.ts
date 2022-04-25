@@ -48,7 +48,7 @@ export const MapWrapper = styled.div``;
 export const Map = styled.div`
   width: 380px;
   height: 250px;
-  border: 1px solid black;
+  border: 1px solid #bdbdbd;
 `;
 export const GPSWrapper = styled.div`
   display: flex;
@@ -60,10 +60,14 @@ export const LWrapper = styled.div`
   flex-direction: row;
 `;
 export const LATLNG = styled.input`
-  width: 110px;
+  width: 180px;
+  height: 50px;
+  border: 1px solid #bdbdbd;
+`;
+export const GPSIcon = styled.img`
+  width: 50px;
   height: 50px;
 `;
-export const GPSIcon = styled.div``;
 export const AddressInput = styled.input`
   width: 500px;
   border: 1px solid #bdbdbd;
@@ -74,9 +78,15 @@ export const Photo = styled.div`
   width: 1000px;
 `;
 export const ImageUpload = styled.div`
-  width: 150px;
-  height: 150px;
-  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 0 10px 20px 0;
+  width: 996px;
+  font-size: 16px;
+  font-weight: 500;
 `;
 export const RadioWrapper = styled.div`
   width: 1000px;

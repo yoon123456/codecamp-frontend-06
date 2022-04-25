@@ -1,14 +1,14 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { MouseEvent } from "react";
 import {
   IQuery,
   IQueryFetchUseditemArgs,
 } from "../../../../commons/types/generated/type";
 import MarketDetailUI from "./marketDetail.presenter";
 import { FETCH_USED_ITEM } from "./marketDetail.query";
+import { IMarketDetailProps } from "./marketDetail.types";
 
-export default function MarketDetail() {
+export default function MarketDetail(props: IMarketDetailProps) {
   const router = useRouter();
   const { data } = useQuery<
     Pick<IQuery, "fetchUseditem">,
@@ -21,6 +21,9 @@ export default function MarketDetail() {
     router.push("/market");
   };
 
+  // const onClckMoveToMarketEdit = () => {
+  //   router.push("/market/new");
+  // };
   const priceComma = Number(data?.fetchUseditem.price)?.toLocaleString("ko-KR");
   const onClickMoveToMarketEdit = () => {
     router.push(`/market/${router.query.marketId}/edit`);
@@ -32,6 +35,7 @@ export default function MarketDetail() {
       priceComma={priceComma}
       onClickMoveToMarketList={onClickMoveToMarketList}
       onClickMoveToMarketEdit={onClickMoveToMarketEdit}
+      isEdit={props.isEdit}
     />
   );
 }

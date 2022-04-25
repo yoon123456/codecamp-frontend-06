@@ -8,13 +8,35 @@ import MarketListPage from "../../src/components/units/marketBoard/list/marketLi
 import { FETCH_USED_ITEMS } from "../../src/components/units/marketBoard/list/marketList.query";
 
 // 중고마켓 상품목록 페이지
-function MarketBoardPage() {
-  const { data, refetch } = useQuery<
+export default function MarketBoardPage() {
+  const { data, refetch, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
   >(FETCH_USED_ITEMS);
 
-  return <MarketListPage data={data} refetch={refetch} />;
+  console.log(data);
+
+  const onLoadMore = () => {
+    if (!data) return;
+
+    fetchMore({
+      variables: { page: Math.ceil(data.fetchUseditems.length / 10) + 1 },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult?.fetchUseditems)
+          return { fetchUseditems: [...prev.fetchUseditems] };
+        return {
+          fetchUseditems: [
+            ...prev.fetchUseditems,
+            ...fetchMoreResult?.fetchUseditems,
+          ],
+        };
+      },
+    });
+  };
+
+  return (
+    <MarketListPage data={data} refetch={refetch} onLoadMore={onLoadMore} />
+  );
 }
 
-export default withAuth(MarketBoardPage);
+// export default withAuth(MarketBoardPage);

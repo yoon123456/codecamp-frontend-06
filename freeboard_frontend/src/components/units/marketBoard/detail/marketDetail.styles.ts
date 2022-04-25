@@ -135,6 +135,11 @@ export const ImgWrapper = styled(Slider)`
   height: 300px;
 `;
 
+export const Image = styled.img`
+  width: 300px;
+  height: 300px;
+`;
+
 export const Contents = styled.div`
   width: 996px;
   padding: 10px;
@@ -161,6 +166,21 @@ export const Footer = styled.div`
   border-top: 1px solid #bdbdbd;
 `;
 export const ListBtn = styled.button`
+  width: 150px;
+  height: 50px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin: 0px 12px;
+  font-size: 24px;
+  background-color: #ffd600;
+  border: none;
+  cursor: pointer;
+  :hover {
+    background-color: black;
+    color: white;
+  }
+`;
+export const EditBtn = styled.button`
   width: 150px;
   height: 50px;
   border: 1px solid gray;

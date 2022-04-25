@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IProps } from "./marketList.type";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -76,13 +77,25 @@ export const Body = styled.div`
 export const BodyPhoto = styled.div`
   width: 180px;
 `;
-export const ProdPhoto = styled.div``;
+export const ProdPhoto = styled.img`
+  width: 100px;
+  height: 100px;
+`;
+
+export const Default = styled.img`
+  width: 100px;
+  height: 100px;
+  background-color: aqua;
+`;
 export const BodyProduct = styled.div`
   width: 700px;
   cursor: pointer;
 `;
 export const ProdTitle = styled.div`
   font-size: 24px;
+`;
+export const Word = styled.span`
+  color: ${(props: IProps) => (props.isMatched ? "red" : "black")};
 `;
 export const ProdDetail = styled.div`
   font-size: 16px;

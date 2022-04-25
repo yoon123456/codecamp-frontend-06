@@ -36,6 +36,7 @@ export default function MarketListPage(props: IPropsMarketList) {
       onClickMoveToMarketBoardNew={onClickMoveToMarketBoardNew}
       onClickMoveToMarketBoarDetail={onClickMoveToMarketBoarDetail}
       keyword={keyword}
+      onLoadMore={props.onLoadMore}
     />
   );
 }

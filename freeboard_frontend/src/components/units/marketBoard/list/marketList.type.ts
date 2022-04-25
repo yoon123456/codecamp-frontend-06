@@ -3,6 +3,7 @@ import { ChangeEvent, MouseEvent } from "react";
 export interface IPropsMarketList {
   data: any;
   refetch: any;
+  onLoadMore: () => void;
 }
 
 export interface IPropsMarketListUI {
@@ -11,4 +12,9 @@ export interface IPropsMarketListUI {
   onClickMoveToMarketBoarDetail: (e: MouseEvent<HTMLDivElement>) => void;
   data: any;
   keyword: string;
+  onLoadMore: () => void;
+}
+
+export interface IProps {
+  isMatched: boolean;
 }

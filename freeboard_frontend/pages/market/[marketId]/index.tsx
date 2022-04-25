@@ -2,5 +2,5 @@ import MarketDetail from "../../../src/components/units/marketBoard/detail/marke
 
 // 중고마켓 등록된 상품 상세 페이지 댓글이 나타나는 페이지
 export default function MarketDetailPage() {
-  return <MarketDetail />;
+  return <MarketDetail isEdit={false} />;
 }
