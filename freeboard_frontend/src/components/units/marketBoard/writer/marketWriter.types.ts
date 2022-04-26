@@ -17,6 +17,7 @@ export interface IMarketWriterPageUIProps {
   onChangeContents: (value: string) => void;
   onChangeFileUrls: (fileUrl: string, index: number) => void;
   onClickSubmit: (data: IFormValue) => void;
+  onClickUpdate: (data: IFormValue) => void;
   register: any;
   handleSubmit: any;
   formState: any;
@@ -27,4 +28,9 @@ export interface IMarketWriterPageUIProps {
 
 export interface IProps {
   isActive: boolean;
+}
+
+export interface IMyVariables {
+  updateUseditemInput: any;
+  useditemId: string;
 }

@@ -13,6 +13,7 @@ export interface IPropsMarketListUI {
   data: any;
   keyword: string;
   onLoadMore: () => void;
+  priceComma: string;
 }
 
 export interface IProps {

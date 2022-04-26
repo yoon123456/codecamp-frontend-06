@@ -2,7 +2,6 @@ import * as S from "./marketWriter.styles";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import { IMarketWriterPageUIProps } from "./marketWriter.types";
-import { AimOutlined } from "@ant-design/icons";
 import MarketUploadImage from "../marketuploadimage/marketuploadimage.container";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,7 +10,13 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
   console.log("fdfdf", props.data);
   return (
-    <form onSubmit={props.handleSubmit(props.onClickSubmit)}>
+    <form
+      onSubmit={
+        props.isEdit
+          ? props.handleSubmit(props.onClickUpdate)
+          : props.handleSubmit(props.onClickSubmit)
+      }
+    >
       <S.Wrapper>
         <S.H1>{props.isEdit ? "상품수정하기" : "상품등록하기"}</S.H1>
         <S.Header>
@@ -21,7 +26,7 @@ export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
             {...props.register("name")}
             // defaultValue={...props.register("name")}
             // readOnly={props.isEdit && true}
-            defaultValue={props.data?.fetchUseditem.name}
+            value={props.data?.fetchUseditem.name}
           />
           <S.Error>{props.formState.errors.name?.message}</S.Error>
           <S.Label>한줄요약</S.Label>
@@ -37,6 +42,7 @@ export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
               theme="snow"
               style={{ height: "150px" }}
               onChange={props.onChangeContents}
+              defaultValue={props.data?.fetchUseditem.contents}
             />
           </S.QuillWrapper>
           <S.Error>{props.formState.errors.contents?.message}</S.Error>

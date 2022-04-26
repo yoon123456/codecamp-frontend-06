@@ -105,6 +105,7 @@ export const Like = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 export const LikeIcon = styled(HeartOutlined)`
   color: red;
@@ -181,6 +182,22 @@ export const ListBtn = styled.button`
   }
 `;
 export const EditBtn = styled.button`
+  width: 150px;
+  height: 50px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin: 0px 12px;
+  font-size: 24px;
+  background-color: #ffd600;
+  border: none;
+  cursor: pointer;
+  :hover {
+    background-color: black;
+    color: white;
+  }
+`;
+
+export const DeleteBtn = styled.button`
   width: 150px;
   height: 50px;
   border: 1px solid gray;

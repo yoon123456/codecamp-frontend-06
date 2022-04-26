@@ -6,6 +6,8 @@ import {
 } from "../../../../commons/store/login";
 import { useRecoilState } from "recoil";
 import { Modal } from "antd";
+import { useQuery } from "@apollo/client";
+import { FETCH_USER_LOGGEDIN } from "../../../units/login/login.quries";
 
 const Wrapper = styled.div`
   height: 120px;
@@ -42,9 +44,17 @@ const SingUp = styled.div`
 
 export default function LayoutHeader() {
   const router = useRouter();
-  const [userInfo] = useRecoilState(userInfoState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [accessToken] = useRecoilState(accessTokenState);
+  const { data } = useQuery(FETCH_USER_LOGGEDIN);
+  console.log("sss", userInfo);
+  // if(accessToken){
+  //   setUserInfo()
+  // }
 
+  if (accessToken) {
+    setUserInfo(data);
+  }
   const OnClickGoList = () => {
     router.push("/boards");
   };
@@ -71,7 +81,9 @@ export default function LayoutHeader() {
       <Logo src={"/img/logo.png"} onClick={OnClickGoList}></Logo>
       <LoginWrapper>
         <Login onClick={OnClickGoLogin}>
-          {!accessToken ? "로그인" : `"${userInfo.name}"님 안녕하세요`}
+          {!accessToken
+            ? "로그인"
+            : `"${data?.fetchUserLoggedIn.name}"님 안녕하세요`}
         </Login>
         <SingUp onClick={OnClickGoSignUp}>
           {!accessToken ? "회원가입" : "로그아웃"}

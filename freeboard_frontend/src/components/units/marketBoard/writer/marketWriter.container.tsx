@@ -10,7 +10,11 @@ import {
   IMutationUpdateUseditemArgs,
 } from "../../../../commons/types/generated/type";
 import { Modal } from "antd";
-import { IFormValue, IMarketWriteProps } from "./marketWriter.types";
+import {
+  IFormValue,
+  IMarketWriteProps,
+  IMyVariables,
+} from "./marketWriter.types";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -91,7 +95,8 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
     }
   };
 
-  const onClickUpdate = async () => {
+  const onClickUpdate = async (data: IFormValue) => {
+    const { price, tags, ...rest } = data;
     const currentFiles = JSON.stringify(fileUrls);
     const defaultFiles = JSON.stringify(props.data.fetchUseditem.images);
     const isChangedFiles = currentFiles !== defaultFiles;
@@ -105,9 +110,19 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
       useditemId: String(router.query.marketId),
     };
 
-    // if (youtube) {
-    //   myVariables.updateBoardInput.youtubeUrl = youtube;
-    // }
+    if (rest.name) {
+      myVariables.updateUseditemInput.name = rest.name;
+    }
+    if (rest.remarks) {
+      myVariables.updateUseditemInput.remarks = rest.remarks;
+    }
+    if (rest.contents) {
+      myVariables.updateUseditemInput.contents = rest.contents;
+    }
+    if (price) {
+      myVariables.updateUseditemInput.price = Number(price);
+    }
+
     // if (daumAddress || (daumAddressDetail && zonecode)) {
     //   myVariables.updateBoardInput.boardAddress = {};
     // }
@@ -120,9 +135,9 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
     // if (zonecode) {
     //   myVariables.updateBoardInput.boardAddress.zipcode = zonecode;
     // }
-    // if (isChangedFiles) {
-    //   myVariables.updateBoardInput.images = fileUrls;
-    // }
+    if (isChangedFiles) {
+      myVariables.updateUseditemInput.images = fileUrls;
+    }
 
     try {
       const update = await updateUseditem({
@@ -155,6 +170,7 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
       onClickSubmit={onClickSubmit}
       register={register}
       handleSubmit={handleSubmit}
+      onClickUpdate={onClickUpdate}
       formState={formState}
       data={props.data}
       fileUrls={fileUrls}

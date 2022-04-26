@@ -19,9 +19,6 @@ export default function MarketListPage(props: IPropsMarketList) {
     getDebounce(e.target.value);
   };
 
-  // const onClickPage=(e:MouseEvent<HTMLDivElement>)=>{
-  //   props.refetch({page:Number(e.currentTarget.id)})
-  // }
   const onClickMoveToMarketBoardNew = () => {
     router.push("/market/new");
   };
@@ -29,9 +26,14 @@ export default function MarketListPage(props: IPropsMarketList) {
   const onClickMoveToMarketBoarDetail = (e: MouseEvent<HTMLDivElement>) => {
     router.push(`market/${e.currentTarget.id}`);
   };
+  const priceComma = Number(props.data?.fetchUseditem?.price)?.toLocaleString(
+    "ko-KR"
+  );
+
   return (
     <MarketListPageUI
       data={props.data}
+      priceComma={priceComma}
       onChangeSearch={onChangeSearch}
       onClickMoveToMarketBoardNew={onClickMoveToMarketBoardNew}
       onClickMoveToMarketBoarDetail={onClickMoveToMarketBoarDetail}

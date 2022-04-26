@@ -3,11 +3,11 @@ import { getDate } from "../../../commons/libraries/utils";
 import * as S from "./marketDetail.styles";
 import { IMarketDetailUIProps } from "./marketDetail.types";
 import Dompurify from "dompurify";
-import { useRecoilState } from "recoil";
-import { userInfoState } from "../../../../commons/store/login";
+import { useQuery } from "@apollo/client";
+import { FETCH_USER_LOGGEDIN } from "../../login/login.quries";
 
 export default function MarketDetailUI(props: IMarketDetailUIProps) {
-  const [userInfo] = useRecoilState(userInfoState);
+  const { data: loginData } = useQuery(FETCH_USER_LOGGEDIN);
   const settings = {
     dots: true,
     autoplay: true,
@@ -53,7 +53,7 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
           <S.Price>{props.priceComma}원</S.Price>
         </S.Product>
         <S.Like>
-          <S.LikeIcon />
+          <S.LikeIcon onClick={props.onClickToggleUsedItemPick} />
           <S.LikeNum>{props.data?.fetchUseditem.pickedCount}</S.LikeNum>
         </S.Like>
       </S.Middle>
@@ -77,7 +77,8 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
         <S.Tag key={el}>{el}</S.Tag>
       ))}
       <S.Map></S.Map>
-      {props.data?.fetchUseditem.seller.email === userInfo.email && (
+      {props.data?.fetchUseditem.seller.email ===
+        loginData?.fetchUserLoggedIn.email && (
         <S.Footer>
           <S.ListBtn onClick={props.onClickMoveToMarketList}>
             목록으로
@@ -85,15 +86,22 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
           <S.EditBtn onClick={props.onClickMoveToMarketEdit}>
             수정하기
           </S.EditBtn>
-          <S.BuyBtn>구매하기</S.BuyBtn>
+          <S.DeleteBtn
+            id={props.data?.fetchUseditem._id}
+            onClick={props.onClickDelete}
+          >
+            삭제하기
+          </S.DeleteBtn>
+          <S.BuyBtn onClick={props.onClickMoveToPayment}>구매하기</S.BuyBtn>
         </S.Footer>
       )}
-      {props.data?.fetchUseditem.seller.email !== userInfo.email && (
+      {props.data?.fetchUseditem.seller.email !==
+        loginData?.fetchUserLoggedIn.email && (
         <S.Footer>
           <S.ListBtn onClick={props.onClickMoveToMarketList}>
             목록으로
           </S.ListBtn>
-          <S.BuyBtn>구매하기</S.BuyBtn>
+          <S.BuyBtn onClick={props.onClickMoveToPayment}>구매하기</S.BuyBtn>
         </S.Footer>
       )}
     </S.Wrapper>

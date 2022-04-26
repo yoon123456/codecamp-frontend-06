@@ -6,7 +6,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import { v4 as uuidv4 } from "uuid";
 
 const imageError = (e: any) => {
-  e.target.src = "img/aaa.png";
+  e.target.src = "img/beachimg.jpeg";
 };
 
 export default function MarketListPageUI(props: IPropsMarketListUI) {
@@ -71,7 +71,7 @@ export default function MarketListPageUI(props: IPropsMarketListUI) {
                 </S.SellerWrapper>
               </S.BodyProduct>
               <S.BodyPrice>
-                <S.Price>{el.price}₩</S.Price>
+                <S.Price>₩{Number(el.price).toLocaleString("ko-KR")}</S.Price>
               </S.BodyPrice>
             </S.Body>
           ))}
