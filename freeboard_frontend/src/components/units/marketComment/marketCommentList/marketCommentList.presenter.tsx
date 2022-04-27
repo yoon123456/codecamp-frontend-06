@@ -1,7 +1,9 @@
 import * as S from "./marketCommentList.styles";
 import { Modal } from "antd";
+import { IMarketCommentListUIProps } from "./marketCommentList.types";
+import { getDate } from "../../../commons/libraries/utils";
 
-export default function MarketCommentListUI() {
+export default function MarketCommentListUI(props: IMarketCommentListUIProps) {
   return (
     <S.Wrapper>
       <S.CommentWrapper>
@@ -10,19 +12,15 @@ export default function MarketCommentListUI() {
         </S.CommentPhoto>
         <S.CommentHeader>
           <S.CommentProfile>
-            <S.CommentWriter></S.CommentWriter>
+            <S.CommentWriter>{props.el.user.name}</S.CommentWriter>
           </S.CommentProfile>
-          <S.CommentBody>{/* {props.el.contents} */}</S.CommentBody>
-          <S.CommentFooter>
-            {/* {getDate(props.el.createdAt)} */}
-          </S.CommentFooter>
+          <S.CommentBody>{props.el.contents}</S.CommentBody>
+          <S.CommentFooter>{getDate(props.el.createdAt)}</S.CommentFooter>
         </S.CommentHeader>
         <S.CommentEdit>
           {/* <img src="/img/수정버튼.png" onClick={onClickMoveCommentUpdatePage} /> */}
         </S.CommentEdit>
-        <S.CommentDelete
-        // onClick={props.showModal} id={props.el._id}
-        >
+        <S.CommentDelete id={props.el._id} onClick={props.onClickDelete}>
           <img src="/img/삭제버튼.png" />
         </S.CommentDelete>
         {/* {props.isOpen && (

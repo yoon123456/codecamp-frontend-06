@@ -1,9 +1,4 @@
-import React, {
-  ChangeEvent,
-  KeyboardEvent,
-  KeyboardEventHandler,
-  useState,
-} from "react";
+import { KeyboardEvent, useState } from "react";
 
 export default function HashTag() {
   const [hashtag, setHashtag] = useState<string>("");

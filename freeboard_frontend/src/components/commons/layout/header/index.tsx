@@ -6,8 +6,11 @@ import {
 } from "../../../../commons/store/login";
 import { useRecoilState } from "recoil";
 import { Modal } from "antd";
-import { useQuery } from "@apollo/client";
-import { FETCH_USER_LOGGEDIN } from "../../../units/login/login.quries";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+  FETCH_USER_LOGGEDIN,
+  LOGOUT_USER,
+} from "../../../units/login/login.quries";
 
 const Wrapper = styled.div`
   height: 120px;
@@ -47,10 +50,7 @@ export default function LayoutHeader() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [accessToken] = useRecoilState(accessTokenState);
   const { data } = useQuery(FETCH_USER_LOGGEDIN);
-  console.log("sss", userInfo);
-  // if(accessToken){
-  //   setUserInfo()
-  // }
+  const [logoutUser] = useMutation(LOGOUT_USER);
 
   if (accessToken) {
     setUserInfo(data);
@@ -66,6 +66,9 @@ export default function LayoutHeader() {
       router.push("개인정보 창으로 이동시키기");
     }
   };
+  const onClicMypage = () => {
+    router.push("/mypage");
+  };
   const OnClickGoSignUp = () => {
     if (!accessToken) {
       router.push("/signup");
@@ -76,16 +79,31 @@ export default function LayoutHeader() {
       });
     }
   };
+  const OnClickLogout = async () => {
+    try {
+      await logoutUser();
+      Modal.warning({
+        title: "logout??",
+        content: "정말로 로그아웃하시겠습니까?",
+      });
+
+      router.push("/boards");
+    } catch {
+      Modal.error({
+        content: "로그아웃 실패",
+      });
+    }
+  };
   return (
     <Wrapper>
       <Logo src={"/img/logo.png"} onClick={OnClickGoList}></Logo>
       <LoginWrapper>
-        <Login onClick={OnClickGoLogin}>
+        <Login onClick={!accessToken ? OnClickGoLogin : onClicMypage}>
           {!accessToken
             ? "로그인"
             : `"${data?.fetchUserLoggedIn.name}"님 안녕하세요`}
         </Login>
-        <SingUp onClick={OnClickGoSignUp}>
+        <SingUp onClick={!accessToken ? OnClickGoSignUp : OnClickLogout}>
           {!accessToken ? "회원가입" : "로그아웃"}
         </SingUp>
       </LoginWrapper>

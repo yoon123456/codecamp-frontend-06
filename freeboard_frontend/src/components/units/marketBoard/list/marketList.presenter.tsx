@@ -54,19 +54,20 @@ export default function MarketListPageUI(props: IPropsMarketListUI) {
                     ))}
                 </S.ProdTitle>
                 <S.ProdDetail>{el.remarks}</S.ProdDetail>
-                <S.prodTag>제품태그</S.prodTag>
+                {/* <S.prodTag>{el.tags?.map((el) => el)}</S.prodTag> */}
+                {el.tags?.map((el, i) => (
+                  <S.prodTag key={i}>{el}</S.prodTag>
+                ))}
                 <S.SellerWrapper>
                   <S.SellerInfo>
                     {/* <S.SellerIcon></S.SellerIcon> */}
                     <SmileOutlined />
-                    <S.SellerName></S.SellerName>
+                    <S.SellerName>{el.seller?.name}</S.SellerName>
                   </S.SellerInfo>
                   <S.LikeProdWrapper>
                     {/* <S.LikeProdIcon>좋아요</S.LikeProdIcon> */}
-                    <HeartOutlined />
-                    <S.LikeProdCount>
-                      {props.data?.fetchUseditms?.pickedCount}
-                    </S.LikeProdCount>
+                    <HeartOutlined style={{ color: "red" }} />
+                    <S.LikeProdCount>{el.pickedCount}</S.LikeProdCount>
                   </S.LikeProdWrapper>
                 </S.SellerWrapper>
               </S.BodyProduct>
@@ -74,7 +75,7 @@ export default function MarketListPageUI(props: IPropsMarketListUI) {
                 <S.Price>₩{Number(el.price).toLocaleString("ko-KR")}</S.Price>
               </S.BodyPrice>
             </S.Body>
-          ))}
+          )) || <div></div>}
         </InfiniteScroll>
       </div>
       <S.Footer>

@@ -15,7 +15,7 @@ import { IFormValue } from "./marketCommentWriter.types";
 
 export default function MarketCommentWriterPage() {
   const router = useRouter();
-  const { register, handleSubmit, setValue } = useForm({
+  const { register, handleSubmit, watch, setValue } = useForm({
     mode: "onChange",
   });
 
@@ -24,13 +24,16 @@ export default function MarketCommentWriterPage() {
     IMutationCreateUseditemQuestionArgs
   >(CREATE_USED_ITEM_QUESTION);
 
+  const contents = watch().contents?.length;
+
   const onCilckComment = async (data: IFormValue) => {
+    const { contents } = data;
     if (data.contents) {
       try {
         await createUseditemQuestion({
           variables: {
             createUseditemQuestionInput: {
-              contents: data.contents,
+              contents: contents,
             },
             useditemId: String(router.query.marketId),
           },
@@ -45,9 +48,7 @@ export default function MarketCommentWriterPage() {
           content: "댓글 등록에 성공했습니다!!",
         });
         console.log("ㅃㅃ", data.contents);
-        // setWriter("");
-        // setPassword("");
-        // setContents("");
+        setValue("contents", "");
       } catch (error) {
         if (error instanceof Error)
           Modal.error({
@@ -63,6 +64,7 @@ export default function MarketCommentWriterPage() {
       onCilckComment={onCilckComment}
       register={register}
       handleSubmit={handleSubmit}
+      contents={contents}
     />
   );
 }

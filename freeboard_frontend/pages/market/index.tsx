@@ -9,7 +9,6 @@ import { FETCH_USED_ITEMS } from "../../src/components/units/marketBoard/list/ma
 
 // 중고마켓 상품목록 페이지
 function MarketBoardPage() {
-  withAuth(MarketBoardPage);
   const { data, refetch, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
@@ -40,4 +39,4 @@ function MarketBoardPage() {
   );
 }
 
-export default MarketBoardPage;
+export default withAuth(MarketBoardPage);

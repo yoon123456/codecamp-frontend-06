@@ -14,6 +14,16 @@ export const FETCH_USER_LOGGEDIN = gql`
       _id
       email
       name
+      userPoint {
+        _id
+        amount
+      }
     }
+  }
+`;
+
+export const LOGOUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
   }
 `;

@@ -4,11 +4,15 @@ import dynamic from "next/dynamic";
 import { IMarketWriterPageUIProps } from "./marketWriter.types";
 import MarketUploadImage from "../marketuploadimage/marketuploadimage.container";
 import { v4 as uuidv4 } from "uuid";
+import { useEffect } from "react";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
-  console.log("fdfdf", props.data);
+  useEffect(() => {
+    props.reset({ contents: props.data?.fetchUseditem.contents });
+  }, [props.data]);
+
   return (
     <form
       onSubmit={
@@ -42,7 +46,7 @@ export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
               theme="snow"
               style={{ height: "150px" }}
               onChange={props.onChangeContents}
-              defaultValue={props.data?.fetchUseditem.contents}
+              value={props.getValues("contents") || ""}
             />
           </S.QuillWrapper>
           <S.Error>{props.formState.errors.contents?.message}</S.Error>

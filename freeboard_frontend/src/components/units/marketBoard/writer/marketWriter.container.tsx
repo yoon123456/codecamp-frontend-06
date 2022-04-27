@@ -32,7 +32,15 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
   console.log(props.data, "fetchData");
 
   const router = useRouter();
-  const { register, handleSubmit, formState, setValue, trigger } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState,
+    setValue,
+    trigger,
+    reset,
+    getValues,
+  } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
@@ -170,6 +178,8 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
       onClickSubmit={onClickSubmit}
       register={register}
       handleSubmit={handleSubmit}
+      reset={reset}
+      getValues={getValues}
       onClickUpdate={onClickUpdate}
       formState={formState}
       data={props.data}

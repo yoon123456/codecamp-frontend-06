@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   width: 1200px;
   margin: 0px auto;
   padding: 20px;
-  padding-bottom: 50px;
   border-top: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -14,7 +13,6 @@ export const Wrapper = styled.div`
 `;
 export const CommentWrapper = styled.div`
   width: 1200px;
-  border-bottom: 1px solid #bdbdbd;
   padding-top: 20px;
   padding-bottom: 5px;
   display: flex;
@@ -42,13 +40,13 @@ export const CommentProfile = styled.div`
 `;
 export const CommentWriter = styled.div`
   height: 40px;
-  font-size: 16px;
+  font-size: 20px;
   padding-right: 20px;
   padding-left: 10px;
 `;
 export const CommentBody = styled.div`
   width: inherit;
-  font-size: 16px;
+  font-size: 18px;
   color: #4f4f4f;
   padding: 10px;
   padding-bottom: 10px;
@@ -74,4 +72,13 @@ export const CommentDelete = styled.div`
   background-color: white;
   padding-bottom: 60px;
   cursor: pointer;
+`;
+
+export const InfiniteScrollWrapper = styled.div`
+  & {
+    ::-webkit-scrollbar {
+      width: 0;
+      display: none;
+    }
+  }
 `;

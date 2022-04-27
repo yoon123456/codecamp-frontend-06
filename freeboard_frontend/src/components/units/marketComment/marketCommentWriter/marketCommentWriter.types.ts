@@ -6,4 +6,5 @@ export interface IMarketCommentWriterUIProps {
   onCilckComment: (data: IFormValue) => void;
   register: any;
   handleSubmit: any;
+  contents: string;
 }

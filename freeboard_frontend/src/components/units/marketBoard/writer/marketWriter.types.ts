@@ -21,6 +21,8 @@ export interface IMarketWriterPageUIProps {
   register: any;
   handleSubmit: any;
   formState: any;
+  reset: any;
+  getValues: any;
   data: any;
   fileUrls: string[];
   isEdit: boolean;
