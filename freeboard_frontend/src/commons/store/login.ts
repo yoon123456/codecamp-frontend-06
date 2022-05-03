@@ -33,3 +33,8 @@ export const userInfoState = atom({
     name: "",
   },
 });
+
+export const isLoadedState = atom({
+  key: "isLoadedState",
+  default: true,
+});

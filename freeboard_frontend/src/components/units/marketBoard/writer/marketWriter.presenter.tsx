@@ -4,7 +4,11 @@ import dynamic from "next/dynamic";
 import { IMarketWriterPageUIProps } from "./marketWriter.types";
 import MarketUploadImage from "../marketuploadimage/marketuploadimage.container";
 import { v4 as uuidv4 } from "uuid";
-import { useEffect } from "react";
+import { KeyboardEvent, useEffect } from "react";
+import KakaoMapPage from "../../../commons/kakaomap";
+import { Modal } from "antd";
+import DaumPostcode from "react-daum-postcode";
+import HashTagPage from "./hashTag";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -12,6 +16,22 @@ export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
   useEffect(() => {
     props.reset({ contents: props.data?.fetchUseditem.contents });
   }, [props.data]);
+
+  const onKeyUpHash = (event: KeyboardEvent) => {
+    if (
+      event.keyCode === 32 &&
+      (event.target as HTMLInputElement).value !== " "
+    ) {
+      const str = "#" + (event.target as HTMLInputElement).value;
+      let tempArr = [...props.hashArr];
+      tempArr.push(str);
+      tempArr = tempArr.filter(
+        (el) => el !== "# " && el !== "#  " && el !== "#"
+      );
+      props?.setHashArr(tempArr);
+      (event.target as HTMLInputElement).value = "";
+    }
+  };
 
   return (
     <form
@@ -22,6 +42,17 @@ export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
       }
     >
       <S.Wrapper>
+        {props.isOpen && (
+          <Modal
+            title="주소등록"
+            visible={props.isOpen}
+            onOk={props.handleOk}
+            onCancel={props.handleCancel}
+            style={{ fontSize: "10px" }}
+          >
+            <DaumPostcode onComplete={props.handleComplete} />
+          </Modal>
+        )}
         <S.H1>{props.isEdit ? "상품수정하기" : "상품등록하기"}</S.H1>
         <S.Header>
           <S.Label>상품명</S.Label>
@@ -60,26 +91,42 @@ export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
           <S.Label>태그입력</S.Label>
           <S.Input
             type="text"
-            placeholder="#태그 #태그 #태그"
-            {...props.register("tags")}
-            defaultValue={props.data?.fetchUseditem.tags}
+            placeholder="#태그"
+            {...props.hashArr.map((el) => el)}
+            // {...props.register("tags")}
+            // defaultValue={props.data?.fetchUseditem.tags}
+            onKeyUp={onKeyUpHash}
           />
+          <HashTagPage />
         </S.Header>
         <S.Body>
           <S.MapWrapper>
             <S.Label>거래위치</S.Label>
-            <S.Map></S.Map>
+            <S.Map>
+              <KakaoMapPage
+                lat={props.lat}
+                lng={props.lng}
+                setLat={props.setLat}
+                setLng={props.setLng}
+                address={props.address}
+                addressDetail={props.addressDetail}
+              />
+            </S.Map>
           </S.MapWrapper>
           <S.GPSWrapper>
             <S.Label>GPS</S.Label>
             <S.LWrapper>
-              <S.LATLNG type="text" placeholder="위도" />
+              <S.LATLNG type="text" placeholder="위도" value={props.lat} />
               <S.GPSIcon src={"/img/ic_location_on-32px.png"}></S.GPSIcon>
-              <S.LATLNG type="text" placeholder="경도" />
+              <S.LATLNG type="text" placeholder="경도" value={props.lng} />
             </S.LWrapper>
             <S.Label>주소</S.Label>
-            <S.AddressInput type="text" />
-            <S.AddressInput type="text" />
+            <button type="button" onClick={props.showModal}>
+              검색
+            </button>
+
+            <S.AddressInput type="text" value={props.address} />
+            <S.AddressInput type="text" onChange={props.onChangeAddress} />
           </S.GPSWrapper>
         </S.Body>
         <S.Photo>

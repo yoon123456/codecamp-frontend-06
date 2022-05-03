@@ -9,7 +9,9 @@ export interface IPropsMarketList {
 export interface IPropsMarketListUI {
   onChangeSearch: (e: ChangeEvent<HTMLInputElement>) => void;
   onClickMoveToMarketBoardNew: () => void;
-  onClickMoveToMarketBoarDetail: (e: MouseEvent<HTMLDivElement>) => void;
+  onClickMoveToMarketBoarDetail: (
+    el: any
+  ) => (e: MouseEvent<HTMLDivElement>) => void;
   data: any;
   keyword: string;
   onLoadMore: () => void;

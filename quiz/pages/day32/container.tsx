@@ -4,7 +4,7 @@ import PresenterPage from "./presenter";
 export default function ContainerPage() {
   console.log("컨테이너 렌더링중");
 
-  let count = 0;
+  let aaa = 0;
   const [number, setNumber] = useState(0);
 
   // ====== useMemo 적용 전 ====== //
@@ -20,16 +20,18 @@ export default function ContainerPage() {
   // ===== useMemo ======== //
 
   // 이부분에서 오류가 나는데 이유를 잘 모르겠습니다 !!! 구글링을 해봐도 잘 모르겠습니다ㅜㅜ
-  // const onClickCount = useMemo(() => {
+  const onClickCount = () => {
+    console.log(count + 1);
+    count += 1;
+  };
+
+  const num = useMemo(() => onClickCount(), [count]);
+
+  // // ====== useCallback ======== //
+  // const onClickCount = useCallback(() => {
   //   console.log(count + 1);
   //   count += 1;
   // }, []);
-
-  // // ====== useCallback ======== //
-  const onClickCount = useCallback(() => {
-    console.log(count + 1);
-    count += 1;
-  }, []);
 
   // const onClickNumber = useCallback(() => {
   //   console.log(number + 1);
@@ -50,7 +52,7 @@ export default function ContainerPage() {
       <div>=========================</div>
       <h1>이것은 컨테이너 입니다</h1>
 
-      <div>카운트(count): {count}</div>
+      <div>카운트(count): {num}</div>
       <button onClick={onClickCount}>카운트(count) +1 올리기</button>
 
       <div>카운트(number): {number}</div>

@@ -8,6 +8,7 @@ import { CREATE_POINT_TRANSACTION_OF_LOADING } from "./payment.query";
 import {
   IMutation,
   IMutationCreatePointTransactionOfLoadingArgs,
+  IUser,
 } from "../../../commons/types/generated/type";
 import { useForm } from "react-hook-form";
 
@@ -26,9 +27,11 @@ export default function PaymentLoadingPage() {
   const router = useRouter();
   const [amount, setAmount] = useState(100);
 
-  const { register } = useForm({
-    mode: "onChange",
-  });
+  // const { register } = useForm({
+  //   mode: "onChange",
+  // });
+
+  const { data } = useQuery(FETCH_USER_LOGGEDIN);
 
   const [createPointTransactionOfLoading] = useMutation<
     Pick<IMutation, "createPointTransactionOfLoading">,
@@ -40,26 +43,21 @@ export default function PaymentLoadingPage() {
   //   console.log(amount);
   // };
 
-  // const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setAmount(Number(e.currentTarget.value));
-  // };
+  const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    setAmount(Number(e.currentTarget.value));
+  };
 
-  register("amount", {
-    onChange: (e) => e.target.value,
-  });
+  // register("amount", {
+  //   onChange: (e) => e.target.value,
+  // });
 
   // console.log(amount);
 
-  const requestPay = async (data: IFormValue) => {
+  const requestPay = async () => {
     // console.log(amount);
-    const result = await createPointTransactionOfLoading({
-      variables: {
-        impUid: String(),
-      },
-    });
 
     const IMP = window.IMP; // 생략 가능
-    IMP.init("imp50570721"); // 예: imp00000000 아임포트 내정보부분에가면 나의 가맹점 id가 있다!
+    IMP.init("imp49910675"); // 예: imp00000000 아임포트 내정보부분에가면 나의 가맹점 id가 있다!
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay(
       {
@@ -67,23 +65,31 @@ export default function PaymentLoadingPage() {
         pg: "html5_inicis",
         pay_method: "card",
         // merchant_uid: "ORD20180131-0000011", 주석하면 id가 랜덤으로 생성된다
-        name: data.name,
-        amount: data.amount,
-        buyer_email: data.buyerEmail,
-        buyer_name: data.buyerName,
+        name: `${amount}원 충전하기`,
+        amount: amount,
+        buyer_email: data?.fetchUserLoggedIn.email,
+        buyer_name: data?.fetchUserLoggedIn.name,
         buyer_tel: "010-4242-4242",
         buyer_addr: "서울특별시 강남구 신사동",
         buyer_postcode: "01181",
-        m_redirect_url: "http://localhost:3000/day28/payment/loading",
+        m_redirect_url: "http://localhost:3000/market",
       },
       (rsp: any) => {
         // callback
         if (rsp.success) {
-          // 결제 성공 시 로직,
-          console.log(rsp);
           // 백엔드에 결제 관련 데이터 넘겨주기 (즉, mutation 실행하기)
           // ex, createPointTransactionOfLoading
-          router.push("mypage");
+          createPointTransactionOfLoading({
+            variables: {
+              impUid: rsp.imp_uid,
+            },
+            refetchQueries: [
+              {
+                query: FETCH_USER_LOGGEDIN,
+              },
+            ],
+          });
+          router.push("market");
           Modal.success({
             content: "결제 성공!",
           });
@@ -97,7 +103,6 @@ export default function PaymentLoadingPage() {
 
   return (
     <PaymentLodingPageUI
-      onClickAmount={onClickAmount}
       onChangeAmount={onChangeAmount}
       requestPay={requestPay}
     />

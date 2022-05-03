@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
+import { MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 import {
   IMutation,
@@ -11,11 +12,12 @@ import {
   CREATE_USED_ITEM_QUESTION,
   FETCH_USED_ITEM_QUESTIONS,
 } from "./marketCommentWriter.query";
-import { IFormValue } from "./marketCommentWriter.types";
+import { IFormValue, IMarketCommentWriter } from "./marketCommentWriter.types";
+import { UPDATE_USED_ITEM_QUESTION } from "../marketCommentList/marketCommentList.query";
 
-export default function MarketCommentWriterPage() {
+export default function MarketCommentWriterPage(props: IMarketCommentWriter) {
   const router = useRouter();
-  const { register, handleSubmit, watch, setValue } = useForm({
+  const { register, handleSubmit, watch, setValue, getValues } = useForm({
     mode: "onChange",
   });
 
@@ -24,7 +26,9 @@ export default function MarketCommentWriterPage() {
     IMutationCreateUseditemQuestionArgs
   >(CREATE_USED_ITEM_QUESTION);
 
-  const contents = watch().contents?.length;
+  const [updateUseditemQuestion] = useMutation(UPDATE_USED_ITEM_QUESTION);
+
+  const contentslength = watch().contents?.length;
 
   const onCilckComment = async (data: IFormValue) => {
     const { contents } = data;
@@ -40,7 +44,7 @@ export default function MarketCommentWriterPage() {
           refetchQueries: [
             {
               query: FETCH_USED_ITEM_QUESTIONS,
-              variables: { useditemId: router.query.marketId },
+              variables: { useditemId: String(router.query.marketId) },
             },
           ],
         });
@@ -58,13 +62,49 @@ export default function MarketCommentWriterPage() {
       }
     }
   };
+  interface IMyVariables {
+    updateUseditemQuestionInput: any;
+    useditemQuestionId: string;
+  }
+
+  const onClickCommentUpdate = async (data: IFormValue) => {
+    const myVariables: IMyVariables = {
+      updateUseditemQuestionInput: {},
+      useditemQuestionId: props.useditemQuestionId,
+    };
+    if (data.contents) {
+      myVariables.updateUseditemQuestionInput.contents = data.contents;
+    }
+    try {
+      const updateComments = await updateUseditemQuestion({
+        variables: myVariables,
+        refetchQueries: [
+          {
+            query: FETCH_USED_ITEM_QUESTIONS,
+            variables: { useditemId: String(router.query.marketId) },
+          },
+        ],
+      });
+      props.setIsEdit(false);
+      Modal.success({
+        content: "댓글 수정에 성공하였습니다 ",
+      });
+    } catch (error) {
+      Modal.error({
+        content: "댓글 수정에 실패하였습니다 ",
+      });
+    }
+  };
 
   return (
     <MarketCommentWriterUI
       onCilckComment={onCilckComment}
+      onClickCommentUpdate={onClickCommentUpdate}
       register={register}
       handleSubmit={handleSubmit}
-      contents={contents}
+      contentslength={contentslength}
+      isEditProps={props.isEditProps}
+      getValues={getValues}
     />
   );
 }

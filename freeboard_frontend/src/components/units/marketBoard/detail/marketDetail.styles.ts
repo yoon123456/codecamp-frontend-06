@@ -221,6 +221,10 @@ export const BuyBtn = styled.button`
   font-size: 24px;
   background-color: #ffd600;
   border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 
   :hover {

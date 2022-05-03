@@ -66,8 +66,8 @@ export default function LayoutHeader() {
       router.push("개인정보 창으로 이동시키기");
     }
   };
-  const onClicMypage = () => {
-    router.push("/mypage");
+  const onClicPayment = () => {
+    router.push("/payment");
   };
   const OnClickGoSignUp = () => {
     if (!accessToken) {
@@ -81,12 +81,12 @@ export default function LayoutHeader() {
   };
   const OnClickLogout = async () => {
     try {
-      await logoutUser();
       Modal.warning({
         title: "logout??",
         content: "정말로 로그아웃하시겠습니까?",
       });
-
+      await logoutUser();
+      location.reload();
       router.push("/boards");
     } catch {
       Modal.error({
@@ -98,11 +98,12 @@ export default function LayoutHeader() {
     <Wrapper>
       <Logo src={"/img/logo.png"} onClick={OnClickGoList}></Logo>
       <LoginWrapper>
-        <Login onClick={!accessToken ? OnClickGoLogin : onClicMypage}>
+        <Login onClick={!accessToken ? OnClickGoLogin : onClicPayment}>
           {!accessToken
             ? "로그인"
-            : `"${data?.fetchUserLoggedIn.name}"님 안녕하세요`}
+            : `"${data?.fetchUserLoggedIn.name}"님의 포인트 "${data?.fetchUserLoggedIn.userPoint.amount}P" `}
         </Login>
+
         <SingUp onClick={!accessToken ? OnClickGoSignUp : OnClickLogout}>
           {!accessToken ? "회원가입" : "로그아웃"}
         </SingUp>

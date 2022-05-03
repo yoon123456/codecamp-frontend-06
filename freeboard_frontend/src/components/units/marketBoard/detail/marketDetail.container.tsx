@@ -3,11 +3,15 @@ import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 import {
+  IMutation,
+  IMutationCreatePointTransactionOfBuyingAndSellingArgs,
   IQuery,
   IQueryFetchUseditemArgs,
 } from "../../../../commons/types/generated/type";
+import { FETCH_USER_LOGGEDIN } from "../../login/login.quries";
 import MarketDetailUI from "./marketDetail.presenter";
 import {
+  CREATE_POINT_TRANSACTION_OF_BUYUNG_AND_SELLING,
   DELETE_USED_ITEM,
   FETCH_USED_ITEM,
   TOGGLE_USED_ITEM_PICK,
@@ -29,16 +33,16 @@ export default function MarketDetail(props: IMarketDetailProps) {
 
   const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
 
+  const [createPointTransactionOfBuyingAndSelling] = useMutation(
+    CREATE_POINT_TRANSACTION_OF_BUYUNG_AND_SELLING
+  );
+
   const onClickMoveToMarketList = () => {
     router.push("/market");
   };
 
   const onClickMoveToMarketEdit = () => {
     router.push(`/market/${router.query.marketId}/edit`);
-  };
-
-  const onClickMoveToPayment = () => {
-    router.push("/payment");
   };
 
   const onClickDelete = (e: MouseEvent<HTMLButtonElement>) => {
@@ -62,15 +66,32 @@ export default function MarketDetail(props: IMarketDetailProps) {
       ],
     });
   };
+
+  const onClickBuyUseditem = (id: any) => async () => {
+    try {
+      const result = await createPointTransactionOfBuyingAndSelling({
+        variables: {
+          useritemId: String(id),
+        },
+        refetchQueries: [{ query: FETCH_USER_LOGGEDIN }],
+      });
+      Modal.success({
+        content: "구매성공!",
+      });
+      router.push("/market");
+    } catch (error) {
+      Modal.error({ content: "구매실패!" });
+    }
+  };
   return (
     <MarketDetailUI
       data={data}
       priceComma={priceComma}
       onClickMoveToMarketList={onClickMoveToMarketList}
       onClickMoveToMarketEdit={onClickMoveToMarketEdit}
-      onClickMoveToPayment={onClickMoveToPayment}
       onClickDelete={onClickDelete}
       onClickToggleUsedItemPick={onClickToggleUsedItemPick}
+      onClickBuyUseditem={onClickBuyUseditem}
       isEdit={props.isEdit}
     />
   );

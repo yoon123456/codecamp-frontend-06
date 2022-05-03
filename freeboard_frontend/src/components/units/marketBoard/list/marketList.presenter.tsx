@@ -10,7 +10,6 @@ const imageError = (e: any) => {
 };
 
 export default function MarketListPageUI(props: IPropsMarketListUI) {
-  console.log(props.data?.fetchUseditems.images);
   return (
     <S.Wrapper>
       <S.Header>
@@ -32,7 +31,7 @@ export default function MarketListPageUI(props: IPropsMarketListUI) {
           useWindow={false}
         >
           {props.data?.fetchUseditems?.map((el: IUseditem) => (
-            <S.Body key={el._id}>
+            <S.Body key={uuidv4()}>
               <S.BodyPhoto>
                 <S.ProdPhoto
                   src={`https://storage.googleapis.com/${el.images?.[0]}`}
@@ -41,7 +40,7 @@ export default function MarketListPageUI(props: IPropsMarketListUI) {
               </S.BodyPhoto>
               <S.BodyProduct
                 id={el._id}
-                onClick={props.onClickMoveToMarketBoarDetail}
+                onClick={props.onClickMoveToMarketBoarDetail(el)}
               >
                 <S.ProdTitle>
                   {el.name

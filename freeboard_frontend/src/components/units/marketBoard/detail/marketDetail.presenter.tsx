@@ -5,6 +5,7 @@ import { IMarketDetailUIProps } from "./marketDetail.types";
 import Dompurify from "dompurify";
 import { useQuery } from "@apollo/client";
 import { FETCH_USER_LOGGEDIN } from "../../login/login.quries";
+import KakaoMapFetchPage from "../../../commons/kakaoMapFetch";
 
 export default function MarketDetailUI(props: IMarketDetailUIProps) {
   const { data: loginData } = useQuery(FETCH_USER_LOGGEDIN);
@@ -76,7 +77,9 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
       {props.data?.fetchUseditem.tags.map((el: string) => (
         <S.Tag key={el}>{el}</S.Tag>
       ))}
-      <S.Map></S.Map>
+      <S.Map>
+        <KakaoMapFetchPage />
+      </S.Map>
       {props.data?.fetchUseditem.seller.email ===
         loginData?.fetchUserLoggedIn.email && (
         <S.Footer>
@@ -92,7 +95,11 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
           >
             삭제하기
           </S.DeleteBtn>
-          <S.BuyBtn onClick={props.onClickMoveToPayment}>구매하기</S.BuyBtn>
+          <S.BuyBtn
+            onClick={props.onClickBuyUseditem(props.data?.fetchUseditem._id)}
+          >
+            구매하기
+          </S.BuyBtn>
         </S.Footer>
       )}
       {props.data?.fetchUseditem.seller.email !==
@@ -101,7 +108,11 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
           <S.ListBtn onClick={props.onClickMoveToMarketList}>
             목록으로
           </S.ListBtn>
-          <S.BuyBtn onClick={props.onClickMoveToPayment}>구매하기</S.BuyBtn>
+          <S.BuyBtn
+            onClick={props.onClickBuyUseditem(props.data?.fetchUseditem._id)}
+          >
+            구매하기
+          </S.BuyBtn>
         </S.Footer>
       )}
     </S.Wrapper>

@@ -11,10 +11,9 @@ export default function KakaoMapPage() {
   useEffect(() => {
     const script = document.createElement("script"); // <script></script>
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=7b36e30971445aeef2fff1aa2bd77f73&autoload=false";
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=7b36e30971445aeef2fff1aa2bd77f73&autoload=false&libraries=services";
     // 물음표뒤에 객체의 형태로 데이터를 전송하는것을 쿼리스트링이라고한다
     document.head.appendChild(script);
-
     script.onload = () => {
       window.kakao.maps.load(function () {
         const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스

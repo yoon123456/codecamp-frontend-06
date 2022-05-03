@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../commons/store/login";
+import { accessTokenState, isLoadedState } from "../../../commons/store/login";
 import {
   ApolloClient,
   ApolloLink,
@@ -17,10 +17,16 @@ interface IProps {
 
 export default function ApolloSettingPage(props: IProps) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [isLoaded, setIsLoaded] = useRecoilState(isLoadedState);
 
   useEffect(() => {
+    // getAccessToken().then((newAccessToken) => {
+    //   setAccessToken(newAccessToken);
+    // });
+    setIsLoaded(true);
     getAccessToken().then((newAccessToken) => {
       setAccessToken(newAccessToken);
+      setIsLoaded(false);
     });
   }, []);
 

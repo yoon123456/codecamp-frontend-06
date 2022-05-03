@@ -16,12 +16,8 @@ import {
 import InfiniteScroll from "react-infinite-scroller";
 import { InfiniteScrollWrapper } from "./marketCommentList.styles";
 
-interface IDate {
-  id: string;
-}
 export default function MarketCommentList() {
   const router = useRouter();
-  const [id, setId] = useState("");
 
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditemQuestions">,
@@ -29,7 +25,6 @@ export default function MarketCommentList() {
   >(FETCH_USED_ITEM_QUESTIONS, {
     variables: { useditemId: String(router.query.marketId) },
   });
-  console.log(data, "ddd");
 
   const [deleteUseditemQuestions] = useMutation<
     Pick<IMutation, "deleteUseditemQuestion">,
@@ -96,7 +91,7 @@ export default function MarketCommentList() {
             el={el}
             onClickDelete={onClickDelete}
           />
-        ))}
+        )) || <div></div>}
       </InfiniteScroll>
     </InfiniteScrollWrapper>
   );

@@ -19,24 +19,6 @@ export default function PaymentLodingPageUI(props: IPaymentLodingPageUIProps) {
       </Head>
       <S.H1>충전하기</S.H1>
       <S.PigImage src={"img/Group 11996.png"} />
-      {/* <S.Select>
-        <S.InputOptionBox disabled>금액을선택해주세요</S.InputOptionBox>
-        <S.InputOptionBox value={500} onClick={props.onClickAmount}>
-          {" "}
-          500
-        </S.InputOptionBox>
-        <S.InputOptionBox value="1000" onClick={props.onClickAmount}>
-          {" "}
-          1000원
-        </S.InputOptionBox>
-        <S.InputOptionBox value="2000" onClick={props.onClickAmount}>
-          {" "}
-          2000원
-        </S.InputOptionBox>
-        <S.InputOptionBox value="10000" onClick={props.onClickAmount}>
-          10000원
-        </S.InputOptionBox>
-      </S.Select> */}
       <S.InputBox
         type="text"
         placeholder="충전하실 금액을 작성해주세요"

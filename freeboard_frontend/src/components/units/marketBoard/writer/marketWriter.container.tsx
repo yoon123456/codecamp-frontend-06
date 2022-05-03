@@ -16,7 +16,8 @@ import {
   IMyVariables,
 } from "./marketWriter.types";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import HashTagPage from "./hashTag";
 
 const schema = yup.object({
   name: yup.string().required("상품명은 필수입력사항 입니다"),
@@ -29,8 +30,6 @@ const schema = yup.object({
 });
 
 export default function MarketBoardWriter(props: IMarketWriteProps) {
-  console.log(props.data, "fetchData");
-
   const router = useRouter();
   const {
     register,
@@ -45,6 +44,11 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
     resolver: yupResolver(schema),
   });
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
+  const [address, setAddress] = useState("");
+  const [addressDetail, setAdressDetail] = useState("");
+  const [hashArr, setHashArr] = useState<string[]>([]);
 
   const [createUsedItem] = useMutation<
     Pick<IMutation, "createUseditem">,
@@ -55,6 +59,25 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
     Pick<IMutation, "updateUseditem">,
     IMutationUpdateUseditemArgs
   >(UPDATE_USED_ITEM);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+  const handleComplete = (data: any) => {
+    setAddress(data.address);
+    // setAdressDetail(data.addressDetail);
+    setIsOpen(false);
+  };
 
   const onChangeContents = (value: string) => {
     console.log(value);
@@ -68,6 +91,10 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
     setFileUrls(newFileUrls);
   };
 
+  const onChangeAddress = (event: ChangeEvent<HTMLInputElement>) => {
+    setAdressDetail(event.target.value);
+  };
+
   const onClickSubmit = async (data: IFormValue) => {
     console.log(data);
     if (!(data.name && data.remarks && data.contents && data.price)) {
@@ -75,7 +102,7 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
       return;
     }
     const { price, tags, ...rest } = data;
-    const tagArr = tags.split(",");
+    // const tagArr = tags.split(",");
 
     if (data.name && data.remarks && data.contents && data.price) {
       try {
@@ -84,13 +111,18 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
             createUseditemInput: {
               ...rest,
               price: Number(price),
-              tags: tagArr,
+              tags: hashArr,
               images: fileUrls,
+              useditemAddress: {
+                address: address,
+                addressDetail: addressDetail,
+                lat: lat,
+                lng: lng,
+              },
             },
           },
         });
-        console.log(result);
-        console.log(result.data);
+        console.log(result.data, "ㅁㅁㅁ");
         router.push(`/market/${result.data?.createUseditem._id}`);
         Modal.success({
           content: "상품등록에 성공하였습니다",
@@ -131,12 +163,12 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
       myVariables.updateUseditemInput.price = Number(price);
     }
 
-    // if (daumAddress || (daumAddressDetail && zonecode)) {
-    //   myVariables.updateBoardInput.boardAddress = {};
-    // }
-    // if (daumAddress) {
-    //   myVariables.updateBoardInput.boardAddress.address = daumAddress;
-    // }
+    if (address || addressDetail) {
+      myVariables.updateUseditemInput.useditemAddress = {};
+    }
+    if (address) {
+      myVariables.updateUseditemInput.useditemAddress.address = address;
+    }
     // if (daumAddressDetail) {
     //   myVariables.updateBoardInput.boardAddress.addressDetail = daumAddressDetail;
     // }
@@ -172,19 +204,35 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
   }, [props.data]);
 
   return (
-    <MarketWriterPageUI
-      onChangeContents={onChangeContents}
-      onChangeFileUrls={onChangeFileUrls}
-      onClickSubmit={onClickSubmit}
-      register={register}
-      handleSubmit={handleSubmit}
-      reset={reset}
-      getValues={getValues}
-      onClickUpdate={onClickUpdate}
-      formState={formState}
-      data={props.data}
-      fileUrls={fileUrls}
-      isEdit={props.isEdit}
-    />
+    <>
+      <MarketWriterPageUI
+        onChangeContents={onChangeContents}
+        onChangeFileUrls={onChangeFileUrls}
+        onClickSubmit={onClickSubmit}
+        register={register}
+        handleSubmit={handleSubmit}
+        reset={reset}
+        getValues={getValues}
+        onClickUpdate={onClickUpdate}
+        formState={formState}
+        data={props.data}
+        fileUrls={fileUrls}
+        isEdit={props.isEdit}
+        lat={lat}
+        setLat={setLat}
+        lng={lng}
+        setLng={setLng}
+        isOpen={isOpen}
+        showModal={showModal}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        handleComplete={handleComplete}
+        address={address}
+        addressDetail={addressDetail}
+        onChangeAddress={onChangeAddress}
+        hashArr={hashArr}
+        setHashArr={setHashArr}
+      />
+    </>
   );
 }

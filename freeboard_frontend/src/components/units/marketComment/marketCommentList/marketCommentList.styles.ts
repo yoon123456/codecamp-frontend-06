@@ -59,7 +59,7 @@ export const CommentFooter = styled.div`
   padding-top: 20px;
   color: #bdbdbd;
 `;
-export const CommentEdit = styled.div`
+export const CommentEdit = styled.button`
   width: 40px;
   border: none;
   background-color: white;
