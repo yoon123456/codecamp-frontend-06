@@ -11,7 +11,7 @@ export default function BoardDetailPage(props) {
         <meta property="og:description" content={props.myboardData?.contents} />
         <meta
           property="og:image"
-          src={`https://storage.googleapis.com/${props.myboardData?.images[0]}`}
+          content={`https://storage.googleapis.com/${props.myboardData?.images[0]}`}
         />
         {/* src={`https://storage.googleapis.com/${props.myboardData?.images[0]}`} */}
       </Head>
