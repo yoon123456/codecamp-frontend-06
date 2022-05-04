@@ -69,11 +69,13 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
             ))}
         </S.SliderStyle>
       </S.Carousel>
-      <S.Contents
-        dangerouslySetInnerHTML={{
-          __html: Dompurify.sanitize(props.data?.fetchUseditem.contents),
-        }}
-      ></S.Contents>
+      {typeof window !== "undefined" && (
+        <S.Contents
+          dangerouslySetInnerHTML={{
+            __html: Dompurify.sanitize(props.data?.fetchUseditem.contents),
+          }}
+        ></S.Contents>
+      )}
       {props.data?.fetchUseditem.tags.map((el: string) => (
         <S.Tag key={el}>{el}</S.Tag>
       ))}
