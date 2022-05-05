@@ -24,7 +24,6 @@ export const FETCH_USED_ITEM = gql`
         name
       }
       useditemAddress {
-        _id
         address
         addressDetail
         lat

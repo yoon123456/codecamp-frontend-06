@@ -232,6 +232,7 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
         onChangeAddress={onChangeAddress}
         hashArr={hashArr}
         setHashArr={setHashArr}
+        setAddress={setAddress}
       />
     </>
   );

@@ -47,6 +47,7 @@ export interface IMarketWriterPageUIProps {
   handleComplete: (data: any) => void;
   hashArr: string[];
   setHashArr: any;
+  setAddress: any;
 }
 
 export interface IProps {

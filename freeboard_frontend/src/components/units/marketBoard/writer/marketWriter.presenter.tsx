@@ -110,6 +110,9 @@ export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
                 setLng={props.setLng}
                 address={props.address}
                 addressDetail={props.addressDetail}
+                isEdit={props.isEdit}
+                data={props.data}
+                setAddress={props.setAddress}
               />
             </S.Map>
           </S.MapWrapper>

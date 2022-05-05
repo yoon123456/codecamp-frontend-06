@@ -45,7 +45,7 @@ export default function MarketListPage(props: IPropsMarketList) {
 
       const todayBoard = JSON.parse(localStorage.getItem(getDate) || "[]");
       setToday(todayBoard);
-      console.log(todayBoard);
+      console.log(today, "todayayayay");
       router.push(`market/${e.currentTarget.id}`);
     };
   const priceComma = Number(props.data?.fetchUseditem?.price)?.toLocaleString(
