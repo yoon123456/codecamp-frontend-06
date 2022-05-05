@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  my_frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # prettier-ignore
+    ports: 
+      - 3000:3000

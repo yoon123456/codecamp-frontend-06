@@ -2,7 +2,7 @@ import LayoutHeader from "./header";
 import LayoutBanner from "./banner";
 import LayoutNavigation from "./navigation";
 import LayoutFooter from "./footer";
-// import LayOutSidebar from "./sidebar";
+import LayOutSidebar from "./sidebar";
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { useRouter } from "next/router";
@@ -37,8 +37,8 @@ export default function Layout(props: ILayoutProps) {
       {!isHiddenHeader && !isHiddenBanner && <LayoutBanner />}
       {!isHiddenHeader && <LayoutNavigation />}
       <BodyWrapper>
-        {/* <LayOutSidebar /> */}
         <Body>{props.children}</Body>
+        <LayOutSidebar />
       </BodyWrapper>
       {!isHiddenHeader && <LayoutFooter />}
     </>
