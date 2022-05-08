@@ -15,7 +15,6 @@ const HashTagPage = () => {
         (el) => el !== "# " && el !== "#  " && el !== "#"
       );
       setHashArr(tempArr);
-      console.log(tempArr);
       (event.target as HTMLInputElement).value = "";
     }
   };

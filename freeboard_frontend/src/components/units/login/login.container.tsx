@@ -56,7 +56,6 @@ export default function LoginPageFn() {
       }));
     }
   };
-  console.log(login);
 
   const onClickLoginKeepBtn = () => {
     setIsCheck(true);
@@ -91,7 +90,6 @@ export default function LoginPageFn() {
         const result = await loginUser({
           variables: { ...login },
         });
-        console.log(result);
         const accessToken = result.data?.loginUser.accessToken;
 
         const resultUserInfo = await client.query({
@@ -105,7 +103,6 @@ export default function LoginPageFn() {
         });
 
         const userInfo = resultUserInfo.data?.fetchUserLoggedIn;
-        console.log(userInfo);
 
         setAccessToken(accessToken || "");
         setUserInfo(userInfo);

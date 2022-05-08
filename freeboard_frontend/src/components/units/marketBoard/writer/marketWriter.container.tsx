@@ -80,7 +80,6 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
   };
 
   const onChangeContents = (value: string) => {
-    console.log(value);
     setValue("contents", value === "<p><br></p>" ? "" : value);
     trigger("contents");
   };
@@ -96,7 +95,6 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
   };
 
   const onClickSubmit = async (data: IFormValue) => {
-    console.log(data);
     if (!(data.name && data.remarks && data.contents && data.price)) {
       alert("모두 입력해 주세요!");
       return;
@@ -122,7 +120,6 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
             },
           },
         });
-        console.log(result.data, "ㅁㅁㅁ");
         router.push(`/market/${result.data?.createUseditem._id}`);
         Modal.success({
           content: "상품등록에 성공하였습니다",
@@ -183,7 +180,6 @@ export default function MarketBoardWriter(props: IMarketWriteProps) {
       const update = await updateUseditem({
         variables: myVariables,
       });
-      console.log(update);
       Modal.success({
         content: "게시글 수정에 성공했습니다!!",
       });

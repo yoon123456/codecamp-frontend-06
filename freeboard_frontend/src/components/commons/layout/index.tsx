@@ -19,6 +19,7 @@ const BodyWrapper = styled.div`
 `;
 const HIDDEN_HEADERS = ["/"];
 const HIDDEN_BANNER = ["/open-api"];
+const HIDDEN_SIDEBAR = ["/login", "/signup", "/boards", "/open-api"];
 
 interface ILayoutProps {
   children: ReactNode;
@@ -26,10 +27,10 @@ interface ILayoutProps {
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
-  console.log(router);
 
   const isHiddenHeader = HIDDEN_HEADERS.includes(router.asPath);
   const isHiddenBanner = HIDDEN_BANNER.includes(router.asPath);
+  const isHiddenSidebar = HIDDEN_SIDEBAR.includes(router.asPath);
 
   return (
     <>
@@ -38,7 +39,7 @@ export default function Layout(props: ILayoutProps) {
       {!isHiddenHeader && <LayoutNavigation />}
       <BodyWrapper>
         <Body>{props.children}</Body>
-        <LayOutSidebar />
+        {!isHiddenSidebar && <LayOutSidebar />}
       </BodyWrapper>
       {!isHiddenHeader && <LayoutFooter />}
     </>

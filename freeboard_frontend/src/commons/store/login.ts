@@ -38,3 +38,13 @@ export const isLoadedState = atom({
   key: "isLoadedState",
   default: true,
 });
+
+export const TodayState = atom({
+  key: "today",
+  default: [],
+});
+
+export const isClickedState = atom({
+  key: "isClickedState",
+  default: false,
+});

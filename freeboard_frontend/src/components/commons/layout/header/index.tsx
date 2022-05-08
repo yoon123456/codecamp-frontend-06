@@ -47,7 +47,7 @@ const SingUp = styled.div`
 
 export default function LayoutHeader() {
   const router = useRouter();
-  const [xs, setUserInfo] = useRecoilState(userInfoState);
+  const [, setUserInfo] = useRecoilState(userInfoState);
   const [accessToken] = useRecoilState(accessTokenState);
   const { data } = useQuery(FETCH_USER_LOGGEDIN);
   const [logoutUser] = useMutation(LOGOUT_USER);

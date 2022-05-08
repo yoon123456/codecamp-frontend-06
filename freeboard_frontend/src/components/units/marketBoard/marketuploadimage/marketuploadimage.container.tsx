@@ -22,7 +22,6 @@ export default function MarketUploadImage(props: IUploadsImageProps) {
     try {
       const result = await uploadFile({ variables: { file } });
       props.onChangeFileUrls(result.data.uploadFile.url, props.index);
-      console.log(result?.data?.uploadFile.url);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }

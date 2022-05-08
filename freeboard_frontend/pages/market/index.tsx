@@ -14,8 +14,6 @@ function MarketBoardPage() {
     IQueryFetchUseditemsArgs
   >(FETCH_USED_ITEMS);
 
-  console.log(data);
-
   const onLoadMore = () => {
     if (!data) return;
 

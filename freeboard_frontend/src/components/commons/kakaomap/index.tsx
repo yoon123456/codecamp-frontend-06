@@ -25,7 +25,6 @@ export default function KakaoMapPage(props: IKakaoProps) {
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: String(router.query.marketId) },
   });
-  console.log(data, "asd");
   const lat = data?.fetchUseditem.useditemAddress?.lat;
   const lng = data?.fetchUseditem.useditemAddress?.lng;
   useEffect(() => {

@@ -47,7 +47,6 @@ export default function CommentListPageUI(props: IBoardCommentListUIProps) {
   }
 
   const onClickCommentUpdate = async (event: MouseEvent<HTMLButtonElement>) => {
-    console.log(event.currentTarget.id);
     const myVariables: IMyVariables = {
       updateBoardCommentInput: {},
       password: password,
@@ -64,7 +63,6 @@ export default function CommentListPageUI(props: IBoardCommentListUIProps) {
       const updateComments = await updateBoardComment({
         variables: myVariables,
       });
-      console.log(updateComments);
       setIsEdit(false);
     } catch (error) {
       if (error instanceof Error)

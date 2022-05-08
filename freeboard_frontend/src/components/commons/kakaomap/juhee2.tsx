@@ -222,7 +222,6 @@ export default function KakaoMapUI(props: any) {
     setIsOpen((prev) => !prev);
   };
   const onCompleteAddressSearch = (data: any) => {
-    console.log(data);
     props.setAddress({ zipcode: data.zonecode, address: data.address });
     setSearchText(data.address);
     setIsOpen(false);

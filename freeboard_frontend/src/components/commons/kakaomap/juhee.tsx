@@ -118,7 +118,6 @@ export default function KakaoMapView(props: IKakaoMapViewProps) {
     script.onload = () => {
       // script가 로드되면 실행
       window.kakao.maps.load(function () {
-        console.log(props?.lat, props?.lng);
         // map이 만들어진 이후에 실행
         const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
         const options = {
@@ -182,7 +181,6 @@ export default function KakaoMapView(props: IKakaoMapViewProps) {
     script.onload = () => {
       // script가 로드되면 실행
       window.kakao.maps.load(function () {
-        console.log(props?.lat, props?.lng);
         // map이 만들어진 이후에 실행
         const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
         const options = {

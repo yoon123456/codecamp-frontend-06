@@ -39,7 +39,6 @@ export default function BoardDetail() {
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: String(router.query.boardId) },
   });
-  console.log(data);
 
   const onClickMoveToBoardList = () => {
     router.push("/boards");

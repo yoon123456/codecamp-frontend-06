@@ -29,7 +29,6 @@ export default function BoardCommentList() {
   });
 
   const onLoadMore = () => {
-    console.log(data);
     if (!data) return;
 
     fetchMore({
@@ -65,7 +64,6 @@ export default function BoardCommentList() {
 
   const onChangeCommentPassword = (event: any) => {
     setPassword(event.target.value);
-    console.log(password);
   };
 
   const onClickCommentDelete = () => {

@@ -63,8 +63,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const handleComplete = (data: any) => {
     setDaumAdress(data.address);
     setZonecode(data.zonecode);
-    console.log(data);
-    console.log(data.zonecode);
     setIsOpen(false);
   };
 
@@ -296,7 +294,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
       const update = await updateBoard({
         variables: myVariables,
       });
-      console.log(update);
       Modal.success({
         content: "게시글 수정에 성공했습니다!!",
       });

@@ -51,7 +51,6 @@ export default function MarketCommentWriterPage(props: IMarketCommentWriter) {
         Modal.success({
           content: "댓글 등록에 성공했습니다!!",
         });
-        console.log("ㅃㅃ", data.contents);
         setValue("contents", "");
       } catch (error) {
         if (error instanceof Error)

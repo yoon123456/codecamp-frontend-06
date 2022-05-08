@@ -9,6 +9,5 @@ export default function MarketEditPage() {
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: String(router.query.marketId) },
   });
-  console.log(data, "fetchData");
   return <MarketBoardWriter isEdit={true} data={data} />;
 }

@@ -3,6 +3,8 @@
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { ChangeEvent, MouseEvent, useState } from "react";
+import { useRecoilState } from "recoil";
+import { isClickedState, TodayState } from "../../../../commons/store/login";
 import { IUseditem } from "../../../../commons/types/generated/type";
 import MarketListPageUI from "./marketList.presenter";
 import { IPropsMarketList } from "./marketList.type";
@@ -10,7 +12,8 @@ import { IPropsMarketList } from "./marketList.type";
 export default function MarketListPage(props: IPropsMarketList) {
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
-  const [today, setToday] = useState([]);
+  const [, setIsClicked] = useRecoilState(isClickedState);
+  const [, setToday] = useRecoilState(TodayState);
 
   const getDebounce = _.debounce((data) => {
     props.refetch({ search: data, page: 1 });
@@ -45,7 +48,7 @@ export default function MarketListPage(props: IPropsMarketList) {
 
       const todayBoard = JSON.parse(localStorage.getItem(getDate) || "[]");
       setToday(todayBoard);
-      console.log(today, "todayayayay");
+      setIsClicked(true);
       router.push(`market/${e.currentTarget.id}`);
     };
   const priceComma = Number(props.data?.fetchUseditem?.price)?.toLocaleString(

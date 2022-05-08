@@ -7,7 +7,11 @@ interface IFormValues {
 }
 
 export default function ReactHookFormpage() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState } = useForm();
+
+  // 등록하기 버튼을 누르면 한번만 요청이 갈수 있도록 하는 기능 (여러번 눌러도 요청이 가지 않도록)
+  // 누르면 isSubmitting이 true 값으로 바뀜
+  formState.isSubmitting;
 
   const onClickSubmit = (data: IFormValues) => {
     console.log(data);
@@ -22,7 +26,7 @@ export default function ReactHookFormpage() {
       제목: <input type="text" {...register("title")} />
       내용:
       <input type="text" {...register("contents")} />
-      <button>등록하기</button>
+      <button disabled={formState.isSubmitting}>등록하기</button>
     </form>
   );
 }
