@@ -14,7 +14,7 @@ export default function ListBoardPage(props: IBoardListUIProps) {
     // 0.2초간 아무런 작업이 없을때 실행될 부분
     props.refetch({ search: data, page: 1 });
     setKeyword(data);
-  }, 200);
+  }, 2000);
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     getDebounce(event.target.value);
   };

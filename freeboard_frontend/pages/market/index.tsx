@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { useState } from "react";
 import {
   IQuery,
   IQueryFetchUseditemsArgs,
@@ -9,11 +10,15 @@ import { FETCH_USED_ITEMS } from "../../src/components/units/marketBoard/list/ma
 
 // 중고마켓 상품목록 페이지
 function MarketBoardPage() {
+  const [isSoldout, setIsSoldout] = useState(false);
   const { data, refetch, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
-  >(FETCH_USED_ITEMS);
-
+  >(FETCH_USED_ITEMS, {
+    variables: {
+      isSoldout,
+    },
+  });
   const onLoadMore = () => {
     if (!data) return;
 
@@ -33,7 +38,13 @@ function MarketBoardPage() {
   };
 
   return (
-    <MarketListPage data={data} refetch={refetch} onLoadMore={onLoadMore} />
+    <MarketListPage
+      data={data}
+      refetch={refetch}
+      onLoadMore={onLoadMore}
+      isSoldout={isSoldout}
+      setIsSoldout={setIsSoldout}
+    />
   );
 }
 

@@ -103,7 +103,7 @@ export default function LoginPageFn() {
         });
 
         const userInfo = resultUserInfo.data?.fetchUserLoggedIn;
-
+        console.log(userInfo);
         setAccessToken(accessToken || "");
         setUserInfo(userInfo);
         // localStorage.setItem("accessToken", accessToken || "");

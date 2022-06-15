@@ -51,9 +51,17 @@ export default function MarketListPage(props: IPropsMarketList) {
       setIsClicked(true);
       router.push(`market/${e.currentTarget.id}`);
     };
+
   const priceComma = Number(props.data?.fetchUseditem?.price)?.toLocaleString(
     "ko-KR"
   );
+
+  const onClickIsSoldout = () => {
+    props.setIsSoldout(true);
+  };
+  const onClickIsUnSoldout = () => {
+    props.setIsSoldout(false);
+  };
 
   return (
     <MarketListPageUI
@@ -64,6 +72,8 @@ export default function MarketListPage(props: IPropsMarketList) {
       onClickMoveToMarketBoarDetail={onClickMoveToMarketBoarDetail}
       keyword={keyword}
       onLoadMore={props.onLoadMore}
+      onClickIsSoldout={onClickIsSoldout}
+      onClickIsUnSoldout={onClickIsUnSoldout}
     />
   );
 }

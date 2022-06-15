@@ -13,8 +13,8 @@ export default function MarketListPageUI(props: IPropsMarketListUI) {
   return (
     <S.Wrapper>
       <S.Header>
-        <S.SaleProd>판매중상품</S.SaleProd>
-        <S.SoldProd>판매된상품</S.SoldProd>
+        <S.SaleProd onClick={props.onClickIsUnSoldout}>판매중상품</S.SaleProd>
+        <S.SoldProd onClick={props.onClickIsSoldout}>판매된상품</S.SoldProd>
         <S.Search
           type="text"
           placeholder="제품을 검색해주세요"

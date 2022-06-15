@@ -39,6 +39,7 @@ export default function ApolloSettingPage(props: IProps) {
         if (err.extensions.code === "UNAUTHENTICATED") {
           getAccessToken().then((newAccessToken) => {
             setAccessToken(newAccessToken);
+            // 3-1. 재발급 받은 accessToken으로 방금 실패한 쿼리 재요청하기
             operation.setContext({
               herders: {
                 // 헤더의 모든것은 스프레드 연산자로 그대로 불러오고 Authorization의 값만 새로운 토큰으로 바꿔준다

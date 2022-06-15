@@ -11,7 +11,7 @@ import {
 import { UPDATE_BOARD_COMMENT } from "./BoardComment.queries";
 import { Modal } from "antd";
 
-export default function CommentListPageUI(props: IBoardCommentListUIProps) {
+export default function listCommentListPageUI(props: IBoardCommentListUIProps) {
   const [isEdit, setIsEdit] = useState(false);
   const [password, setPassword] = useState("");
   const [rating, setRating] = useState(3);
