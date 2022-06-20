@@ -19,7 +19,14 @@ const BodyWrapper = styled.div`
 `;
 const HIDDEN_HEADERS = ["/"];
 const HIDDEN_BANNER = ["/open-api"];
-const HIDDEN_SIDEBAR = ["/login", "/signup", "/boards", "/open-api"];
+const HIDDEN_SIDEBAR = [
+  "/login",
+  "/signup",
+  "/boards",
+  "/open-api",
+  "/mypage",
+  "/payment",
+];
 
 interface ILayoutProps {
   children: ReactNode;
