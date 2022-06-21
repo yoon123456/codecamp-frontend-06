@@ -53,8 +53,6 @@ export default function LayoutSidebar() {
   const [today] = useRecoilState<any>(TodayState);
   const [isClicked] = useRecoilState(isCheckState);
 
-  console.log(today, "dfd");
-
   const imageError = (e: any) => {
     e.target.src = "img/beachimg.jpeg";
   };

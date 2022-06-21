@@ -12,7 +12,11 @@ import {
   CREATE_USED_ITEM_QUESTION,
   FETCH_USED_ITEM_QUESTIONS,
 } from "./marketCommentWriter.query";
-import { IFormValue, IMarketCommentWriter } from "./marketCommentWriter.types";
+import {
+  IFormValue,
+  IMarketCommentWriter,
+  IMyVariables,
+} from "./marketCommentWriter.types";
 import { UPDATE_USED_ITEM_QUESTION } from "../marketCommentList/marketCommentList.query";
 
 export default function MarketCommentWriterPage(props: IMarketCommentWriter) {
@@ -61,10 +65,6 @@ export default function MarketCommentWriterPage(props: IMarketCommentWriter) {
       }
     }
   };
-  interface IMyVariables {
-    updateUseditemQuestionInput: any;
-    useditemQuestionId: string;
-  }
 
   const onClickCommentUpdate = async (data: IFormValue) => {
     const myVariables: IMyVariables = {

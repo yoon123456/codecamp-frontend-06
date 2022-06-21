@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import MainPageUi from "./main.presenter";
+import MainPageUI from "./main.presenter";
 export default function MainPageState() {
   const [name, setName] = useState("");
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function MainPageState() {
   };
 
   return (
-    <MainPageUi
+    <MainPageUI
       name={name}
       onChangeName={onChangeName}
       onClickGoHome={onClickGoHome}

@@ -21,3 +21,8 @@ export interface IMarketCommentWriterUIProps {
   setIsEdit?: boolean;
   getValues: any;
 }
+
+export interface IMyVariables {
+  updateUseditemQuestionInput: any;
+  useditemQuestionId: string;
+}
