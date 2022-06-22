@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  padding: 20px;
   width: 70vw;
   height: 100vh;
   box-sizing: border-box;
   background-image: url("/img/home.jpg");
   background-size: contain;
   background-repeat: no-repeat;
-  z-index: -3;
+  z-index: 1;
   position: relative;
 `;
 export const WrapperIn = styled.div`
@@ -30,6 +29,7 @@ export const Div = styled.div`
 export const Input = styled.input`
   width: 200px;
   border: none;
+  outline: none;
 `;
 export const Button = styled.div`
   display: flex;
@@ -39,4 +39,5 @@ export const Button = styled.div`
   padding: 20px;
   border: none;
   cursor: pointer;
+  z-index: 10;
 `;
