@@ -27,7 +27,7 @@ export default function BoardListUI(props: IBoardListUIProps) {
       </S.ListHeader>
       <div>
         {props.data?.fetchBoards?.map((el: IBoard) => (
-          <S.Row key={el._id}>
+          <S.Row key={uuid()}>
             <S.ListId>{String(el._id).slice(-4).toUpperCase()}</S.ListId>
             <S.ListTitle id={el._id} onClick={props.onClickMoveToBoardDetail}>
               {" "}

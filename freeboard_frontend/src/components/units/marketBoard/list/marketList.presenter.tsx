@@ -54,8 +54,8 @@ export default function MarketListPageUI(props: IPropsMarketListUI) {
                 </S.ProdTitle>
                 <S.ProdDetail>{el.remarks}</S.ProdDetail>
                 {/* <S.prodTag>{el.tags?.map((el) => el)}</S.prodTag> */}
-                {el.tags?.map((el, i) => (
-                  <S.prodTag key={i}>{el}</S.prodTag>
+                {el.tags?.map((el) => (
+                  <S.prodTag key={uuidv4()}>{el}</S.prodTag>
                 ))}
                 <S.SellerWrapper>
                   <S.SellerInfo>

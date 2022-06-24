@@ -15,6 +15,7 @@ import {
 } from "./marketCommentList.query";
 import InfiniteScroll from "react-infinite-scroller";
 import { InfiniteScrollWrapper } from "./marketCommentList.styles";
+import { v4 as uuid } from "uuid";
 
 export default function MarketCommentList() {
   const router = useRouter();
@@ -86,7 +87,7 @@ export default function MarketCommentList() {
       >
         {data?.fetchUseditemQuestions.map((el) => (
           <MarketCommentListUI
-            key={el._id}
+            key={uuid()}
             data={data}
             el={el}
             onClickDelete={onClickDelete}

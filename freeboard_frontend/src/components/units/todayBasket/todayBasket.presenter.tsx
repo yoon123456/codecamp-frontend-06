@@ -72,7 +72,7 @@ export default function TodayMarketList() {
     <Wrapper>
       <div>
         {data?.fetchUseditems.map((el: IUseditem) => (
-          <MyRow key={el._id} onClick={onClickBasket(el)}>
+          <MyRow key={uuid()} onClick={onClickBasket(el)}>
             <MyColumn>{el.seller?.name}</MyColumn>
             <MyColumn>{el.name}</MyColumn>
           </MyRow>
@@ -81,7 +81,7 @@ export default function TodayMarketList() {
 
       <div>
         {today.map((el: IUseditem) => (
-          <Row key={el._id}>
+          <Row key={uuid()}>
             <ProdPhoto
               src={`https://storage.googleapis.com/${el.images?.[0]}`}
               //  onError={imageError}

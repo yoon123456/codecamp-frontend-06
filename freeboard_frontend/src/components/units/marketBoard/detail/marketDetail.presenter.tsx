@@ -6,6 +6,7 @@ import Dompurify from "dompurify";
 import { useQuery } from "@apollo/client";
 import { FETCH_USER_LOGGEDIN } from "../../login/login.quries";
 import KakaoMapFetchPage from "../../../commons/kakaoMapFetch";
+import { v4 as uuid } from "uuid";
 
 export default function MarketDetailUI(props: IMarketDetailUIProps) {
   const { data: loginData } = useQuery(FETCH_USER_LOGGEDIN);
@@ -63,7 +64,7 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
           {props.data?.fetchUseditem.images
             ?.filter((el: string) => el)
             .map((el: string) => (
-              <S.ImgWrapper key={el}>
+              <S.ImgWrapper key={uuid()}>
                 <S.Image src={`https://storage.googleapis.com/${el}`} />
               </S.ImgWrapper>
             ))}
@@ -77,7 +78,7 @@ export default function MarketDetailUI(props: IMarketDetailUIProps) {
         ></S.Contents>
       )}
       {props.data?.fetchUseditem.tags.map((el: string) => (
-        <S.Tag key={el}>{el}</S.Tag>
+        <S.Tag key={uuid()}>{el}</S.Tag>
       ))}
       <S.Map>
         <KakaoMapFetchPage />

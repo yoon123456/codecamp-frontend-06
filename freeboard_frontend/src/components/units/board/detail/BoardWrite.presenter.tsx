@@ -4,6 +4,7 @@ import * as S from "./BoardWrite.styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
 import { Tooltip } from "antd";
+import { v4 as uuid } from "uuid";
 
 export default function BoardWriterUI(props: IBoardWriteUIProps) {
   const text = (
@@ -52,7 +53,7 @@ export default function BoardWriterUI(props: IBoardWriteUIProps) {
               ?.filter((el: string) => el)
               .map((el: string) => (
                 <S.Image
-                  key={el}
+                  key={uuid()}
                   src={`https://storage.googleapis.com/${el}`}
                 />
               ))}

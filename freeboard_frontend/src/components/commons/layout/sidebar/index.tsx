@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { isCheckState, TodayState } from "../../../../commons/store/login";
+import { v4 as uuid } from "uuid";
 
 const Wrapper = styled.div`
   width: 250px;
@@ -73,7 +74,7 @@ export default function LayoutSidebar() {
       <Title>오늘 본 상품</Title>
       <ScrollDiv>
         {today.map((el: any, i: number) => (
-          <Today key={i}>
+          <Today key={uuid()}>
             <TodayTitle>{el.name}</TodayTitle>
             <TodayImage
               src={`https://storage.googleapis.com/${el.images[0]}`}

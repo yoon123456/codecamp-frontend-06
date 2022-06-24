@@ -13,6 +13,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import InfiniteScroll from "react-infinite-scroller";
 import { InfiniteScrollWrapper } from "./BoardComment.styles";
+import { v4 as uuid } from "uuid";
 
 export default function BoardCommentList() {
   const router = useRouter();
@@ -111,7 +112,7 @@ export default function BoardCommentList() {
               handleCancel={handleCancel}
               isOpen={isOpen}
               onChangeCommentPassword={onChangeCommentPassword}
-              key={el._id}
+              key={uuid()}
               el={el}
               password={password}
             />
