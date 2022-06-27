@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import BoardListUI from "./BoardWrite.presenter";
 import { MouseEvent, useState, ChangeEvent } from "react";
-import { IBoardListUIProps } from "./BoardWrite.types";
+import { IBoardListUIProps, IListBoardPage } from "./BoardWrite.types";
 import _ from "lodash";
 
 // 쿼리 문에 페치보드카운트 추가해주어야한다
 
-export default function ListBoardPage(props: IBoardListUIProps) {
+export default function ListBoardPage(props: IListBoardPage) {
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
 
