@@ -97,7 +97,7 @@ export default function MarketWriterPageUI(props: IMarketWriterPageUIProps) {
             // defaultValue={props.data?.fetchUseditem.tags}
             onKeyUp={onKeyUpHash}
           />
-          <HashTagPage />
+          {/* <HashTagPage /> */}
         </S.Header>
         <S.Body>
           <S.MapWrapper>

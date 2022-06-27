@@ -52,7 +52,7 @@ export default function MarketListPage(props: IPropsMarketList) {
       router.push(`market/${e.currentTarget.id}`);
     };
 
-  const priceComma = Number(props.data?.fetchUseditem?.price)?.toLocaleString(
+  const priceComma = Number(props.data?.fetchUseditems.price)?.toLocaleString(
     "ko-KR"
   );
 

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import * as S from "./header.styeld";
 import { useRouter } from "next/router";
 import {
   userInfoState,
@@ -11,39 +11,6 @@ import {
   FETCH_USER_LOGGEDIN,
   LOGOUT_USER,
 } from "../../../units/login/login.quries";
-
-const Wrapper = styled.div`
-  height: 120px;
-  padding: 10px 150px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-const Logo = styled.img`
-  cursor: pointer;
-`;
-const LoginWrapper = styled.div`
-  width: 500px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-const Login = styled.div`
-  padding: 20px;
-  cursor: pointer;
-`;
-const SingUp = styled.div`
-  padding: 10px;
-  border: 1px solid lightgray;
-  background-color: #ffd600;
-  border-radius: 5px;
-  cursor: pointer;
-  :hover {
-    background-color: black;
-    color: white;
-  }
-`;
 
 export default function LayoutHeader() {
   const router = useRouter();
@@ -95,19 +62,18 @@ export default function LayoutHeader() {
     }
   };
   return (
-    <Wrapper>
-      <Logo src={"/img/logo.png"} onClick={OnClickGoList}></Logo>
-      <LoginWrapper>
-        <Login onClick={!accessToken ? OnClickGoLogin : onClicPayment}>
+    <S.Wrapper>
+      <S.Logo onClick={OnClickGoList}>YEWON</S.Logo>
+      <S.LoginWrapper>
+        <S.Login onClick={!accessToken ? OnClickGoLogin : onClicPayment}>
           {!accessToken
             ? "로그인"
             : `"${data?.fetchUserLoggedIn.name}"님의 포인트 "${data?.fetchUserLoggedIn.userPoint.amount}P" `}
-        </Login>
-
-        <SingUp onClick={!accessToken ? OnClickGoSignUp : OnClickLogout}>
+        </S.Login>
+        <S.SingUp onClick={!accessToken ? OnClickGoSignUp : OnClickLogout}>
           {!accessToken ? "회원가입" : "로그아웃"}
-        </SingUp>
-      </LoginWrapper>
-    </Wrapper>
+        </S.SingUp>
+      </S.LoginWrapper>
+    </S.Wrapper>
   );
 }

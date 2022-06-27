@@ -7,8 +7,9 @@ import {
   IMutationCreateUserArgs,
 } from "../../../commons/types/generated/type";
 import * as yup from "yup";
-import * as L from "./signup.styles";
 import { IFromValues } from "./signup.types";
+import { useRouter } from "next/router";
+import SignupPageUI from "./signup.presenter";
 
 const schema = yup.object({
   email: yup
@@ -36,16 +37,17 @@ const schema = yup.object({
 });
 
 export default function SignupPageFn() {
+  const router = useRouter();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  const [createUser] = useMutation(CREATE_USER);
+  const [createUser] = useMutation<
+    Pick<IMutation, "createUser">,
+    IMutationCreateUserArgs
+  >(CREATE_USER);
 
   const onClickSingup = async (data: IFromValues) => {
-    console.log("di");
-    console.log(data);
-
     if (data.email && data.password && data.name) {
       const result = await createUser({
         variables: {
@@ -56,45 +58,17 @@ export default function SignupPageFn() {
           },
         },
       });
-      console.log(result.data);
       alert("회원가입 성공");
+      router.push("/login");
     }
   };
 
   return (
-    <L.Wrapper>
-      <form onSubmit={handleSubmit(onClickSingup)}>
-        <L.Logo>SIGNUP</L.Logo>
-        <L.Ttile>이메일*</L.Ttile>
-        <L.Email
-          type="text"
-          placeholder="이메일을 입력해주세요."
-          {...register("email")}
-        />
-        <L.Error>{formState.errors.email?.message}</L.Error>
-        <L.Ttile>이름*</L.Ttile>
-        <L.Email
-          type="text"
-          placeholder="이름을 입력해주세요."
-          {...register("name")}
-        />
-        <L.Error>{formState.errors.name?.message}</L.Error>
-        <L.Ttile>비밀번호*</L.Ttile>
-        <L.Password
-          type="password"
-          placeholder="비밀번호를 입력해주세요"
-          {...register("password")}
-        />
-        <L.Error>{formState.errors.password?.message}</L.Error>
-        <L.Ttile>비밀번호 확인*</L.Ttile>
-        <L.Password
-          type="password"
-          placeholder="비밀번호를 다시 입력해주세요"
-          {...register("passwordCheck")}
-        />
-        <L.Error>{formState.errors.password?.message}</L.Error>
-        <L.Submit isActive={formState.isValid}>회원가입하기</L.Submit>
-      </form>
-    </L.Wrapper>
+    <SignupPageUI
+      register={register}
+      handleSubmit={handleSubmit}
+      formState={formState}
+      onClickSingup={onClickSingup}
+    />
   );
 }

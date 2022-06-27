@@ -40,7 +40,7 @@ export default function LayoutNavigation() {
     <Wrapper>
       <Write onClick={onClicBoards}>자유게시판</Write>
       <Market onClick={onClicMarket}>중고마켓</Market>
-      <MyPage onClick={onClicMypage}>마이페이지</MyPage>
+      {/* <MyPage onClick={onClicMypage}>마이페이지</MyPage> */}
       <MyPage onClick={onClickQuote}>오늘의명언</MyPage>
     </Wrapper>
   );

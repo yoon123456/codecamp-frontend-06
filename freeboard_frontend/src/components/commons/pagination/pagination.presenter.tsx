@@ -13,19 +13,21 @@ export default function PaginationUI(props: IPaginationUIProps) {
       </S.PrevButton>
       {new Array(10).fill(1).map((_, index) =>
         index + props.startPage <= props.lastPage ? (
-          <S.PageNumber
-            key={uuidv4()}
-            onClick={props.onClickPage}
-            id={String(index + props.startPage)}
-            style={
-              props.pickPage === props.startPage + index
-                ? { color: "black" }
-                : { color: "#ffd600" }
-            }
-          >
-            {` `}
-            {index + props.startPage}
-          </S.PageNumber>
+          <div>
+            <S.PageNumber
+              key={uuidv4()}
+              onClick={props.onClickPage}
+              id={String(index + props.startPage)}
+              style={
+                props.pickPage === props.startPage + index
+                  ? { color: "black" }
+                  : { color: "#ffd600" }
+              }
+            >
+              {` `}
+              {index + props.startPage}
+            </S.PageNumber>
+          </div>
         ) : (
           <span></span>
         )

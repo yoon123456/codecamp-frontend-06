@@ -1,8 +1,15 @@
+import { ApolloQueryResult } from "@apollo/client";
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react";
+import {
+  IQuery,
+  IQueryFetchUseditemsArgs,
+} from "../../../../commons/types/generated/type";
 
 export interface IPropsMarketList {
   data: any;
-  refetch: any;
+  refetch: (
+    variables?: Partial<IQueryFetchUseditemsArgs> | undefined
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchUseditems">>>;
   onLoadMore: () => void;
   isSoldout: boolean;
   setIsSoldout: Dispatch<SetStateAction<boolean>>;
