@@ -1,7 +1,11 @@
-import { useMutation } from "@apollo/client";
+import { FetchResult, useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import { ChangeEvent, useRef } from "react";
 import { checkFileValidation } from "../../../../commons/libraries/validation";
+import {
+  IMutation,
+  IMutationUploadFileArgs,
+} from "../../../../commons/types/generated/type";
 import MarketUploadImageUI from "./marketuploadimage.presenter";
 import { UPLOAD_FILE } from "./marketuploadimage.query";
 import { IUploadsImageProps } from "./marketuploadimage.types";

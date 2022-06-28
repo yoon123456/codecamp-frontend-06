@@ -8,7 +8,6 @@ import BoardWriterUI from "./BoardWrite.presenter";
 import {
   FETCH_BOARD,
   DELETE_BOARD,
-  FETCH_BOARDS,
   LIKE_BOARD,
   DISLIKE_BOARD,
 } from "./BoardWrite.queries";
@@ -17,6 +16,9 @@ import {
   IMutation,
   IMutationLikeBoardArgs,
   IMutationDislikeBoardArgs,
+  IQuery,
+  IQueryFetchBoardArgs,
+  IMutationDeleteBoardArgs,
 } from "../../../../commons/types/generated/type";
 import { Modal } from "antd";
 
@@ -24,7 +26,10 @@ import { Modal } from "antd";
 
 export default function BoardDetail() {
   const router = useRouter();
-  const [deleteBoard] = useMutation(DELETE_BOARD);
+  const [deleteBoard] = useMutation<
+    Pick<IMutation, "deleteBoard">,
+    IMutationDeleteBoardArgs
+  >(DELETE_BOARD);
 
   const [likeBoard] = useMutation<
     Pick<IMutation, "likeBoard">,
@@ -36,9 +41,12 @@ export default function BoardDetail() {
     IMutationDislikeBoardArgs
   >(DISLIKE_BOARD);
 
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: String(router.query.boardId) },
-  });
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    {
+      variables: { boardId: String(router.query.boardId) },
+    }
+  );
 
   const onClickMoveToBoardList = () => {
     router.push("/boards");
@@ -51,9 +59,7 @@ export default function BoardDetail() {
   const onClickDelete = (event: MouseEvent<HTMLButtonElement>) => {
     deleteBoard({
       variables: { boardId: String((event.target as HTMLButtonElement).id) },
-      // refetchQueries: [{ query: FETCH_BOARDS }],
     });
-
     Modal.success({
       content: "게시글 삭제에 성공했습니다",
     });

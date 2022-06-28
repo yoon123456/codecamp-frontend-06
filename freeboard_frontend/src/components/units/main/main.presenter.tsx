@@ -1,8 +1,8 @@
-import { MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import * as S from "./main.styles";
 
 interface MainPageUiProps {
-  onChangeName: (event: any) => void;
+  onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickGoHome: () => void;
   name: string;
 }

@@ -5,6 +5,8 @@ import { MouseEvent } from "react";
 import {
   IMutation,
   IMutationCreatePointTransactionOfBuyingAndSellingArgs,
+  IMutationDeleteUseditemArgs,
+  IMutationToggleUseditemPickArgs,
   IQuery,
   IQueryFetchUseditemArgs,
 } from "../../../../commons/types/generated/type";
@@ -29,13 +31,20 @@ export default function MarketDetail(props: IMarketDetailProps) {
   });
   const priceComma = Number(data?.fetchUseditem.price)?.toLocaleString("ko-KR");
 
-  const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
+  const [deleteUseditem] = useMutation<
+    Pick<IMutation, "deleteUseditem">,
+    IMutationDeleteUseditemArgs
+  >(DELETE_USED_ITEM);
 
-  const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
+  const [toggleUseditemPick] = useMutation<
+    Pick<IMutation, "toggleUseditemPick">,
+    IMutationToggleUseditemPickArgs
+  >(TOGGLE_USED_ITEM_PICK);
 
-  const [createPointTransactionOfBuyingAndSelling] = useMutation(
-    CREATE_POINT_TRANSACTION_OF_BUYUNG_AND_SELLING
-  );
+  const [createPointTransactionOfBuyingAndSelling] = useMutation<
+    Pick<IMutation, "createPointTransactionOfBuyingAndSelling">,
+    IMutationCreatePointTransactionOfBuyingAndSellingArgs
+  >(CREATE_POINT_TRANSACTION_OF_BUYUNG_AND_SELLING);
 
   const onClickMoveToMarketList = () => {
     router.push("/market");
