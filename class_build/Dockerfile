@@ -8,3 +8,4 @@ RUN yarn install
 RUN yarn build:ssr
 CMD yarn start
 # CMD는 한번만 사용이 가능하지만 RUN은 여러번 사용이 가능하다
+# RUN은 미리해놓고 저장해놓는 명령어들 이고 CMD는 미리 저장이 안된다
